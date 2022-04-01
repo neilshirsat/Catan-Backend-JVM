@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jcef">
+    <CLASSES>
+      <root url="file://$USER_HOME$/jcefbuild-1.0.22/jcef" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$USER_HOME$/jcefbuild-1.0.22/jcef" recursive="false" />
+  </library>
+</component>
