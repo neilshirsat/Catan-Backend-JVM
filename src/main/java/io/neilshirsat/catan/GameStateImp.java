@@ -1,6 +1,7 @@
 package io.neilshirsat.catan;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * The Implementation for the Game State
@@ -14,7 +15,10 @@ public class GameStateImp implements GameState {
 
     @Override
     public int rollDice() {
-        return 0;
+        int die1, die2;
+        die1 = (int) ((Math.random() * 5)+1);
+        die2 = (int) ((Math.random() * 5)+1);
+        return die1 + die2;
     }
 
     @Override
@@ -54,7 +58,11 @@ public class GameStateImp implements GameState {
 
     @Override
     public void internalIncrementTurnNumberOfStageOne() {
-
+            int playerNum = 1;
+            while(playerNum!=5) {
+                playerNum++;
+            }
+            internalIncrementTurnNumberOfStageTwo();
     }
 
     @Override
@@ -64,7 +72,11 @@ public class GameStateImp implements GameState {
 
     @Override
     public void internalIncrementTurnNumberOfStageTwo() {
-
+        int playerNum = 4;
+        while(playerNum!=0){
+            playerNum--;
+        }
+        internalIncrementTurnNumberOfStageOne();
     }
 
     @Override
