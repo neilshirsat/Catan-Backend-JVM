@@ -66,6 +66,54 @@ public enum VertexImpl implements Vertex {
 
     private List<Integer> connectedNodes;
 
+    private boolean hasSettlement, hasCity;
+
+    public void setVertxId(int vertxId) {
+        this.vertxId = vertxId;
+    }
+
+    public List<Integer> getConnectedEdges() {
+        return connectedEdges;
+    }
+
+    public void setConnectedEdges(List<Integer> connectedEdges) {
+        this.connectedEdges = connectedEdges;
+    }
+
+    public List<Integer> getConnectedNodes() {
+        return connectedNodes;
+    }
+
+    public void setConnectedNodes(List<Integer> connectedNodes) {
+        this.connectedNodes = connectedNodes;
+    }
+
+    public boolean isHasSettlement() {
+        return hasSettlement;
+    }
+
+    public void setHasSettlement(boolean hasSettlement) {
+        this.hasSettlement = hasSettlement;
+    }
+
+    public boolean isHasCity() {
+        return hasCity;
+    }
+
+    public void setHasCity(boolean hasCity) {
+        this.hasCity = hasCity;
+    }
+
+    public Player getControlledPlayer() {
+        return controlledPlayer;
+    }
+
+    public void setControlledPlayer(Player controlledPlayer) {
+        this.controlledPlayer = controlledPlayer;
+    }
+
+    private Player controlledPlayer;
+
     VertexImpl(
             int vertxId,
             List<Integer> connectedEdges,
@@ -74,6 +122,10 @@ public enum VertexImpl implements Vertex {
         this.vertxId = vertxId;
         this.connectedEdges = connectedEdges;
         this.connectedNodes = connectedNodes;
+    }
+
+    public int getVertxId() {
+        return vertxId;
     }
 
     @Override
@@ -88,22 +140,25 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean isPortVertex() {
+        return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53).contains(getVertxId());
+    }
+
+    @Override
+    public boolean canBuildRoad() {
         return false;
     }
 
     @Override
-    public boolean canBuildPort() {
-        return false;
-    }
-
-    @Override
-    public boolean canBuiltSettlement() {
+    public boolean canBuildSettlement() {
+        for (int e : getAdjacentEdges()) {
+            //TODO LOGIC FOR CAN BUILD SETTLEMENT
+        }
         return false;
     }
 
     @Override
     public boolean canBuildCity() {
-        return false;
+        return hasSettlement;
     }
 
     @Override
@@ -112,6 +167,11 @@ public enum VertexImpl implements Vertex {
     }
 
     public boolean hasSettlement() {
-        return false;
+        return hasSettlement;
     }
+
+    public boolean hasCity() {
+        return hasCity;
+    }
+
 }

@@ -1,5 +1,7 @@
 package io.neilshirsat.catan;
 
+import java.util.List;
+
 public interface Node {
 
     int getNE();
@@ -16,4 +18,7 @@ public interface Node {
 
     boolean isBorderNode();
 
+    boolean hasRobber();
+
+    List<Node> spiralTraversal();
 }

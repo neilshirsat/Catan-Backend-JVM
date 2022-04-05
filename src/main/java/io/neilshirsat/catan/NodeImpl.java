@@ -1,5 +1,7 @@
 package io.neilshirsat.catan;
 
+import java.util.List;
+
 public enum NodeImpl implements Node {
 
     NODE_1(1,-1, 2, 5,-1,-1,4,true),
@@ -45,7 +47,7 @@ public enum NodeImpl implements Node {
 
     private int NE, E, SE, NW, W, SW;
 
-    private boolean isBorderNode;
+    private boolean isBorderNode, hasRobber;
 
     NodeImpl(
             int id, int NE,int E, int SE, int NW, int W, int SW, boolean isBorderNode
@@ -58,6 +60,7 @@ public enum NodeImpl implements Node {
         this.W = W;
         this.SW = SW;
         this.isBorderNode = isBorderNode;
+        hasRobber = false;
     }
 
     @Override
@@ -92,9 +95,40 @@ public enum NodeImpl implements Node {
 
     @Override
     public boolean isBorderNode() {
-        return false;
+        return isBorderNode;
     }
+    @Override
     public boolean hasRobber() {
-        return false;
+        return hasRobber;
+    }
+
+    @Override
+    public List<Node> spiralTraversal() {
+        return List.of(NODE_1,NODE_4,NODE_8,NODE_13,NODE_17,NODE_18,NODE_19,NODE_16,NODE_12,NODE_7,NODE_3,NODE_2,NODE_5,NODE_9,NODE_14,NODE_15,NODE_11,NODE_6,NODE_10);
+    }
+
+    public Node getNode(int node) {
+        switch (node) {
+            case 1: return NodeImpl.NODE_1;
+            case 2: return NodeImpl.NODE_2;
+            case 3: return NodeImpl.NODE_3;
+            case 4: return NodeImpl.NODE_4;
+            case 5: return NodeImpl.NODE_5;
+            case 6: return NodeImpl.NODE_6;
+            case 7: return NodeImpl.NODE_7;
+            case 8: return NodeImpl.NODE_8;
+            case 9: return NodeImpl.NODE_9;
+            case 10: return NodeImpl.NODE_10;
+            case 11: return NodeImpl.NODE_11;
+            case 12: return NodeImpl.NODE_12;
+            case 13: return NodeImpl.NODE_13;
+            case 14: return NodeImpl.NODE_14;
+            case 15: return NodeImpl.NODE_15;
+            case 16: return NodeImpl.NODE_16;
+            case 17: return NodeImpl.NODE_17;
+            case 18: return NodeImpl.NODE_18;
+            case 19: return NodeImpl.NODE_19;
+        }
+        return null;
     }
 }

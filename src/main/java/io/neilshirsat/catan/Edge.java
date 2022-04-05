@@ -4,12 +4,8 @@ import java.util.List;
 
 public interface Edge {
 
-    Vertex getVertexA();
+    List<Integer> getSurroundingNodes();
 
-    Vertex getVertexB();
-
-    List<Node> getSurroundingNodes();
-
-    List<Edge> getConnectedEdges();
+    List<Integer> getConnectedEdges();
 
 }
