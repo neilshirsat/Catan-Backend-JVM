@@ -1,12 +1,12 @@
 package io.neilshirsat.catan;
 
+import java.util.List;
+
 public interface Vertex {
 
-    List<Node> getAdjacentNodes();
+    List<Integer> getAdjacentNodes();
 
-    List<Edge> getAdjacentEdges();
-
-    List<Node> getAdjacentNodes();
+    List<Integer> getAdjacentEdges();
 
     boolean isPortVertex();
 

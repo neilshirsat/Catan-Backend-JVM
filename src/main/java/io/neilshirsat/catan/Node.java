@@ -2,17 +2,17 @@ package io.neilshirsat.catan;
 
 public interface Node {
 
-    Node getNE();
+    int getNE();
 
-    Node getE();
+    int getE();
 
-    Node getSE();
+    int getSE();
 
-    Node getNW();
+    int getNW();
 
-    Node getW();
+    int getW();
 
-    Node getSW();
+    int getSW();
 
     boolean isBorderNode();
 
