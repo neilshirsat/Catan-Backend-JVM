@@ -251,6 +251,8 @@ public enum NodeImpl implements Node {
 
     private int E;
 
+    private boolean hasRobber = false;
+
     NodeImpl(
             int nodeId,
             int NW,
@@ -365,6 +367,14 @@ public enum NodeImpl implements Node {
         this.numberPieces = numberPieces;
     }
 
+    public boolean isHasRobber() {
+        return hasRobber;
+    }
+
+    public void setHasRobber(boolean hasRobber) {
+        this.hasRobber = hasRobber;
+    }
+
     public boolean isBorderNode() {
         return NW == -1 || NE == -1 || W == -1 || E == -1 || SW == -1 || SE == -1;
     }
@@ -445,6 +455,16 @@ public enum NodeImpl implements Node {
         return resources;
     }
 
+    public static NodeImpl robber = null;
+
+    public static void changeRobber(int nodeId) {
+        NodeImpl node = (NodeImpl) NodeImpl.getNode(nodeId);
+        node.hasRobber = true;
+
+        robber.hasRobber = false;
+        robber = node;
+    }
+
     /**
      * Prepare the Core Board Setup of the Game
      *
@@ -463,9 +483,13 @@ public enum NodeImpl implements Node {
                 node.setNumberPieces(numberPieces.get(i));
             }
             else {
+                robber = node;
+                node.hasRobber = true;
                 node.setNumberPieces(NumberPieces.NONE);
             }
         }
+
+        EdgeImpl.resetLongestRoad();
     }
 
 }

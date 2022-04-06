@@ -30,4 +30,6 @@ public interface Node {
 
     boolean isInnerNode();
 
+    boolean isHasRobber();
+
 }

@@ -1,15 +1,30 @@
 package io.neilshirsat.catan;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface Edge {
 
-    Vertex getVertexA();
+    int getEdgeId();
 
-    Vertex getVertexB();
-
-    List<Integer> getSurroundingNodes();
+    List<Node> getSurroundingNodes();
 
     List<Integer> getConnectedEdges();
+
+    List<Vertex> getConnectedVertices();
+
+    boolean isRoad();
+
+    void setRoad(boolean road);
+
+    Player getControlledPlayer();
+
+    int getRoadLengthCache();
+
+    void setRoadLengthCache(int roadLengthCache);
+
+    boolean containsValidConnectedEdges();
+
+    void resetRoadLength();
 
 }

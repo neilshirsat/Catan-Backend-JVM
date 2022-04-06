@@ -1,4 +1,8 @@
 package io.neilshirsat.catan;
 
-public interface Player {
+//TODO ADD STATE AND SETUP FOR PLAYERS
+public class Player {
+
+    public static Player DEFAULT = null;
+
 }
