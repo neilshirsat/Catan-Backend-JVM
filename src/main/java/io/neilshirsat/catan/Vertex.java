@@ -20,7 +20,9 @@ public interface Vertex {
 
     boolean isPortVertex();
 
-    boolean canBuildRoad();
+    VertexImpl.VertexType getVertexType();
+
+    boolean canBuildCity();
 
     boolean canBuildSettlement();
 

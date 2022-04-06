@@ -69,12 +69,6 @@ public enum VertexImpl implements Vertex {
 
     private VertexType vertexType = VertexType.EMPTY;
 
-    public enum VertexType {
-        EMPTY,
-        SETTLEMENT,
-        CITY
-    }
-
     VertexImpl(
             int vertxId,
             List<Integer> connectedEdges,
@@ -100,6 +94,32 @@ public enum VertexImpl implements Vertex {
     public Player getControlledPlayer() {
         return controlledPlayer;
     }
+    public enum VertexType {
+
+        EMPTY(false,false),
+        SETTLEMENT(true,false),
+        CITY(false,true);
+
+        private boolean hasSettlement;
+
+        private boolean hasCity;
+
+        public boolean isHasSettlement() {
+            return hasSettlement;
+        }
+
+        public boolean isHasCity() {
+            return hasCity;
+        }
+
+        VertexType (
+                boolean hasSettlement, boolean hasCity
+        ) {
+            this.hasSettlement = hasSettlement;
+            this.hasCity = hasCity;
+        }
+
+    }
 
     @Override
     public void buildSettlement() {
@@ -119,18 +139,38 @@ public enum VertexImpl implements Vertex {
     public boolean isPortVertex() {
         return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53).contains(getVertxId());
     }
-
     @Override
-    public boolean canBuildRoad() {
-        return false;
+    public VertexType getVertexType() {
+        return vertexType;
     }
 
+    @Override
+    public boolean canBuildCity() {
+       return getVertexType().hasSettlement;
+    }
+
+    /*
+    Please double-check logic
+
+    Gets all valid (Player's) roads
+    checks each vertex if its empty
+    only return true if at least one road is connected and all "adjacent" vertices are empty
+     */
     @Override
     public boolean canBuildSettlement() {
-        for (int e : connectedEdges) {
-            //TODO LOGIC FOR CAN BUILD SETTLEMENT
-        }
+        for (int edgeId : connectedEdges) {
+            if (EdgeImpl.getEdge(edgeId).containsValidConnectedEdges()){
+            Edge edge = EdgeImpl.getEdge(edgeId);
+                for (Vertex v : edge.getConnectedVertices())
+                        if (v.getVertexType().equals(VertexType.EMPTY)) {
+                            return true;
+
+                }
+            }
+    }
         return false;
     }
+
+
 
 }
