@@ -14,16 +14,16 @@ public interface Vertex {
 
     void setControlledPlayer(Player controlledPlayer);
 
-    void buildSettlement();
+    void buildSettlement(Player player);
 
-    void buildCity();
+    void buildCity(Player player);
 
     boolean isPortVertex();
 
     VertexImpl.VertexType getVertexType();
 
-    boolean canBuildCity();
+    boolean canBuildCity(Player player);
 
-    boolean canBuildSettlement();
+    boolean canBuildSettlement(Player player);
 
 }

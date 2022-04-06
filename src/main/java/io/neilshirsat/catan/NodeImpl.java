@@ -2,6 +2,7 @@ package io.neilshirsat.catan;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public enum NodeImpl implements Node {
@@ -490,6 +491,58 @@ public enum NodeImpl implements Node {
         }
 
         EdgeImpl.resetLongestRoad();
+    }
+
+    /**
+     * Gets the Nodes with the speicified number on the
+     * Tile Card
+     *
+     * @param number
+     * @return
+     */
+    public static List<NodeImpl> getNodesWithDice(int number) {
+        List<NodeImpl> nodes = new ArrayList<>();
+        for (NodeImpl e: NodeImpl.getTransversal()) {
+            if (e.numberPieces.getValue() == number) {
+                nodes.add(e);
+            }
+        }
+        return nodes;
+    }
+
+    /**
+     * Increments the Amount of a Particular Type of Resource
+     * Card that the Player Has
+     */
+    public static void incrementPlayers(List<NodeImpl> deck) {
+        for (NodeImpl node: deck) {
+
+            if (node.hasRobber) {
+                continue;
+            }
+
+            List<Integer> vertices = node.vertices;
+            for (int vertexId: vertices) {
+
+                VertexImpl vertex = VertexImpl.getVertex(vertexId);
+
+                if (vertex.hasSettlement()) {
+                    vertex.getControlledPlayer().getDeck().put(
+                            node.resource.getResourceType(),
+                            vertex.getControlledPlayer().getDeck().get(node.resource.getResourceType()) + 1
+                    );
+                }
+
+                if (vertex.hasCity()) {
+                    vertex.getControlledPlayer().getDeck().put(
+                            node.resource.getResourceType(),
+                            vertex.getControlledPlayer().getDeck().get(node.resource.getResourceType()) + 2
+                    );
+                }
+            }
+
+        }
+
     }
 
 }

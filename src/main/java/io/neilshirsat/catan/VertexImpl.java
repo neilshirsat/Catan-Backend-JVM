@@ -94,41 +94,34 @@ public enum VertexImpl implements Vertex {
     public Player getControlledPlayer() {
         return controlledPlayer;
     }
+
     public enum VertexType {
+        EMPTY,
+        SETTLEMENT,
+        CITY;
+    }
 
-        EMPTY(false,false),
-        SETTLEMENT(true,false),
-        CITY(false,true);
+    public boolean isEmpty() {
+        return vertexType == VertexType.EMPTY;
+    }
 
-        private boolean hasSettlement;
+    public boolean hasSettlement() {
+        return vertexType == VertexType.SETTLEMENT;
+    }
 
-        private boolean hasCity;
-
-        public boolean isHasSettlement() {
-            return hasSettlement;
-        }
-
-        public boolean isHasCity() {
-            return hasCity;
-        }
-
-        VertexType (
-                boolean hasSettlement, boolean hasCity
-        ) {
-            this.hasSettlement = hasSettlement;
-            this.hasCity = hasCity;
-        }
-
+    public boolean hasCity() {
+        return vertexType == VertexType.CITY;
     }
 
     @Override
-    public void buildSettlement() {
-
+    public void buildSettlement(Player player) {
+        this.controlledPlayer = player;
+        this.vertexType = VertexType.SETTLEMENT;
     }
 
     @Override
-    public void buildCity() {
-
+    public void buildCity(Player player) {
+        this.vertexType = VertexType.CITY;
     }
 
     public void setControlledPlayer(Player controlledPlayer) {
@@ -145,32 +138,91 @@ public enum VertexImpl implements Vertex {
     }
 
     @Override
-    public boolean canBuildCity() {
-       return getVertexType().hasSettlement;
+    public boolean canBuildCity(Player player) {
+        return hasSettlement();
     }
 
-    /*
-    Please double-check logic
-
-    Gets all valid (Player's) roads
-    checks each vertex if its empty
-    only return true if at least one road is connected and all "adjacent" vertices are empty
-     */
     @Override
-    public boolean canBuildSettlement() {
+    public boolean canBuildSettlement(Player player) {
         for (int edgeId : connectedEdges) {
-            if (EdgeImpl.getEdge(edgeId).containsValidConnectedEdges()){
-            Edge edge = EdgeImpl.getEdge(edgeId);
-                for (Vertex v : edge.getConnectedVertices())
-                        if (v.getVertexType().equals(VertexType.EMPTY)) {
-                            return true;
-
+            if (EdgeImpl.getEdge(edgeId).containsValidConnectedEdges()) {
+                Edge edge = EdgeImpl.getEdge(edgeId);
+                if (edge.getControlledPlayer() == player && edge.isRoad()) {
+                    return true;
                 }
+                //for (Vertex v : edge.getConnectedVertices()) {
+                //    if (v == this) {
+                //        continue;
+                //    }
+                //    if (v.getVertexType() == VertexType.EMPTY) {
+                //        return true;
+                //    }
+                //}
             }
-    }
+        }
         return false;
     }
 
+    public static VertexImpl getVertex(int vertexId) {
+        return switch (vertexId) {
+            case 1 -> VERTEX_1;
+            case 2 -> VERTEX_2;
+            case 3 -> VERTEX_3;
+            case 4 -> VERTEX_4;
+            case 5 -> VERTEX_5;
+            case 6 -> VERTEX_6;
+            case 7 -> VERTEX_7;
+            case 8 -> VERTEX_8;
+            case 9 -> VERTEX_9;
+            case 10 -> VERTEX_10;
+            case 11 -> VERTEX_11;
+            case 12 -> VERTEX_12;
+            case 13 -> VERTEX_13;
+            case 14 -> VERTEX_14;
+            case 15 -> VERTEX_15;
+            case 16 -> VERTEX_16;
+            case 17 -> VERTEX_17;
+            case 18 -> VERTEX_18;
+            case 19 -> VERTEX_19;
+            case 20 -> VERTEX_20;
+            case 21 -> VERTEX_21;
+            case 22 -> VERTEX_22;
+            case 23 -> VERTEX_23;
+            case 24 -> VERTEX_24;
+            case 25 -> VERTEX_25;
+            case 26 -> VERTEX_26;
+            case 27 -> VERTEX_27;
+            case 28 -> VERTEX_28;
+            case 29 -> VERTEX_29;
+            case 30 -> VERTEX_30;
+            case 31 -> VERTEX_31;
+            case 32 -> VERTEX_32;
+            case 33 -> VERTEX_33;
+            case 34 -> VERTEX_34;
+            case 35 -> VERTEX_35;
+            case 36 -> VERTEX_36;
+            case 37 -> VERTEX_37;
+            case 38 -> VERTEX_38;
+            case 39 -> VERTEX_39;
+            case 40 -> VERTEX_40;
+            case 41 -> VERTEX_41;
+            case 42 -> VERTEX_42;
+            case 43 -> VERTEX_43;
+            case 44 -> VERTEX_44;
+            case 45 -> VERTEX_45;
+            case 46 -> VERTEX_46;
+            case 47 -> VERTEX_47;
+            case 48 -> VERTEX_48;
+            case 49 -> VERTEX_49;
+            case 50 -> VERTEX_50;
+            case 51 -> VERTEX_51;
+            case 52 -> VERTEX_52;
+            case 53 -> VERTEX_53;
+            case 54 -> VERTEX_54;
+            default -> null;
+        };
+    }
 
-
+    //TODO ADD TRADE WITH BANK
+    private void tradeWithBank() {}
 }
