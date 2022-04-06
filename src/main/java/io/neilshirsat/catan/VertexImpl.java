@@ -1,6 +1,5 @@
 package io.neilshirsat.catan;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public enum VertexImpl implements Vertex {
@@ -66,53 +65,15 @@ public enum VertexImpl implements Vertex {
 
     private List<Integer> connectedNodes;
 
-    private boolean hasSettlement, hasCity;
+    private Player controlledPlayer = Player.DEFAULT;
 
-    public void setVertxId(int vertxId) {
-        this.vertxId = vertxId;
+    private VertexType vertexType = VertexType.EMPTY;
+
+    public enum VertexType {
+        EMPTY,
+        SETTLEMENT,
+        CITY
     }
-
-    public List<Integer> getConnectedEdges() {
-        return connectedEdges;
-    }
-
-    public void setConnectedEdges(List<Integer> connectedEdges) {
-        this.connectedEdges = connectedEdges;
-    }
-
-    public List<Integer> getConnectedNodes() {
-        return connectedNodes;
-    }
-
-    public void setConnectedNodes(List<Integer> connectedNodes) {
-        this.connectedNodes = connectedNodes;
-    }
-
-    public boolean isHasSettlement() {
-        return hasSettlement;
-    }
-
-    public void setHasSettlement(boolean hasSettlement) {
-        this.hasSettlement = hasSettlement;
-    }
-
-    public boolean isHasCity() {
-        return hasCity;
-    }
-
-    public void setHasCity(boolean hasCity) {
-        this.hasCity = hasCity;
-    }
-
-    public Player getControlledPlayer() {
-        return controlledPlayer;
-    }
-
-    public void setControlledPlayer(Player controlledPlayer) {
-        this.controlledPlayer = controlledPlayer;
-    }
-
-    private Player controlledPlayer;
 
     VertexImpl(
             int vertxId,
@@ -128,14 +89,30 @@ public enum VertexImpl implements Vertex {
         return vertxId;
     }
 
-    @Override
-    public List<Integer> getAdjacentEdges() {
+    public List<Integer> getConnectedEdges() {
         return connectedEdges;
     }
 
-    @Override
-    public List<Integer> getAdjacentNodes() {
+    public List<Integer> getConnectedNodes() {
         return connectedNodes;
+    }
+
+    public Player getControlledPlayer() {
+        return controlledPlayer;
+    }
+
+    @Override
+    public void buildSettlement() {
+
+    }
+
+    @Override
+    public void buildCity() {
+
+    }
+
+    public void setControlledPlayer(Player controlledPlayer) {
+        this.controlledPlayer = controlledPlayer;
     }
 
     @Override
@@ -150,28 +127,10 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean canBuildSettlement() {
-        for (int e : getAdjacentEdges()) {
+        for (int e : connectedEdges) {
             //TODO LOGIC FOR CAN BUILD SETTLEMENT
         }
         return false;
-    }
-
-    @Override
-    public boolean canBuildCity() {
-        return hasSettlement;
-    }
-
-    @Override
-    public boolean canAddSettlement() {
-        return false;
-    }
-
-    public boolean hasSettlement() {
-        return hasSettlement;
-    }
-
-    public boolean hasCity() {
-        return hasCity;
     }
 
 }

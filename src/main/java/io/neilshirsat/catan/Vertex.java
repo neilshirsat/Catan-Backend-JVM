@@ -6,24 +6,22 @@ public interface Vertex {
 
     int getVertxId();
 
-    List<Integer> getAdjacentNodes();
+    List<Integer> getConnectedEdges();
 
-    List<Integer> getAdjacentEdges();
+    List<Integer> getConnectedNodes();
+
+    Player getControlledPlayer();
+
+    void setControlledPlayer(Player controlledPlayer);
+
+    void buildSettlement();
+
+    void buildCity();
 
     boolean isPortVertex();
 
     boolean canBuildRoad();
 
     boolean canBuildSettlement();
-
-    boolean canBuildCity();
-
-    boolean canAddSettlement();
-
-    boolean hasSettlement();
-
-    boolean hasCity();
-
-
 
 }
