@@ -8,8 +8,8 @@ public interface Edge {
 
     Vertex getVertexB();
 
-    List<Node> getSurroundingNodes();
+    List<Integer> getSurroundingNodes();
 
-    List<Edge> getConnectedEdges();
+    List<Integer> getConnectedEdges();
 
 }
