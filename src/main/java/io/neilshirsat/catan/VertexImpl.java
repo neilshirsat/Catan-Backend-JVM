@@ -128,10 +128,29 @@ public enum VertexImpl implements Vertex {
         this.controlledPlayer = controlledPlayer;
     }
 
+
+    private enum Port {
+        PORT_LUMBER(2, 1),
+        PORT_BRICK(2,1),
+        PORT_WOOL(2,1),
+        PORT_WHEAT(2,1),
+        PORT_ORE(2,1),
+        PORT_RANDOM(3,1);
+
+
+        Port(
+                int giveResource,
+                int getResource
+        ) {
+
+        }
+    }
+
     @Override
     public boolean isPortVertex() {
         return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53).contains(getVertxId());
     }
+
     @Override
     public VertexType getVertexType() {
         return vertexType;
@@ -224,5 +243,7 @@ public enum VertexImpl implements Vertex {
     }
 
     //TODO ADD TRADE WITH BANK
-    private void tradeWithBank() {}
+    private void tradeWithBank() {
+
+    }
 }

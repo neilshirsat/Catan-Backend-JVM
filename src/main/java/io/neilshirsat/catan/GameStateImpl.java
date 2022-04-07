@@ -53,15 +53,21 @@ public class GameStateImpl implements GameState {
     }
 
     /**
-     * Handel the Dice Roll By Giving Resource Cards Out Based on the
+     * Handle the Dice Roll By Giving Resource Cards Out Based on the
      * Amount of Resource Cards that the Dice Has
      *
      * @param dice
      */
     public void handleDiceRoll(int dice) {
         if (dice != 7) {
-
+            actionStage = ActionStage.NORMAL;
+           NodeImpl.incrementPlayers(NodeImpl.getNodesWithDice(dice));
         }
+        else actionStage = ActionStage.SPECIAL_7;
+        /*
+        get changedRobber from user interface
+        NodeImpl.changeRobber(int NodeId);
+         */
     }
 
     public void verifyTrade(String passcode) {
@@ -71,6 +77,7 @@ public class GameStateImpl implements GameState {
     public void passDice() {
 
     }
+
 
     public void buildPorts() {
 
