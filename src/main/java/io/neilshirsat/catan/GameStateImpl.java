@@ -66,7 +66,9 @@ public class GameStateImpl implements GameState {
         else actionStage = ActionStage.SPECIAL_7;
         /*
         get changedRobber from user interface
+
         NodeImpl.changeRobber(int NodeId);
+
          */
     }
 
@@ -78,9 +80,5 @@ public class GameStateImpl implements GameState {
 
     }
 
-
-    public void buildPorts() {
-
-    }
 
 }
