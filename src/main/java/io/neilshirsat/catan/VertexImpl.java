@@ -2,6 +2,7 @@ package io.neilshirsat.catan;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public enum VertexImpl implements Vertex {
 
@@ -107,7 +108,7 @@ public enum VertexImpl implements Vertex {
     public enum VertexType {
         EMPTY,
         SETTLEMENT,
-        CITY;
+        CITY
     }
 
     public boolean isEmpty() {
@@ -281,7 +282,25 @@ public enum VertexImpl implements Vertex {
     }
 
     //TODO ADD TRADE WITH BANK
-    private void tradeWithBank() {
+    private void tradeWithBank(
+            Map<ResourceType, Integer> playerOutgoing,
+            Player player,
+            ResourceType resourceGiven,
+            ResourceType resourceNeeded
+    ) {
+        for (Map.Entry<ResourceType, Integer> k : playerOutgoing.entrySet()) {
+            if (k.getKey().equals(resourceNeeded)) {
+                player.getDeck().put(resourceNeeded, k.getValue() + 1);
+                if (k.getKey().equals(resourceGiven)) {
+                    player.getDeck().put(resourceGiven, k.getValue() - 4);
+                }
+            }
+
+        }
+        //else
+
+
+
 
     }
 }
