@@ -105,6 +105,11 @@ public enum VertexImpl implements Vertex {
         this.port = port;
     }
 
+    public Port getPort() {
+        return port;
+    }
+
+
     public enum VertexType {
         EMPTY,
         SETTLEMENT,
@@ -140,19 +145,38 @@ public enum VertexImpl implements Vertex {
 
 
     private enum Port {
-        PORT_LUMBER(2, 1),
-        PORT_BRICK(2,1),
-        PORT_WOOL(2,1),
-        PORT_WHEAT(2,1),
-        PORT_ORE(2,1),
-        PORT_RANDOM(3,1);
+        PORT_LUMBER(2, 1,ResourceType.LUMBER),
+        PORT_BRICK(2,1,ResourceType.BRICK),
+        PORT_WOOL(2,1,ResourceType.WOOL),
+        PORT_WHEAT(2,1,ResourceType.WHEAT),
+        PORT_ORE(2,1,ResourceType.ORE),
+        PORT_RANDOM(3,1,null);
 
+        private int giveResource;
+        private int getResource;
+        private ResourceType resourceType;
+
+
+        public int getGiveResource() {
+            return giveResource;
+        }
+
+        public int getGetResource() {
+            return getResource;
+        }
+
+        public ResourceType getResourceType() {
+            return resourceType;
+        }
 
         Port (
                 int giveResource,
-                int getResource
+                int getResource,
+                ResourceType resourceType
         ) {
-
+            this.giveResource = giveResource;
+            this.getResource = getResource;
+            this.resourceType = resourceType;
         }
     }
 
@@ -165,7 +189,7 @@ public enum VertexImpl implements Vertex {
         return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53);
     }
 
-    private List<Port> getPorts() {
+    private List<Port> getPortList() {
         List<Port> ports = new java.util.ArrayList<>(List.of(
                 Port.PORT_LUMBER,
                 Port.PORT_BRICK,
@@ -182,7 +206,7 @@ public enum VertexImpl implements Vertex {
     }
 
     public void buildPorts() {
-        List<Port> ports = getPorts();
+        List<Port> ports = getPortList();
         List<Integer> portVertices = PortVerticies();
         for (int i = 0; i < 9; i++) {
             getVertex(portVertices.get(i)).setPort(ports.get(i));
@@ -281,6 +305,7 @@ public enum VertexImpl implements Vertex {
         };
     }
 
+
     //TODO ADD TRADE WITH BANK
     private void tradeWithBank(
             Map<ResourceType, Integer> playerOutgoing,
@@ -288,6 +313,18 @@ public enum VertexImpl implements Vertex {
             ResourceType resourceGiven,
             ResourceType resourceNeeded
     ) {
+        for (int i : PortVerticies()) {
+            if (getVertex(i).hasSettlement()||getVertex(i).hasCity()&&getVertex(i).getControlledPlayer()==player) {
+                switch (getVertex(i).getPort()) {
+                    case PORT_LUMBER -> player.getDeck().put(resourceNeeded, player.getDeck().)
+                    case PORT_BRICK ->
+                    case PORT_WOOL ->
+                    case PORT_WHEAT ->
+                    case PORT_ORE ->
+                    case PORT_RANDOM ->
+                }
+            }
+        }
         for (Map.Entry<ResourceType, Integer> k : playerOutgoing.entrySet()) {
             if (k.getKey().equals(resourceNeeded)) {
                 player.getDeck().put(resourceNeeded, k.getValue() + 1);
@@ -295,7 +332,6 @@ public enum VertexImpl implements Vertex {
                     player.getDeck().put(resourceGiven, k.getValue() - 4);
                 }
             }
-
         }
         //else
 
