@@ -306,7 +306,7 @@ public enum VertexImpl implements Vertex {
     }
 
 
-    //TODO ADD TRADE WITH BANK
+   /* //TODO ADD TRADE WITH BANK
     private void tradeWithBank(
             Map<ResourceType, Integer> playerOutgoing,
             Player player,
@@ -338,5 +338,5 @@ public enum VertexImpl implements Vertex {
 
 
 
-    }
+    }*/
 }

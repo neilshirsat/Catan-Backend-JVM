@@ -12,7 +12,7 @@ public class GameStateImpl implements GameState {
 
     private int turn;
 
-    private Map<Integer, Player> players;
+    private Map<Player, Integer> players;
 
     private enum Stage {
         SETUP,
@@ -72,12 +72,32 @@ public class GameStateImpl implements GameState {
          */
     }
 
-    public void verifyTrade(String passcode) {
-
+    public Player verifyTrade(String passcode) {
+        for (Map.Entry<Player, Integer> k : players.entrySet()) {
+            if (k.getKey().getPasscode().equals(passcode)) {
+                return k.getKey();
+                //trade?? (tradeCards)
+            }
+        }
+        return null;
     }
 
     public void passDice() {
 
+    }
+
+    public void incrementVictoryPoints() {
+        for (Map.Entry<Player, Integer> k : players.entrySet()) {
+            players.put(k.getKey(), k.getKey().getVictoryPoints());
+        }
+    }
+
+    public Player checkPlayerWin() {
+        for (Map.Entry<Player, Integer> k: players.entrySet()) {
+            if (k.getValue()>=10)
+                return k.getKey();
+        }
+        return null;
     }
 
 
