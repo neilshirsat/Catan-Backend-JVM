@@ -113,7 +113,7 @@ public enum VertexImpl implements Vertex {
     public enum VertexType {
         EMPTY,
         SETTLEMENT,
-        CITY
+        CITY;
     }
 
     public boolean isEmpty() {
@@ -306,7 +306,7 @@ public enum VertexImpl implements Vertex {
     }
 
 
-   /* //TODO ADD TRADE WITH BANK
+    //TODO ADD TRADE WITH BANK
     private void tradeWithBank(
             Map<ResourceType, Integer> playerOutgoing,
             Player player,
@@ -315,14 +315,13 @@ public enum VertexImpl implements Vertex {
     ) {
         for (int i : PortVerticies()) {
             if (getVertex(i).hasSettlement()||getVertex(i).hasCity()&&getVertex(i).getControlledPlayer()==player) {
-                switch (getVertex(i).getPort()) {
-                    case PORT_LUMBER -> player.getDeck().put(resourceNeeded, player.getDeck().)
-                    case PORT_BRICK ->
-                    case PORT_WOOL ->
-                    case PORT_WHEAT ->
-                    case PORT_ORE ->
-                    case PORT_RANDOM ->
+                Port v = getVertex(i).getPort();
+                if (v.getResourceType()==resourceGiven&&v!=Port.PORT_BRICK) {
+                    player.getDeck().put(resourceNeeded, player.getDeck().get(resourceNeeded)+1);
+                    player.getDeck().put(resourceGiven, player.getDeck().get(resourceGiven)-2);
                 }
+                else player.getDeck().put(resourceNeeded, player.getDeck().get(resourceNeeded)+1);
+                     player.getDeck().put(resourceGiven, player.getDeck().get(resourceGiven)-3);
             }
         }
         for (Map.Entry<ResourceType, Integer> k : playerOutgoing.entrySet()) {
@@ -333,10 +332,9 @@ public enum VertexImpl implements Vertex {
                 }
             }
         }
-        //else
 
 
 
 
-    }*/
+    }
 }

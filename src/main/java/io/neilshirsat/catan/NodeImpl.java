@@ -514,7 +514,7 @@ public enum NodeImpl implements Node {
      * Increments the Amount of a Particular Type of Resource
      * Card that the Player Has
      */
-    public static void incrementPlayers(List<NodeImpl> deck) {
+    public static void receiveCards(List<NodeImpl> deck) {
         for (NodeImpl node: deck) {
 
             if (node.hasRobber) {
@@ -531,6 +531,7 @@ public enum NodeImpl implements Node {
                             node.resource.getResourceType(),
                             vertex.getControlledPlayer().getDeck().get(node.resource.getResourceType()) + 1
                     );
+                    node.resource.getResourceType().setAmountLeft(-1);
                 }
 
                 if (vertex.hasCity()) {
@@ -538,6 +539,7 @@ public enum NodeImpl implements Node {
                             node.resource.getResourceType(),
                             vertex.getControlledPlayer().getDeck().get(node.resource.getResourceType()) + 2
                     );
+                    node.resource.getResourceType().setAmountLeft(-2);
                 }
             }
 

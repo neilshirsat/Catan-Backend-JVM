@@ -1,24 +1,32 @@
 package io.neilshirsat.catan;
 
+import com.sun.source.tree.Tree;
+
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The Implementation for the Game State
  */
 public class GameStateImpl implements GameState {
 
-    private int turnNumber;
-
     private int turn;
 
     private Map<Player, Integer> players;
+
+    private TreeMap<ResourceType,Integer> resourceTypeDeck;
+
+    private TreeMap<DevelopmentCards, Integer> developmentCardsDeck;
 
     private enum Stage {
         SETUP,
         STAGE_1,
         STAGE_2,
-        STAGE_3;
+        STAGE_3,
+        STAGE_4;
+
+
     }
 
     private Stage stage = Stage.SETUP;
@@ -61,7 +69,7 @@ public class GameStateImpl implements GameState {
     public void handleDiceRoll(int dice) {
         if (dice != 7) {
             actionStage = ActionStage.NORMAL;
-           NodeImpl.incrementPlayers(NodeImpl.getNodesWithDice(dice));
+           NodeImpl.receiveCards(NodeImpl.getNodesWithDice(dice));
         }
         else actionStage = ActionStage.SPECIAL_7;
         /*
@@ -83,22 +91,40 @@ public class GameStateImpl implements GameState {
     }
 
     public void passDice() {
-
-    }
-
-    public void incrementVictoryPoints() {
-        for (Map.Entry<Player, Integer> k : players.entrySet()) {
-            players.put(k.getKey(), k.getKey().getVictoryPoints());
+        turn++;
+        if (turn>Player.amountPlayers) {
+            turn = 1;
         }
     }
 
-    public Player checkPlayerWin() {
-        for (Map.Entry<Player, Integer> k: players.entrySet()) {
-            if (k.getValue()>=10)
-                return k.getKey();
-        }
-        return null;
+    public void setStage() {
+        stage = getStage(turn);
     }
 
+    public Stage getStage(int turn) {
+        return switch (turn) {
+            case 1 -> Stage.STAGE_1;
+            case 2 -> Stage.STAGE_2;
+            case 3 -> Stage.STAGE_3;
+            case 4 -> Stage.STAGE_4;
+            default -> null;
+        };
+    }
 
+    public TreeMap<DevelopmentCards,Integer> setDevelopmentCardsDeck() {
+
+        return developmentCardsDeck;
+    }
+
+    public TreeMap<ResourceType, Integer> setResourceTypeDeck() {
+
+        return resourceTypeDeck;
+    }
+
+        public Player checkPlayerWin() {
+            for (Map.Entry<Player, Integer> k : players.entrySet()) {
+                if (k.getValue() >= 10)
+                    return k.getKey();}
+                return null;
+    }
 }

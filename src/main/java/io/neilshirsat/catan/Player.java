@@ -25,9 +25,13 @@ public enum Player {
 
     private Map<SpecialCards, Integer> specialCards;
 
+    private TreeMap<String, Boolean> canBuyFromShop;
+
     private int victoryPoints;
 
     public static int amountPlayers;
+
+
 
     public String getPlayerName() {
         return playerName;
@@ -75,6 +79,37 @@ public enum Player {
 
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
+    }
+
+    private int amountRoads;
+
+    private int amountSettlements;
+
+    private int amountCities;
+
+
+    public int getAmountRoads() {
+        return amountRoads;
+    }
+
+    public void setAmountRoads(int amountRoads) {
+        this.amountRoads += amountRoads;
+    }
+
+    public int getAmountSettlements() {
+        return amountSettlements;
+    }
+
+    public void setAmountSettlements(int amountSettlements) {
+        this.amountSettlements += amountSettlements;
+    }
+
+    public int getAmountCities() {
+        return amountCities;
+    }
+
+    public void setAmountCities(int amountCities) {
+        this.amountCities += amountCities;
     }
 
     public static List<Player> getAllPlayers() {
@@ -136,6 +171,28 @@ public enum Player {
         for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
             player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) + k.getValue());
         }
+    }
+
+    public TreeMap<String, Boolean> canBuyFromShop() {
+        TreeMap<String, Boolean> map = new TreeMap<>();
+        map.put("Road",false);
+        map.put("Settlement",false);
+        map.put("City",false);
+        map.put("DevelopmentCard",false);
+
+        if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1) {
+            map.put("Road",true);
+        }
+        if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
+            map.put("Settlement",true);
+        }
+        if (this.getDeck().get(ResourceType.ORE)>=3&&this.getDeck().get(ResourceType.WHEAT)>=2) {
+            map.put("City", true);
+        }
+        if (this.getDeck().get(ResourceType.ORE)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
+            map.put("DevelopmentCard", true);
+        }
+        return map;
     }
 
 }
