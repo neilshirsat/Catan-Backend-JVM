@@ -11,6 +11,9 @@ import io.vertx.ext.web.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Map;
+
 public class API extends AbstractVerticle {
 
     private final Logger logger = LoggerFactory.getLogger(API.class);
@@ -38,8 +41,11 @@ public class API extends AbstractVerticle {
 
         //SETUP
         ipcRouter.route(HttpMethod.POST, "setup-names").handler((ctx)->{
-            //ctx.getBodyAsJson().mapTo()
-            //gameState.changePlayerName();
+            final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
+            for (int i = 0; i < setup_names.amountPlayers; i++) {
+                gameState.changePlayerName(setup_names.playerNames[i], i);
+                gameState.changePlayerPasscode(setup_names.playerPasscodes[i], i);
+            }
         });
         ipcRouter.route(HttpMethod.POST, "change-name").handler((ctx)->{
 
@@ -86,6 +92,17 @@ public class API extends AbstractVerticle {
 
     public static class SETUP_NAMES {
 
+        int amountPlayers;
+
+        /**
+         * List with the Player Name and their Passcode
+         */
+        String[] playerNames;
+
+        /**
+         * List with the Player Passcodes
+         */
+        String[] playerPasscodes;
     }
 
 }

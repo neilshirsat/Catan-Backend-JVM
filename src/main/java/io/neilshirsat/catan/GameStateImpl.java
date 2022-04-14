@@ -133,4 +133,9 @@ public class GameStateImpl implements GameState {
         final Player player = this.players.get(playerId);
         player.setPlayerName(name);
     }
+
+    public void changePlayerPasscode(String password, int playerId) {
+        final Player player = this.players.get(playerId);
+        player.setPasscode(password);
+    }
 }
