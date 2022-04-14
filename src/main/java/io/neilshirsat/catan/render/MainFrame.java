@@ -5,6 +5,7 @@
 package io.neilshirsat.catan.render;
 
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import io.neilshirsat.catan.API;
 import org.cef.CefApp;
 import org.cef.CefApp.CefVersion;
 import org.cef.CefClient;
@@ -20,6 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.Serial;
 
 public class MainFrame extends BrowserFrame {
@@ -28,8 +31,15 @@ public class MainFrame extends BrowserFrame {
     @Serial
     private static final long serialVersionUID = -2295538706810864538L;
     private static JFrame startupFrame;
+    private static API api;
 
     public static void main(String[] args) {
+
+        MainFrame.api = new API((started)->{
+
+        });
+        api.initialize();
+        api.startServer();
 
         FlatArcIJTheme.setup();
 
@@ -123,5 +133,43 @@ public class MainFrame extends BrowserFrame {
         if (createImmediately) browser.createImmediately();
 
         contentPanel.add(getBrowser().getUIComponent(), BorderLayout.CENTER);
+
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                MainFrame.api.disposeServer();
+                cefClient.dispose();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 }
