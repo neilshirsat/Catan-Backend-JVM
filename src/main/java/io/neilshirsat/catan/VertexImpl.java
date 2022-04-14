@@ -232,14 +232,21 @@ public enum VertexImpl implements Vertex {
                 if (edge.getControlledPlayer() == player && edge.isRoad()) {
                     return true;
                 }
-                //for (Vertex v : edge.getConnectedVertices()) {
-                //    if (v == this) {
-                //        continue;
-                //    }
-                //    if (v.getVertexType() == VertexType.EMPTY) {
-                //        return true;
-                //    }
-                //}
+
+            }
+        }
+        return false;
+    }
+
+    public boolean canBuildSettlementFirstTurn(Player player) {
+        for (int edgeId : connectedEdges) {
+            for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
+                if (v == this) {
+                    continue;
+                }
+                if (v.getVertexType() == VertexType.EMPTY) {
+                    return true;
+                }
             }
         }
         return false;

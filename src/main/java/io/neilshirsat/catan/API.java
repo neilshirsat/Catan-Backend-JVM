@@ -7,6 +7,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class API extends AbstractVerticle {
 
     public API(Handler<Boolean> ipcFinished) {
         super();
+        vertx = Vertx.vertx();
         this.ipcFinished = ipcFinished;
         ipc = vertx.createHttpServer();
         ipcRouter = Router.router(vertx);
@@ -40,34 +42,35 @@ public class API extends AbstractVerticle {
     public void initialize() {
 
         //SETUP
-        ipcRouter.route(HttpMethod.POST, "setup-names").handler((ctx)->{
+        ipcRouter.route(HttpMethod.POST, "/setup-names").handler((ctx)->{
             final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
             for (int i = 0; i < setup_names.amountPlayers; i++) {
                 gameState.changePlayerName(setup_names.playerNames[i], i);
                 gameState.changePlayerPasscode(setup_names.playerPasscodes[i], i);
             }
+            logger.info(Json.encode(setup_names));
         });
-        ipcRouter.route(HttpMethod.POST, "change-name").handler((ctx)->{
-
-        });
-        ipcRouter.route(HttpMethod.POST, "change-name").handler((ctx)->{
+        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
 
         });
-        ipcRouter.route(HttpMethod.POST, "change-name").handler((ctx)->{
+        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
+
+        });
+        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
 
         });
 
 
-        ipcRouter.route(HttpMethod.GET, "get-current-user").handler((ctx)->{
+        ipcRouter.route(HttpMethod.GET, "/get-current-user").handler((ctx)->{
+            //CURRENT_PLAYER currentPlayer =
+        });
+        ipcRouter.route(HttpMethod.GET, "/get-all-users").handler((ctx)->{
 
         });
-        ipcRouter.route(HttpMethod.GET, "get-all-users").handler((ctx)->{
+        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
 
         });
-        ipcRouter.route(HttpMethod.POST, "change-name").handler((ctx)->{
-
-        });
-        ipcRouter.route(HttpMethod.GET, "change-name").handler((ctx)->{
+        ipcRouter.route(HttpMethod.GET, "/change-name").handler((ctx)->{
 
         });
     }
@@ -104,5 +107,11 @@ public class API extends AbstractVerticle {
          */
         String[] playerPasscodes;
     }
+
+    public static class CURRENT_PLAYER  {
+
+    }
+
+
 
 }
