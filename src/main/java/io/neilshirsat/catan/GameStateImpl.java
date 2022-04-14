@@ -13,7 +13,7 @@ public class GameStateImpl implements GameState {
 
     private int turn;
 
-    private Map<Player, Integer> players;
+    private Map<Integer, Player> players;
 
     private TreeMap<ResourceType,Integer> resourceTypeDeck;
 
@@ -81,9 +81,9 @@ public class GameStateImpl implements GameState {
     }
 
     public Player verifyTrade(String passcode) {
-        for (Map.Entry<Player, Integer> k : players.entrySet()) {
-            if (k.getKey().getPasscode().equals(passcode)) {
-                return k.getKey();
+        for (Map.Entry<Integer, Player> k : players.entrySet()) {
+            if (k.getValue().getPasscode().equals(passcode)) {
+                return k.getValue();
                 //trade?? (tradeCards)
             }
         }
@@ -121,10 +121,16 @@ public class GameStateImpl implements GameState {
         return resourceTypeDeck;
     }
 
+    //TODO REDO THIS METHOD
         public Player checkPlayerWin() {
-            for (Map.Entry<Player, Integer> k : players.entrySet()) {
-                if (k.getValue() >= 10)
-                    return k.getKey();}
+            for (Map.Entry<Integer, Player> k : players.entrySet()) {
+                if (k.getKey() >= 10)
+                    return k.getValue();}
                 return null;
+    }
+
+    public void changePlayerName(String name, int playerId) {
+        final Player player = this.players.get(playerId);
+        player.setPlayerName(name);
     }
 }

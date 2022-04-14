@@ -24,6 +24,7 @@ dependencies {
     implementation("com.formdev:flatlaf:2.1")
     implementation("com.formdev:flatlaf-intellij-themes:2.1")
 
+    implementation("io.vertx:vertx-web:4.2.7")
 
     implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
     //implementation(files("jogl-all.jar"))
