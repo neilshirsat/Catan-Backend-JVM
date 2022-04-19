@@ -156,6 +156,29 @@ public class API extends AbstractVerticle {
      *
      */
 
+
+    public static class NAME   {
+
+        String name;
+
+        int playerId;
+    }
+
+    public void setName(NAME input) {
+        gameState.changePlayerName(input.name,input.playerId);
+    }
+
+    public static class PASSWORD {
+
+        String password;
+
+        int playerId;
+    }
+
+    public void setPassword() {
+
+    }
+
     public static class SETUP_NAMES {
 
         int amountPlayers;
@@ -171,9 +194,7 @@ public class API extends AbstractVerticle {
         String[] playerPasscodes;
     }
 
-    public static class CURRENT_PLAYER  {
 
-    }
 
 
 

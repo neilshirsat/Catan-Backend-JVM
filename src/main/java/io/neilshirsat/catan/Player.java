@@ -172,28 +172,42 @@ public enum Player {
             player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) + k.getValue());
         }
     }
+    //TODO FINISH THIS METHOD
+    public Player verifyTrade(String passcode,Map<ResourceType, Integer> trade) {
+        for (Player player : getAllPlayers()) {
+            if (player.getPasscode().equals(passcode)) {
+                for (Map.Entry<ResourceType, Integer> k: trade.entrySet()) {
+                    if ()
+                }
+            }
+        }
+        return null;
+    }
 
-    //TODO WE ALREADY HAVE AN ENUM FOR EACH OF THESE
-    //TODO WE DO NOT NEED STRING KEYS
-    //TODO IF THE GAME DOESNT WORK MAKE SURE TO COME BACK AND CHANGE THIS
-    public TreeMap<String, Boolean> canBuyFromShop() {
-        TreeMap<String, Boolean> map = new TreeMap<>();
-        map.put("Road",false);
-        map.put("Settlement",false);
-        map.put("City",false);
-        map.put("DevelopmentCard",false);
+    private enum Shop {
+        ROAD,
+        SETTLEMENT,
+        CITY,
+        DEVELOPMENT_CARD,
+    }
+    public TreeMap<Shop, Boolean> canBuyFromShop() {
+        TreeMap<Shop, Boolean> map = new TreeMap<>();
+        map.put(Shop.ROAD,false);
+        map.put(Shop.SETTLEMENT,false);
+        map.put(Shop.CITY,false);
+        map.put(Shop.DEVELOPMENT_CARD,false);
 
         if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1) {
-            map.put("Road",true);
+            map.put(Shop.ROAD,true);
         }
         if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
-            map.put("Settlement",true);
+            map.put(Shop.SETTLEMENT,true);
         }
         if (this.getDeck().get(ResourceType.ORE)>=3&&this.getDeck().get(ResourceType.WHEAT)>=2) {
-            map.put("City", true);
+            map.put(Shop.CITY, true);
         }
         if (this.getDeck().get(ResourceType.ORE)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
-            map.put("DevelopmentCard", true);
+            map.put(Shop.DEVELOPMENT_CARD, true);
         }
         return map;
     }

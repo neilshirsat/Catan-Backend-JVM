@@ -1,7 +1,5 @@
 package io.neilshirsat.catan;
 
-import com.sun.source.tree.Tree;
-
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -81,16 +79,7 @@ public class GameStateImpl implements GameState {
          */
     }
 
-    //TODO FINISH THIS METHOD
-    public Player verifyTrade(String passcode) {
-        for (Map.Entry<Integer, Player> k : players.entrySet()) {
-            if (k.getValue().getPasscode().equals(passcode)) {
-                return k.getValue();
-                //trade?? (tradeCards)
-            }
-        }
-        return null;
-    }
+
 
     public void passDice() {
         turn++;
@@ -123,13 +112,10 @@ public class GameStateImpl implements GameState {
         return resourceTypeDeck;
     }
 
-    //TODO REDO THIS METHOD
-    //TODO KEY SHOULD MAP WITH THE PLAYER
-    //TODO VALUE SHOULD MAP WITH THE VICTORY POINTS
-        public Player checkPlayerWin() {
+        public Map.Entry<Integer, Player> checkPlayerWin() {
             for (Map.Entry<Integer, Player> k : players.entrySet()) {
                 if (k.getKey() >= 10)
-                    return k.getValue();}
+                    return k;}
                 return null;
     }
 
