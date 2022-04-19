@@ -173,6 +173,9 @@ public enum Player {
         }
     }
 
+    //TODO WE ALREADY HAVE AN ENUM FOR EACH OF THESE
+    //TODO WE DO NOT NEED STRING KEYS
+    //TODO IF THE GAME DOESNT WORK MAKE SURE TO COME BACK AND CHANGE THIS
     public TreeMap<String, Boolean> canBuyFromShop() {
         TreeMap<String, Boolean> map = new TreeMap<>();
         map.put("Road",false);

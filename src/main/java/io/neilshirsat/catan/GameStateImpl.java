@@ -9,6 +9,7 @@ import java.util.TreeMap;
 /**
  * The Implementation for the Game State
  */
+//TODO: TRADE WITH THE BANK
 public class GameStateImpl implements GameState {
 
     private int turn;
@@ -80,6 +81,7 @@ public class GameStateImpl implements GameState {
          */
     }
 
+    //TODO FINISH THIS METHOD
     public Player verifyTrade(String passcode) {
         for (Map.Entry<Integer, Player> k : players.entrySet()) {
             if (k.getValue().getPasscode().equals(passcode)) {
@@ -122,6 +124,8 @@ public class GameStateImpl implements GameState {
     }
 
     //TODO REDO THIS METHOD
+    //TODO KEY SHOULD MAP WITH THE PLAYER
+    //TODO VALUE SHOULD MAP WITH THE VICTORY POINTS
         public Player checkPlayerWin() {
             for (Map.Entry<Integer, Player> k : players.entrySet()) {
                 if (k.getKey() >= 10)
