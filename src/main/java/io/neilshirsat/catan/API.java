@@ -157,6 +157,30 @@ public class API extends AbstractVerticle {
      */
 
 
+
+    public static class SETUP_NAMES {
+
+        int amountPlayers;
+
+        /**
+         * List with the Player Name and their Passcode
+         */
+        String[] playerNames;
+
+        /**
+         * List with the Player Passcodes
+         */
+        String[] playerPasscodes;
+    }
+
+    public void setUpNames(SETUP_NAMES input) {
+        Player.amountPlayers = input.amountPlayers;
+        for (int i = 1; i < input.amountPlayers+1; i++) {
+            Player.getPlayer(i).setPlayerName(input.playerNames[i]);
+            Player.getPlayer(i).setPasscode(input.playerPasscodes[i]);
+        }
+    }
+
     public static class NAME   {
 
         String name;
@@ -175,27 +199,8 @@ public class API extends AbstractVerticle {
         int playerId;
     }
 
-    public void setPassword() {
-
+    public void setPassword(PASSWORD input) {
+        gameState.changePlayerPasscode(input.password, input.playerId);
     }
-
-    public static class SETUP_NAMES {
-
-        int amountPlayers;
-
-        /**
-         * List with the Player Name and their Passcode
-         */
-        String[] playerNames;
-
-        /**
-         * List with the Player Passcodes
-         */
-        String[] playerPasscodes;
-    }
-
-
-
-
 
 }

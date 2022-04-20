@@ -13,12 +13,17 @@ public enum ResourceType {
     private int amountLeft = 19;
 
     public void setAmountLeft(int count) {
+        if (this.amountLeft+count>=0)
         this.amountLeft+=count;
     }
 
     //TODO getAmountLeft has to be >=0
     private int getAmountLeft() {
         return amountLeft;
+    }
+
+    public boolean isEmpty() {
+        return !(amountLeft > 0);
     }
 
 }

@@ -149,6 +149,15 @@ public enum Player {
 
     }
 
+    public static Player getPlayer(int playerId) {
+        return switch (playerId) {
+            case 1 -> PLAYER_1;
+            case 2 -> PLAYER_2;
+            case 3 -> PLAYER_3;
+            case 4 -> PLAYER_4;
+            default -> throw new IllegalStateException("Unexpected value: " + playerId);
+        };
+    }
     public static void tradeCards(
             Map<ResourceType, Integer> player1Outgoing,
             Player player1,
@@ -172,16 +181,23 @@ public enum Player {
             player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) + k.getValue());
         }
     }
-    //TODO FINISH THIS METHOD
-    public Player verifyTrade(String passcode,Map<ResourceType, Integer> trade) {
+
+    public boolean verifyTrade(String passcode, Map<ResourceType, Integer> trade) {
+        boolean b = false;
         for (Player player : getAllPlayers()) {
             if (player.getPasscode().equals(passcode)) {
-                for (Map.Entry<ResourceType, Integer> k: trade.entrySet()) {
-                    if ()
+                for (Map.Entry<ResourceType, Integer> k : trade.entrySet()) {
+                    for (Map.Entry<ResourceType, Integer> m : player.getDeck().entrySet()) {
+                        if (k.equals(m)) {
+                            if (m.getValue() > k.getValue()) {
+                                b = true;}
+                            else return b;
+                        }
+                    }
                 }
             }
         }
-        return null;
+        return b;
     }
 
     private enum Shop {
