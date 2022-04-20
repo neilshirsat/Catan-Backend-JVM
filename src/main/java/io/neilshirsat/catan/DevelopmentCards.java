@@ -1,6 +1,5 @@
 package io.neilshirsat.catan;
 
-//TODO VERIFY THAT WE HAVE INCLUDED ALL OF THE NEEDED CARDS
 public enum DevelopmentCards {
     VICTORY_POINT,
     KNIGHT,
