@@ -7,7 +7,7 @@ import java.util.TreeMap;
 /**
  * The Implementation for the Game State
  */
-//TODO: TRADE WITH THE BANK
+
 public class GameStateImpl implements GameState {
 
     private int turn;
