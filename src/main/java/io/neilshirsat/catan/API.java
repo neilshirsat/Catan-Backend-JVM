@@ -175,6 +175,20 @@ public class API extends AbstractVerticle {
 
     }
 
+    public static class PROPOSE_A_TRADE{
+
+    }
+
+    public static class VERIFY_A_TRADE{
+
+    }
+
+    public static class SEE_DECK{
+
+    }
+    public static class PURCHASE_DEV_CARD{
+
+    }
 
 
 }
