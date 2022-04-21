@@ -2,6 +2,7 @@ package io.neilshirsat.catan;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static io.neilshirsat.catan.NodeImpl.*;
 import static io.neilshirsat.catan.VertexImpl.*;
@@ -392,7 +393,7 @@ public enum EdgeImpl implements Edge {
     public static Edge LongestRoad;
 
     public static void resetLongestRoad() {
-        int longestRoad = Integer.MIN_VALUE;
+        int longestRoad = 4;
         Edge longestEdge = null;
         for (int edgeId: EdgeImpl.allEdges) {
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(edgeId);
@@ -401,7 +402,10 @@ public enum EdgeImpl implements Edge {
                 longestEdge = edge;
             }
         }
+        LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,0));
         LongestRoad = longestEdge;
+        LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,1));
+
     }
 
 }

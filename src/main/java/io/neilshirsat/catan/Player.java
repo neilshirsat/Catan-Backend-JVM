@@ -149,6 +149,23 @@ public enum Player {
 
     }
 
+    public static void resetLargestArmy() {
+        Player largestArmy = null;
+        int largestArmyCount = 3;
+        for (Player p : getAllPlayers()) {
+            if (p.getDevelopmentCards().get(DevelopmentCards.KNIGHT)>=largestArmyCount) {
+                largestArmyCount = p.getDevelopmentCards().get(DevelopmentCards.KNIGHT);
+                largestArmy = p;
+            }
+        }
+        for (Player p : getAllPlayers()) {
+            if (p.equals(largestArmy)) {
+                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY,1));
+            }
+            else p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY,0));
+        }
+    }
+
     public static Player getPlayer(int playerId) {
         return switch (playerId) {
             case 1 -> PLAYER_1;
