@@ -203,4 +203,30 @@ public class API extends AbstractVerticle {
         gameState.changePlayerPasscode(input.password, input.playerId);
     }
 
+    public static class PLAYER_DATA {
+
+        int playerId;
+
+        int victoryPoints;
+
+        Map<ResourceType, Integer> deck;
+
+        Map<DevelopmentCards, Integer> developmentCards;
+
+        Map<SpecialCards, Integer> specialCards;
+    }
+
+    public Player getPlayerData(PLAYER_DATA input) {
+        Player player = Player.getPlayer(input.playerId);
+        player.setDeck(input.deck);
+        player.setDevelopmentCards(input.developmentCards);
+        player.setSpecialCards(input.specialCards);
+        return player;
+    }
+
+    public List<Player> getAllPlayersData() {
+        return (List.of(Player.getPlayer(1),Player.getPlayer(2),Player.getPlayer(3),Player.getPlayer(4)));
+    }
+
+
 }

@@ -25,7 +25,7 @@ public enum Player {
 
     private Map<SpecialCards, Integer> specialCards;
 
-    private TreeMap<String, Boolean> canBuyFromShop;
+    private TreeMap<Shop, Boolean> canBuyFromShop;
 
     private int victoryPoints;
 
