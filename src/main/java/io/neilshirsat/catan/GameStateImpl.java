@@ -14,9 +14,6 @@ public class GameStateImpl implements GameState {
 
     private Map<Integer, Player> players;
 
-    private TreeMap<ResourceType,Integer> resourceTypeDeck;
-
-    private TreeMap<DevelopmentCards, Integer> developmentCardsDeck;
 
     private enum Stage {
         SETUP,
@@ -102,17 +99,7 @@ public class GameStateImpl implements GameState {
         };
     }
 
-    public TreeMap<DevelopmentCards,Integer> setDevelopmentCardsDeck() {
-
-        return developmentCardsDeck;
-    }
-
-    public TreeMap<ResourceType, Integer> setResourceTypeDeck() {
-
-        return resourceTypeDeck;
-    }
-
-        public Map.Entry<Integer, Player> checkPlayerWin() {
+    public Map.Entry<Integer, Player> checkPlayerWin() {
             for (Map.Entry<Integer, Player> k : players.entrySet()) {
                 if (k.getKey() >= 10)
                     return k;}

@@ -199,6 +199,10 @@ public enum Player {
         }
     }
 
+    public void buyDevelopmentCard() {
+        this.setDevelopmentCards(Map.of());
+    }
+
     public boolean verifyTrade(String passcode, Map<ResourceType, Integer> trade) {
         boolean b = false;
         for (Player player : getAllPlayers()) {
