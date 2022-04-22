@@ -10,10 +10,17 @@ import java.util.TreeMap;
 
 public class GameStateImpl implements GameState {
 
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
     private int turn;
 
     private Map<Integer, Player> players;
-
 
     private enum Stage {
         SETUP,
@@ -76,12 +83,11 @@ public class GameStateImpl implements GameState {
          */
     }
 
-
-
+    //TODO TAKE INTO ACCOUNT WHAT STAGE IS GOING ON
     public void passDice() {
         turn++;
-        if (turn>Player.amountPlayers) {
-            turn = 1;
+        if (turn>=Player.amountPlayers) {
+            turn = 0;
         }
     }
 

@@ -6,14 +6,12 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
 
 public class API extends AbstractVerticle {
 
@@ -45,35 +43,36 @@ public class API extends AbstractVerticle {
         //SETUP
         ipcRouter.route(HttpMethod.POST, "/setup-names").handler((ctx)->{
             final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
-            for (int i = 0; i < setup_names.amountPlayers; i++) {
-                gameState.changePlayerName(setup_names.playerNames[i], i);
-                gameState.changePlayerPasscode(setup_names.playerPasscodes[i], i);
-            }
-            logger.info(Json.encode(setup_names));
+            setUpNames(setup_names);
+            ctx.end();
         });
-        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
-
+        ipcRouter.route(HttpMethod.POST, "/set-name").handler((ctx)->{
+            final NAME set_name = ctx.getBodyAsJson().mapTo(NAME.class);
+            setName(set_name);
         });
-        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
-
-        });
-        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
-
+        ipcRouter.route(HttpMethod.POST, "/set-password").handler((ctx)->{
+            final PASSWORD set_password = ctx.getBodyAsJson().mapTo(PASSWORD.class);
+            setPassword(set_password);
         });
 
-
-        ipcRouter.route(HttpMethod.GET, "/get-current-user").handler((ctx)->{
-            //CURRENT_PLAYER currentPlayer =
+        //Get Player Data
+        ipcRouter.route(HttpMethod.GET, "/get-player-data/:player_id").handler((ctx)->{
+            int player_id = Integer.parseInt(ctx.pathParams().get("player_id"));
+            ctx.end(Json.encode(getPlayerData(player_id)));
         });
         ipcRouter.route(HttpMethod.GET, "/get-all-users").handler((ctx)->{
-
+            ctx.end(Json.encode(getAllPlayersData()));
         });
-        ipcRouter.route(HttpMethod.POST, "/change-name").handler((ctx)->{
-
+        ipcRouter.route(HttpMethod.GET, "/get-current-player").handler((ctx)->{
+            ctx.end(Json.encode(gameState.getTurn()));
         });
-        ipcRouter.route(HttpMethod.GET, "/change-name").handler((ctx)->{
 
-        });
+        //TODO GET BOARD DATA
+
+        //TODO TRADES
+
+        //TODO CARDS
+
     }
 
     /**
@@ -203,29 +202,17 @@ public class API extends AbstractVerticle {
         gameState.changePlayerPasscode(input.password, input.playerId);
     }
 
-    public static class PLAYER_DATA {
-
-        int playerId;
-
-        int victoryPoints;
-
-        Map<ResourceType, Integer> deck;
-
-        Map<DevelopmentCards, Integer> developmentCards;
-
-        Map<SpecialCards, Integer> specialCards;
+    public Player getPlayerData(int input) {
+        return Player.getPlayer(input);
     }
 
-    public Player getPlayerData(PLAYER_DATA input) {
-        Player player = Player.getPlayer(input.playerId);
-        player.setDeck(input.deck);
-        player.setDevelopmentCards(input.developmentCards);
-        player.setSpecialCards(input.specialCards);
-        return player;
-    }
-
-    public List<Player> getAllPlayersData() {
-        return (List.of(Player.getPlayer(1),Player.getPlayer(2),Player.getPlayer(3),Player.getPlayer(4)));
+    public List<String> getAllPlayersData() {
+        return (List.of(
+                Json.encode(Player.getPlayer(1)),
+                Json.encode(Player.getPlayer(2)),
+                Json.encode(Player.getPlayer(3)),
+                Json.encode(Player.getPlayer(4)))
+        );
     }
 
 
