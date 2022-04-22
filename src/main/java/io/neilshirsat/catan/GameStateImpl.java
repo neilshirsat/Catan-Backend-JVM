@@ -87,15 +87,17 @@ public class GameStateImpl implements GameState {
             if (k.getValue().getPasscode().equals(passcode)) {
                 return k.getValue();
                 //trade?? (tradeCards)
+                //i'll finish this by 5pm today/ try to
             }
         }
         return null;
     }
     public void proposeTrade(){
         //help; not sure how to do the get[]: give[]: thing in the prospectus
+        //i'll finish this by 5pm today
     }
     public void purchaseDevCard(){
-        
+
     }
     public boolean login(String password, int playerId){
         final Player player = this.players.get(playerId);
