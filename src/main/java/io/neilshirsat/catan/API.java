@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class API extends AbstractVerticle {
 
@@ -264,9 +265,31 @@ public class API extends AbstractVerticle {
 
 
     }
+    public static class PROPOSE_TRADE
+    {
+        int playerId;
+        String passcode;
+        Map<ResourceType, Integer> trade;
+        boolean proposeTrade;
+
+    }
+    public static class GET_CARDS{
+        Stack<DevelopmentCards> deck;
+    }
+    public static class VERIFY_TRADE{
+        int playerId;
+        String passcode;
+        Map<ResourceType, Integer> trade;
+        boolean verifyTrade;
+    }
+
+    public static class PURCHASE_DEV_CARD{
+
+    }
+
 
     public static class purchaseSettlement{
-        if()
+        //if()
     }
 
     public static class PURCHASE_ROAD  {
@@ -285,5 +308,6 @@ public class API extends AbstractVerticle {
     public void changeRobber(CHANGE_ROBBER input){
         changeRobber(input);
     }
+
 
 }
