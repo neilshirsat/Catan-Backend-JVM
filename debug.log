@@ -1,0 +1,763 @@
+[0407/131633.454:INFO:CONSOLE(73240)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (73240)
+[0407/131633.669:INFO:CONSOLE(44014)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (44014)
+[0407/131633.753:INFO:CONSOLE(74345)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:1068:37)
+    at Board
+    at div
+    at div
+    at App (http://localhost:3000/static/js/bundle.js:74:86)", source: http://localhost:3000/static/js/bundle.js (74345)
+[0407/131649.164:INFO:CONSOLE(44014)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:7453:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:27636:90)
+    at http://localhost:3000/static/js/bundle.js:42857:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:42972:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:28241:90)
+    at http://localhost:3000/static/js/bundle.js:8285:18
+    at http://localhost:3000/static/js/bundle.js:8520:34
+    at div
+    at div
+    at App (http://localhost:3000/static/js/bundle.js:74:86)", source: http://localhost:3000/static/js/bundle.js (44014)
+[0407/131649.164:INFO:CONSOLE(44014)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:7453:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:27636:90)
+    at http://localhost:3000/static/js/bundle.js:42857:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:42972:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:28241:90)
+    at http://localhost:3000/static/js/bundle.js:8285:18
+    at http://localhost:3000/static/js/bundle.js:8520:34
+    at div
+    at div
+    at App (http://localhost:3000/static/js/bundle.js:74:86)", source: http://localhost:3000/static/js/bundle.js (44014)
+[0407/131658.459:INFO:CONSOLE(44014)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode DomWrapper 
+    at div
+    at DomWrapper (http://localhost:3000/static/js/bundle.js:34795:90)
+    at http://localhost:3000/static/js/bundle.js:34498:32
+    at Mask (http://localhost:3000/static/js/bundle.js:27257:25)
+    at div
+    at Dialog (http://localhost:3000/static/js/bundle.js:27316:32)
+    at http://localhost:3000/static/js/bundle.js:42857:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:42972:90)
+    at DialogWrap (http://localhost:3000/static/js/bundle.js:26970:23)
+    at Modal (http://localhost:3000/static/js/bundle.js:10766:62)
+    at div
+    at div
+    at App (http://localhost:3000/static/js/bundle.js:74:86)", source: http://localhost:3000/static/js/bundle.js (44014)
+[0407/131832.365:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0407/151801.884:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0407/151801.884:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0408/133229.708:INFO:CONSOLE(82734)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (82734)
+[0408/133234.094:INFO:CONSOLE(82734)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (82734)
+[0408/133240.506:INFO:CONSOLE(82734)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (82734)
+[0408/133458.886:INFO:CONSOLE(76492)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (76492)
+[0408/133459.165:INFO:CONSOLE(47266)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (47266)
+[0408/133514.837:INFO:CONSOLE(79121)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:1289:37)
+    at Board
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:78078:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:77628:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:78649:30)
+    at App (http://localhost:3000/static/js/bundle.js:80:86)", source: http://localhost:3000/static/js/bundle.js (79121)
+[0408/133514.846:INFO:CONSOLE(47266)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode Transition 
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:78078:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:77628:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:78649:30)
+    at App (http://localhost:3000/static/js/bundle.js:80:86)", source: http://localhost:3000/static/js/bundle.js (47266)
+[0411/131033.845:INFO:CONSOLE(79851)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (79851)
+[0411/131034.086:INFO:CONSOLE(50625)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (50625)
+[0411/131051.899:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131051.975:INFO:CONSOLE(82731)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:1346:37)
+    at Board (http://localhost:3000/static/js/bundle.js:987:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (82731)
+[0411/131051.990:INFO:CONSOLE(50625)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode Transition 
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0411/131052.093:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131052.100:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131052.104:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131052.119:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131052.119:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131112.452:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131112.551:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131112.555:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131112.556:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131112.566:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131112.566:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131120.805:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131120.901:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131120.906:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131120.907:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131120.918:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131120.918:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131138.629:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131138.714:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0411/131138.718:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131138.719:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0411/131138.727:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131138.728:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0411/131225.436:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0411/131704.954:INFO:CONSOLE(50625)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode DomWrapper 
+    at div
+    at DomWrapper (http://localhost:3000/static/js/bundle.js:41406:90)
+    at http://localhost:3000/static/js/bundle.js:41109:32
+    at Mask (http://localhost:3000/static/js/bundle.js:33868:25)
+    at div
+    at Dialog (http://localhost:3000/static/js/bundle.js:33927:32)
+    at http://localhost:3000/static/js/bundle.js:49468:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49583:90)
+    at DialogWrap (http://localhost:3000/static/js/bundle.js:33581:23)
+    at Modal (http://localhost:3000/static/js/bundle.js:12951:62)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0411/131707.980:INFO:CONSOLE(50625)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:8013:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:34247:90)
+    at http://localhost:3000/static/js/bundle.js:49468:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49583:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:34852:90)
+    at http://localhost:3000/static/js/bundle.js:8845:18
+    at http://localhost:3000/static/js/bundle.js:9080:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0411/131707.980:INFO:CONSOLE(50625)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:8013:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:34247:90)
+    at http://localhost:3000/static/js/bundle.js:49468:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49583:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:34852:90)
+    at http://localhost:3000/static/js/bundle.js:8845:18
+    at http://localhost:3000/static/js/bundle.js:9080:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0411/155201.895:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0411/155201.896:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0412/125308.901:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0412/125308.963:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0412/125308.965:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0412/125308.966:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0412/125308.974:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0412/125308.974:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0412/131231.464:INFO:CONSOLE(79851)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (79851)
+[0412/131231.719:INFO:CONSOLE(50625)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (50625)
+[0412/131235.947:INFO:CONSOLE(50625)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode DomWrapper 
+    at div
+    at DomWrapper (http://localhost:3000/static/js/bundle.js:41406:90)
+    at http://localhost:3000/static/js/bundle.js:41109:32
+    at CSSMotionList (http://localhost:3000/static/js/bundle.js:41272:92)
+    at div
+    at DomWrapper (http://localhost:3000/static/js/bundle.js:41406:90)
+    at http://localhost:3000/static/js/bundle.js:41109:32
+    at ErrorList (http://localhost:3000/static/js/bundle.js:9371:19)
+    at div
+    at http://localhost:3000/static/js/bundle.js:10705:62
+    at FormItemInput (http://localhost:3000/static/js/bundle.js:10008:25)
+    at div
+    at http://localhost:3000/static/js/bundle.js:10833:34
+    at Field (http://localhost:3000/static/js/bundle.js:35210:90)
+    at WrapperField (http://localhost:3000/static/js/bundle.js:35786:20)
+    at FormItem (http://localhost:3000/static/js/bundle.js:9701:20)
+    at div
+    at Item (http://localhost:3000/static/js/bundle.js:14246:24)
+    at div
+    at Space (http://localhost:3000/static/js/bundle.js:14356:62)
+    at Field (http://localhost:3000/static/js/bundle.js:35210:90)
+    at WrapperField (http://localhost:3000/static/js/bundle.js:35786:20)
+    at List (http://localhost:3000/static/js/bundle.js:36146:19)
+    at FormList (http://localhost:3000/static/js/bundle.js:10254:31)
+    at form
+    at Form (http://localhost:3000/static/js/bundle.js:35906:19)
+    at SizeContextProvider (http://localhost:3000/static/js/bundle.js:8191:23)
+    at InternalForm (http://localhost:3000/static/js/bundle.js:9495:56)
+    at div
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0412/131240.472:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0412/131240.512:INFO:CONSOLE(82731)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:1346:37)
+    at Board (http://localhost:3000/static/js/bundle.js:987:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (82731)
+[0412/131240.522:INFO:CONSOLE(50625)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode Transition 
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0412/131240.576:INFO:CONSOLE(95)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (95)
+[0412/131240.579:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0412/131240.581:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0412/131240.589:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0412/131240.589:INFO:CONSOLE(18169)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18169)
+[0412/131245.837:INFO:CONSOLE(50625)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:8013:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:34247:90)
+    at http://localhost:3000/static/js/bundle.js:49468:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49583:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:34852:90)
+    at http://localhost:3000/static/js/bundle.js:8845:18
+    at http://localhost:3000/static/js/bundle.js:9080:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0412/131245.838:INFO:CONSOLE(50625)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:8013:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:34247:90)
+    at http://localhost:3000/static/js/bundle.js:49468:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49583:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:34852:90)
+    at http://localhost:3000/static/js/bundle.js:8845:18
+    at http://localhost:3000/static/js/bundle.js:9080:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81688:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81238:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82259:30)
+    at App (http://localhost:3000/static/js/bundle.js:85:86)", source: http://localhost:3000/static/js/bundle.js (50625)
+[0412/131423.674:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0412/145801.914:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0412/145801.914:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0413/125304.418:INFO:CONSOLE(91252)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91252)
+[0413/125308.858:INFO:CONSOLE(91252)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91252)
+[0413/125315.305:INFO:CONSOLE(91252)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91252)
+[0413/125325.683:INFO:CONSOLE(91252)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91252)
+[0413/125344.164:INFO:CONSOLE(91252)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91252)
+[0413/125455.764:INFO:CONSOLE(80160)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (80160)
+[0413/125455.998:INFO:CONSOLE(50934)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (50934)
+[0413/125516.943:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0413/125516.980:INFO:CONSOLE(83040)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:1579:24)
+    at Board (http://localhost:3000/static/js/bundle.js:1137:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81997:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81547:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82568:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (83040)
+[0413/125516.992:INFO:CONSOLE(50934)] "Warning: %s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node%s findDOMNode findDOMNode Transition 
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81997:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81547:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82568:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (50934)
+[0413/125517.080:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0413/125517.085:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0413/125517.087:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0413/125517.100:INFO:CONSOLE(18478)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18478)
+[0413/125517.100:INFO:CONSOLE(18478)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18478)
+[0413/125647.290:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0413/125650.800:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0413/125650.871:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0413/125650.875:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0413/125650.875:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0413/125650.886:INFO:CONSOLE(18478)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18478)
+[0413/125650.886:INFO:CONSOLE(18478)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18478)
+[0413/125714.996:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0413/125715.066:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0413/125715.070:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0413/125715.071:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0413/125715.082:INFO:CONSOLE(18478)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18478)
+[0413/125715.082:INFO:CONSOLE(18478)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (18478)
+[0413/125716.891:INFO:CONSOLE(50934)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:8322:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:34556:90)
+    at http://localhost:3000/static/js/bundle.js:49777:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49892:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:35161:90)
+    at http://localhost:3000/static/js/bundle.js:9154:18
+    at http://localhost:3000/static/js/bundle.js:9389:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81997:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81547:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82568:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (50934)
+[0413/125716.891:INFO:CONSOLE(50934)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:8322:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:34556:90)
+    at http://localhost:3000/static/js/bundle.js:49777:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:49892:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:35161:90)
+    at http://localhost:3000/static/js/bundle.js:9154:18
+    at http://localhost:3000/static/js/bundle.js:9389:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:81997:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:81547:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:82568:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (50934)
+[0413/133702.272:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0413/133702.272:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0414/125444.737:INFO:CONSOLE(91561)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91561)
+[0414/125449.151:INFO:CONSOLE(91561)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91561)
+[0414/125455.585:INFO:CONSOLE(91561)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91561)
+[0414/125506.027:INFO:CONSOLE(91561)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91561)
+[0414/125524.419:INFO:CONSOLE(91561)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91561)
+[0414/125558.821:INFO:CONSOLE(91561)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (91561)
+[0414/125835.677:INFO:CONSOLE(85312)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85312)
+[0414/125835.956:INFO:CONSOLE(56086)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56086)
+[0414/130003.550:INFO:CONSOLE(85312)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85312)
+[0414/130003.768:INFO:CONSOLE(56086)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56086)
+[0414/130021.698:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0414/130021.735:INFO:CONSOLE(88192)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3032:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2561:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87149:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86699:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87720:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (88192)
+[0414/130021.856:INFO:CONSOLE(219)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (219)
+[0414/130021.869:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0414/130021.872:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:3000' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0414/130021.908:INFO:CONSOLE(23630)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23630)
+[0414/130021.911:INFO:CONSOLE(23630)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23630)
+[0414/130202.748:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0414/130227.883:INFO:CONSOLE(56086)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13474:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39708:90)
+    at http://localhost:3000/static/js/bundle.js:54929:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55044:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40313:90)
+    at http://localhost:3000/static/js/bundle.js:14306:18
+    at http://localhost:3000/static/js/bundle.js:14541:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87149:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86699:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87720:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (56086)
+[0414/130227.883:INFO:CONSOLE(56086)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13474:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39708:90)
+    at http://localhost:3000/static/js/bundle.js:54929:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55044:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40313:90)
+    at http://localhost:3000/static/js/bundle.js:14306:18
+    at http://localhost:3000/static/js/bundle.js:14541:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87149:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86699:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87720:30)
+    at App (http://localhost:3000/static/js/bundle.js:207:86)", source: http://localhost:3000/static/js/bundle.js (56086)
+[0414/132649.961:INFO:CONSOLE(96713)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96713)
+[0414/132654.393:INFO:CONSOLE(96713)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96713)
+[0414/132700.757:INFO:CONSOLE(96713)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96713)
+[0414/132711.196:INFO:CONSOLE(96713)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96713)
+[0414/132949.394:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0414/132949.615:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0414/132956.692:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/132956.692:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/132956.730:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/132956.731:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/132959.972:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/132959.972:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133000.000:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133000.000:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133049.697:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0414/133049.941:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0414/133056.617:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133056.617:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133056.646:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133056.647:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133154.950:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133154.951:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133154.982:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133154.982:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133155.589:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133155.589:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133155.616:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/133155.617:INFO:CONSOLE(42727)] "TypeError: values is not iterable", source: http://localhost:3000/static/js/bundle.js (42727)
+[0414/133248.857:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0414/133755.452:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/133759.852:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/133806.337:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/133816.722:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/133835.163:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/133909.567:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/134015.964:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0414/134045.251:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0414/134045.473:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0414/134054.757:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/134054.787:INFO:CONSOLE(88218)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3058:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2587:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (88218)
+[0414/134054.906:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0414/134054.913:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0414/134054.918:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0414/134054.942:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0414/134054.944:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0414/134244.376:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0414/134339.879:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0414/134339.879:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0414/142801.978:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0414/142801.979:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0419/125512.981:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125517.346:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125523.744:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125534.170:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125552.576:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125626.994:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125733.371:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/125943.832:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0419/130402.219:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0420/125902.766:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0421/125512.118:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0421/125512.440:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0421/125530.247:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0421/125530.330:INFO:CONSOLE(88218)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3058:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2587:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (88218)
+[0421/125530.468:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0421/125530.480:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0421/125530.494:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0421/125530.533:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0421/125530.535:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0421/125537.321:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0421/125537.322:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0421/125702.083:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0422/125352.614:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0422/125352.880:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0422/125428.135:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0422/125428.196:INFO:CONSOLE(88218)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3058:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2587:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (88218)
+[0422/125428.328:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0422/125428.341:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0422/125428.344:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0422/125428.382:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0422/125428.388:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0422/132748.575:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0422/132748.793:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0422/132754.663:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0422/132754.694:INFO:CONSOLE(88218)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3058:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2587:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (88218)
+[0422/132754.812:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0422/132754.820:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0422/132754.826:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0422/132754.850:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0422/132754.852:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0422/132804.384:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0422/132804.385:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
