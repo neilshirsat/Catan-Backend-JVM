@@ -91,7 +91,19 @@ public class GameStateImpl implements GameState {
         }
         return null;
     }
-
+    public void proposeTrade(){
+        //help; not sure how to do the get[]: give[]: thing in the prospectus
+    }
+    public void purchaseDevCard(){
+        
+    }
+    public boolean login(String password, int playerId){
+        final Player player = this.players.get(playerId);
+        if(player.getPasscode().equals(password)){
+            return true;
+        }
+        return false;
+    }
     public void passDice() {
         turn++;
         if (turn>Player.amountPlayers) {
