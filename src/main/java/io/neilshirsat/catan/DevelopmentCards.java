@@ -10,7 +10,7 @@ public enum DevelopmentCards {
     YEAR_OF_PLENTY,
     ROAD_BUILDING;
 
-    private static Stack<DevelopmentCards> deck;
+    public static Stack<DevelopmentCards> deck;
 
     static {
         deck.push(DevelopmentCards.KNIGHT);
@@ -40,6 +40,11 @@ public enum DevelopmentCards {
         deck.push(DevelopmentCards.ROAD_BUILDING);
         Collections.shuffle(deck);
     }
+
+    public static Stack<DevelopmentCards> getDeck() {
+        return deck;
+    }
+
 
 
 }
