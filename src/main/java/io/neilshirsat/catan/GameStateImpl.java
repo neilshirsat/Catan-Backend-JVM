@@ -24,11 +24,15 @@ public class GameStateImpl implements GameState {
 
     private enum Stage {
         SETUP,
-        STAGE_1,
-        STAGE_2,
-        STAGE_3,
-        STAGE_4;
 
+        //When the Players get to put down a road, settlement, or city
+        STAGE_1,
+
+        //When the Players get to trade (password)
+        STAGE_2,
+
+        //
+        STAGE_3,
 
     }
 
@@ -97,6 +101,7 @@ public class GameStateImpl implements GameState {
         turn++;
         if (turn>=Player.amountPlayers) {
             turn = 0;
+
         }
     }
 
@@ -109,7 +114,7 @@ public class GameStateImpl implements GameState {
             case 1 -> Stage.STAGE_1;
             case 2 -> Stage.STAGE_2;
             case 3 -> Stage.STAGE_3;
-            case 4 -> Stage.STAGE_4;
+            //case 4 -> Stage.STAGE_4;
             default -> null;
         };
     }

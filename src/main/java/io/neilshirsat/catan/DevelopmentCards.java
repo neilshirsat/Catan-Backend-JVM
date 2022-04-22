@@ -1,5 +1,8 @@
 package io.neilshirsat.catan;
 
+import java.util.Collections;
+import java.util.Stack;
+
 public enum DevelopmentCards {
     VICTORY_POINT,
     KNIGHT,
@@ -7,11 +10,36 @@ public enum DevelopmentCards {
     YEAR_OF_PLENTY,
     ROAD_BUILDING;
 
-    private int amountLeft() {
-        return switch(this) {
-            case VICTORY_POINT -> 5;
-            case KNIGHT -> 14;
-            case MONOPOLY, ROAD_BUILDING, YEAR_OF_PLENTY -> 2;
-        };
+    private static Stack<DevelopmentCards> deck;
+
+    static {
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.KNIGHT);
+        deck.push(DevelopmentCards.VICTORY_POINT);
+        deck.push(DevelopmentCards.VICTORY_POINT);
+        deck.push(DevelopmentCards.VICTORY_POINT);
+        deck.push(DevelopmentCards.VICTORY_POINT);
+        deck.push(DevelopmentCards.VICTORY_POINT);
+        deck.push(DevelopmentCards.MONOPOLY);
+        deck.push(DevelopmentCards.MONOPOLY);
+        deck.push(DevelopmentCards.YEAR_OF_PLENTY);
+        deck.push(DevelopmentCards.YEAR_OF_PLENTY);
+        deck.push(DevelopmentCards.ROAD_BUILDING);
+        deck.push(DevelopmentCards.ROAD_BUILDING);
+        Collections.shuffle(deck);
     }
+
+
 }

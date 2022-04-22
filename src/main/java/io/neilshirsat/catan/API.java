@@ -217,6 +217,19 @@ public class API extends AbstractVerticle {
         );
     }
 
+    public static class DISCARD_CARD_WHEN_ROLL_7 {
+
+        Map<ResourceType, Integer> discardCard;
+
+        int playerId;
+
+    }
+
+    public void discardCards(DISCARD_CARD_WHEN_ROLL_7 input) {
+        Player p = Player.getPlayer(input.playerId);
+        //for (Map.Entry<ResourceType, Integer> k : input.discardCard)
+    }
+
 
 
 
