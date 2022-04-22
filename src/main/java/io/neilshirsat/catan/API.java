@@ -218,4 +218,59 @@ public class API extends AbstractVerticle {
     }
 
 
+
+
+
+
+
+
+
+    public static class GET_NODE  {
+        int getNodeId;
+    }
+    public Node getNode(GET_NODE input) {
+        return getNode(input);
+    }
+
+    public static class GET_EDGE  {
+        int getEdgeId;
+    }
+    public Edge getEdge(GET_EDGE input) {
+        return getEdge(input);
+    }
+
+    public static class GET_VERTEX  {
+        int getVertexId;
+    }
+    public Vertex getVertex(GET_VERTEX input) {
+        return getVertex(input);
+    }
+
+    public static class PURCHASE_SETTLEMENT  {
+        Map<ResourceType, Integer> cards;
+
+
+    }
+
+    public static class purchaseSettlement{
+        if()
+    }
+
+    public static class PURCHASE_ROAD  {
+
+
+    }
+
+    public static class PURCHASE_CITY  {
+
+    }
+
+    public static class CHANGE_ROBBER{
+        int nodeID;
+    }
+
+    public void changeRobber(CHANGE_ROBBER input){
+        changeRobber(input);
+    }
+
 }
