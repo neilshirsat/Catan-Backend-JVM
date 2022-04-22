@@ -75,6 +75,15 @@ public class GameStateImpl implements GameState {
            NodeImpl.receiveCards(NodeImpl.getNodesWithDice(dice));
         }
         else actionStage = ActionStage.SPECIAL_7;
+        for (Player p : Player.getAllPlayers()) {
+            if (p.getAmountResourceCards()>7) {
+                /*
+                get discarded cards from user interface
+
+
+                 */
+            }
+        }
         /*
         get changedRobber from user interface
 

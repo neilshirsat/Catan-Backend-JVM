@@ -29,6 +29,8 @@ public enum Player {
 
     private int victoryPoints;
 
+    private int amountResourceCards;
+
     public static int amountPlayers;
 
 
@@ -110,6 +112,14 @@ public enum Player {
 
     public void setAmountCities(int amountCities) {
         this.amountCities += amountCities;
+    }
+
+    public int getAmountResourceCards() {
+        amountResourceCards = 0;
+        for (Map.Entry<ResourceType, Integer> k : getDeck().entrySet()) {
+            amountResourceCards+=k.getValue();
+        }
+        return amountResourceCards;
     }
 
     public static List<Player> getAllPlayers() {
@@ -200,7 +210,7 @@ public enum Player {
     }
 
     public void buyDevelopmentCard() {
-        this.setDevelopmentCards(Map.of());
+
     }
 
     public boolean verifyTrade(String passcode, Map<ResourceType, Integer> trade) {
