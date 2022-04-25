@@ -209,29 +209,21 @@ public enum Player {
         }
     }
 
-    public void buyDevelopmentCard() {
-
-    }
-
-    public boolean verifyTrade(String passcode, Map<ResourceType, Integer> trade) {
+    public static boolean verifyTrade(String passcode, Map<ResourceType, Integer> player2Outgoing) {
         boolean b = false;
         for (Player player : getAllPlayers()) {
             if (player.getPasscode().equals(passcode)) {
-                for (Map.Entry<ResourceType, Integer> k : trade.entrySet()) {
-                    for (Map.Entry<ResourceType, Integer> m : player.getDeck().entrySet()) {
-                        if (k.equals(m)) {
-                            if (m.getValue() > k.getValue()) {
-                                b = true;}
-                            else return b;
-                        }
-                    }
+                for (Map.Entry<ResourceType, Integer> k : player2Outgoing.entrySet()) {
+                    if (player.getDeck().get(k.getKey()) > k.getValue()) {
+                        b = true;
+                    } else return false;
                 }
             }
         }
         return b;
     }
 
-    private enum Shop {
+    public enum Shop {
         ROAD,
         SETTLEMENT,
         CITY,

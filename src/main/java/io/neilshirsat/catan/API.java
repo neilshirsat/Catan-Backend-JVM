@@ -227,16 +227,10 @@ public class API extends AbstractVerticle {
 
     public void discardCards(DISCARD_CARD_WHEN_ROLL_7 input) {
         Player p = Player.getPlayer(input.playerId);
-        //for (Map.Entry<ResourceType, Integer> k : input.discardCard)
+        for (Map.Entry<ResourceType, Integer> k : input.discardCard.entrySet()) {
+            p.getDeck().put(k.getKey(), p.getDeck().get(k.getKey())-k.getValue());
+        }
     }
-
-
-
-
-
-
-
-
 
     public static class GET_NODE  {
         int getNodeId;
@@ -261,7 +255,7 @@ public class API extends AbstractVerticle {
 
     public static class PURCHASE {
         Player p;
-        Shop shop;
+        Player.Shop shop;
     }
 
     public void purchase(PURCHASE input){
@@ -277,5 +271,41 @@ public class API extends AbstractVerticle {
     public void changeRobber(CHANGE_ROBBER input){
         changeRobber(input);
     }
+
+
+    public static class PROPOSE_TRADE {
+
+        Map<ResourceType, Integer> player1Outgoing;
+
+        int player1Id;
+
+        Map<ResourceType, Integer> player2Outgoing;
+
+    }
+
+    public static void proposeTrade(PROPOSE_TRADE input) {
+
+    }
+
+    public static class VERIFY_TRADE {
+
+        Map<ResourceType, Integer> player1Outgoing;
+
+        int player1Id;
+
+        Map<ResourceType, Integer> player2Outgoing;
+
+        String passcode;
+    }
+
+    public static void verifyTrade(VERIFY_TRADE input) {
+
+        if (Player.verifyTrade(input.passcode,input.player1Outgoing)) {
+
+          //  Player.tradeCards(input.player1Outgoing, Player.getPlayer(input.player1Id),input.player2Outgoing, Player.getPlayer(input.passcode));
+        }
+
+    }
+
 
 }
