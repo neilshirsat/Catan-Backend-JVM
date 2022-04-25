@@ -236,21 +236,22 @@ public class API extends AbstractVerticle {
         int getNodeId;
     }
     public Node getNode(GET_NODE input) {
-        return getNode(input);
+        return NodeImpl.getNode(input.getNodeId);
     }
 
     public static class GET_EDGE  {
         int getEdgeId;
     }
     public Edge getEdge(GET_EDGE input) {
-        return getEdge(input);
+        return EdgeImpl.getEdge(input.getEdgeId);
     }
 
     public static class GET_VERTEX  {
         int getVertexId;
     }
     public Vertex getVertex(GET_VERTEX input) {
-        return getVertex(input);
+        return VertexImpl.getVertex(input.getVertexId);
+
     }
 
     public static class PURCHASE {
@@ -259,7 +260,7 @@ public class API extends AbstractVerticle {
     }
 
     public void purchase(PURCHASE input){
-        if(input.p.canBuyFromShop(input.shop){
+        if(input.p.canBuyFromShop(input.shop)){
             input.p.purchase(input.shop);
         };
     }
