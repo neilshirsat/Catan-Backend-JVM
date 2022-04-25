@@ -259,26 +259,15 @@ public class API extends AbstractVerticle {
         return getVertex(input);
     }
 
-    public static class PURCHASE  {
+    public static class PURCHASE {
         Player p;
-        String piece;
+        Shop shop;
     }
 
     public void purchase(PURCHASE input){
-        Map canBuy= input.p.canBuyFromShop();
-        if(canBuy.get(input.piece).equals(true)) {
-            if (input.piece.equals("SETTLEMENT")) {
-                input.p.setAmountSettlements(input.p.getAmountSettlements()+1);
-                input.p.setVictoryPoints(input.p.getVictoryPoints()+1);
-            }
-            if(input.piece.equals("ROAD")){
-                input.p.setAmountRoads(input.p.getAmountRoads()+1);
-            }
-            if(input.piece.equals("CITY")){
-                input.p.setAmountCities(input.p.getAmountCities()+!);
-                input.p.setVictoryPoints(input.p.getVictoryPoints()+2);
-            }
-        }
+        if(input.p.canBuyFromShop(input.shop){
+            input.p.purchase(input.shop);
+        };
     }
 
     public static class CHANGE_ROBBER{
