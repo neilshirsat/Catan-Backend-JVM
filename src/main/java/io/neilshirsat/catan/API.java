@@ -257,6 +257,7 @@ public class API extends AbstractVerticle {
     }
     public Vertex getVertex(GET_VERTEX input) {
         return VertexImpl.getVertex(input.getVertexId);
+
     }
 
     public static class PURCHASE {
