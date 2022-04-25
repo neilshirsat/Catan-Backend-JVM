@@ -262,11 +262,11 @@ public class API extends AbstractVerticle {
 
     public static class PURCHASE {
         Player p;
-        Shop shop;
+        Player.Shop shop;
     }
 
     public void purchase(PURCHASE input){
-        if(input.p.canBuyFromShop(input.shop){
+        if(input.p.canBuyFromShop(input.shop)){
             input.p.purchase(input.shop);
         };
     }
