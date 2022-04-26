@@ -1,10 +1,17 @@
 plugins {
     kotlin("jvm") version "1.5.31"
     java
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "io.neilshirsat"
 version = "1.0-SNAPSHOT"
+
+jar {
+    manifest {
+        attributes["Main-Class"] = "io.neilshirsat.catan.render.MainFrame"
+    }
+}
 
 repositories {
     mavenCentral()
