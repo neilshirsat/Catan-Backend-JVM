@@ -229,6 +229,7 @@ public class API extends AbstractVerticle {
         Player p = Player.getPlayer(input.playerId);
         for (Map.Entry<ResourceType, Integer> k : input.discardCard.entrySet()) {
             p.getDeck().put(k.getKey(), p.getDeck().get(k.getKey())-k.getValue());
+            k.getKey().setAmountLeft(k.getValue());
         }
     }
 
@@ -270,7 +271,7 @@ public class API extends AbstractVerticle {
     }
 
     public void changeRobber(CHANGE_ROBBER input){
-        changeRobber(input);
+        NodeImpl.changeRobber(input.nodeID);
     }
 
 
@@ -284,7 +285,11 @@ public class API extends AbstractVerticle {
 
     }
 
-    public static void proposeTrade(PROPOSE_TRADE input) {
+    public static class PROPOSE_TRADE_OUTPUT {
+
+    }
+
+    public static PROPOSE_TRADE_OUTPUT proposeTrade(PROPOSE_TRADE input) {
 
     }
 
@@ -311,6 +316,16 @@ public class API extends AbstractVerticle {
         }
 
     }
+
+    public static class WIN_CONDITION {
+
+    }
+
+    public static void checkWin() {
+
+    }
+
+
 
 
 }
