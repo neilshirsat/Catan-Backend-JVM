@@ -223,6 +223,10 @@ public enum Player {
         return b;
     }
 
+    //public TreeMap<ResourceType, Integer> discardCard() {
+
+    //}
+
     public enum Shop {
         ROAD,
         SETTLEMENT,

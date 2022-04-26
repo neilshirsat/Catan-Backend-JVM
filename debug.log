@@ -761,3 +761,40 @@ Check the render method of `Board`.
     at div
     at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
     at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0426/125514.913:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0426/131036.135:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/131036.137:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/131036.137:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/131036.137:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/131927.309:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/131927.310:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/131927.310:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/131927.310:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132628.856:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132628.857:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132628.857:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132628.857:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132651.702:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132651.702:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132651.703:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132651.703:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132726.728:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132726.729:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132726.729:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132726.729:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132739.771:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132739.772:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/132739.772:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/132739.772:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/133025.683:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/133025.683:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/133025.683:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/133025.683:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/133043.238:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/133043.238:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/133043.238:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/133043.238:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/134210.019:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/134210.020:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0426/134210.020:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0426/134210.020:WARNING:task_impl.cc(31)] No task runner for threadId 0

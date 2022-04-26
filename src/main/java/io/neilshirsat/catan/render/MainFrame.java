@@ -64,24 +64,28 @@ public class MainFrame extends BrowserFrame {
         assert binFolder != null;
 
         Path tempBinDirectory = Files.createTempDirectory("bin");
+        Log.info(tempBinDirectory.toFile().getAbsolutePath());
+        Log.info("Is Windows" + OS.isWindows());
+        Log.info("Is Linux" + OS.isLinux());
+        Log.info("Is Mac" + OS.isMacintosh());
 
-        if (binFolder != null) {
-            try (ZipInputStream zipInputStream = new ZipInputStream(binFolder)) {
-                extract(zipInputStream, tempBinDirectory.toFile());
-            }
-        }
-
-        else {
-            Log.error("Bin Folder is NULL");
+        try (ZipInputStream zipInputStream = new ZipInputStream(binFolder)) {
+            extract(zipInputStream, tempBinDirectory.toFile());
         }
 
         SystemBootstrap.setLoader(s -> {
+            Log.info(s);
             if (OS.isWindows()) {
                 try {
+                    Log.info("Loading Library" + s);
+                    //throw new UnsatisfiedLinkError();
                     System.loadLibrary(s);
-                }
-                catch (Exception e) {
+                } catch (Throwable e) {
+                    Log.info("Not on Temp Path"+s);
                     loadWindows(tempBinDirectory, s);
+                }
+                finally {
+                    Log.info("Loaded" + s);
                 }
             }
         });
@@ -95,12 +99,13 @@ public class MainFrame extends BrowserFrame {
         boolean transparentPaintingEnabledArg = true;
         boolean createImmediately = true;
 
-        final MainFrame frame = new MainFrame(
-                osrEnabledArg, transparentPaintingEnabledArg, createImmediately, args);
-        frame.setExtendedState(MAXIMIZED_BOTH);
-        frame.setSize(800,400);
-        frame.setTitle("Catan Portable Game");
-
+        try {
+            final MainFrame frame = new MainFrame(
+                    osrEnabledArg, transparentPaintingEnabledArg, createImmediately, args);
+            frame.setExtendedState(MAXIMIZED_BOTH);
+            frame.setSize(800,400);
+            frame.setTitle("Catan Portable Game");
+        } catch (Throwable e) {}
     }
 
     public static void extract(ZipInputStream zip, File target) throws IOException {
@@ -158,7 +163,7 @@ public class MainFrame extends BrowserFrame {
     private boolean browserFocus = true;
 
     public MainFrame(boolean osrEnabled, boolean transparentPaintingEnabled,
-            boolean createImmediately, String[] args) {
+            boolean createImmediately, String[] args) throws Error {
 
         CefApp application;
         if (CefApp.getState() != CefApp.CefAppState.INITIALIZED) {
