@@ -26,6 +26,8 @@ dependencies {
 
     implementation("io.vertx:vertx-web:4.2.7")
 
+    implementation("commons-io:commons-io:2.11.0")
+
     implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
     //implementation(files("jogl-all.jar"))
     //implementation(files("gluegen-rt.jar"))

@@ -6,11 +6,8 @@ package io.neilshirsat.catan.render;
 
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
 import io.neilshirsat.catan.API;
-import org.cef.CefApp;
+import org.cef.*;
 import org.cef.CefApp.CefVersion;
-import org.cef.CefClient;
-import org.cef.CefSettings;
-import org.cef.OS;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
 import org.cef.browser.CefMessageRouter;
@@ -23,7 +20,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.Serial;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class MainFrame extends BrowserFrame {
 
@@ -33,7 +34,14 @@ public class MainFrame extends BrowserFrame {
     private static JFrame startupFrame;
     private static API api;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        FlatArcIJTheme.setup();
+
+        startupFrame = new JFrame();
+        startupFrame.getContentPane().add(new JButton("Loading"));
+        startupFrame.setSize(800,400);
+        startupFrame.setVisible(true);
 
         MainFrame.api = new API((started)->{
 
@@ -41,7 +49,42 @@ public class MainFrame extends BrowserFrame {
         api.initialize();
         api.startServer();
 
-        FlatArcIJTheme.setup();
+        InputStream binFolder = null;
+
+        if (OS.isWindows()) {
+            binFolder = MainFrame.class.getResourceAsStream("win64.zip");
+        }
+        else if (OS.isLinux()) {
+            binFolder = MainFrame.class.getResourceAsStream("linux64.zip");
+        }
+        else if (OS.isMacintosh()) {
+            binFolder = MainFrame.class.getResourceAsStream("mac64.zip");
+        }
+
+        assert binFolder != null;
+
+        Path tempBinDirectory = Files.createTempDirectory("bin");
+
+        if (binFolder != null) {
+            try (ZipInputStream zipInputStream = new ZipInputStream(binFolder)) {
+                extract(zipInputStream, tempBinDirectory.toFile());
+            }
+        }
+
+        else {
+            Log.error("Bin Folder is NULL");
+        }
+
+        SystemBootstrap.setLoader(s -> {
+            if (OS.isWindows()) {
+                try {
+                    System.loadLibrary(s);
+                }
+                catch (Exception e) {
+                    loadWindows(tempBinDirectory, s);
+                }
+            }
+        });
 
         if (!CefApp.startup(args)) {
             Log.info("Startup initialization failed!");
@@ -58,11 +101,58 @@ public class MainFrame extends BrowserFrame {
         frame.setSize(800,400);
         frame.setTitle("Catan Portable Game");
 
-        startupFrame = new JFrame();
-        startupFrame.getContentPane().add(new JButton("Loading"));
-        startupFrame.setSize(800,400);
-        startupFrame.setVisible(true);
+    }
 
+    public static void extract(ZipInputStream zip, File target) throws IOException {
+        try {
+            Log.info(String.valueOf(zip.available()));
+            ZipEntry entry;
+
+            while ((entry = zip.getNextEntry()) != null) {
+                File file = new File(target, entry.getName());
+
+                if (!file.toPath().normalize().startsWith(target.toPath())) {
+                    throw new IOException("Bad zip entry");
+                }
+
+                if (entry.isDirectory()) {
+                    file.mkdirs();
+                    continue;
+                }
+
+                byte[] buffer = new byte[1024];
+                file.getParentFile().mkdirs();
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
+                int count;
+
+                while ((count = zip.read(buffer)) != -1) {
+                    out.write(buffer, 0, count);
+                }
+
+                out.close();
+            }
+        }
+        catch (Exception e) {
+            Log.error("Zip Folder Could Not Be UnZipped", e);
+        }
+        finally {
+            zip.close();
+        }
+    }
+
+    private static void loadWindows(Path tempBinDirectory, String s) {
+        Log.info(tempBinDirectory + "\\bin\\" + s + ".dll");
+        System.load(tempBinDirectory + "\\bin\\" + s + ".dll");
+    }
+
+    private static void loadMacos(Path tempBinDirectory, String s) {
+        Log.info(tempBinDirectory + "\\bin\\" + s + ".dll");
+        System.load(tempBinDirectory + "\\bin\\" + s + ".dll");
+    }
+
+    private static void loadLinux(Path tempBinDirectory, String s) {
+        Log.info(tempBinDirectory + "\\bin\\" + s + ".dll");
+        System.load(tempBinDirectory + "\\bin\\" + s + ".dll");
     }
 
     private boolean browserFocus = true;
@@ -133,6 +223,7 @@ public class MainFrame extends BrowserFrame {
         if (createImmediately) browser.createImmediately();
 
         contentPanel.add(getBrowser().getUIComponent(), BorderLayout.CENTER);
+        getBrowser().createImmediately();
 
         this.addWindowListener(new WindowListener() {
             @Override
