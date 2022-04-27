@@ -1,9 +1,6 @@
 package io.neilshirsat.catan;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public enum NodeImpl implements Node {
 
@@ -458,12 +455,15 @@ public enum NodeImpl implements Node {
 
     public static NodeImpl robber = null;
 
-    public static void changeRobber(int nodeId) {
+    public static void changeRobber(int nodeId, Player robbed, Player robbing) {
         NodeImpl node = (NodeImpl) NodeImpl.getNode(nodeId);
         node.hasRobber = true;
 
         robber.hasRobber = false;
         robber = node;
+
+        int random =(int)(Math.random()*robbed.getDeck().size());
+        //while (robbed.getDeck().get())
     }
 
     /**

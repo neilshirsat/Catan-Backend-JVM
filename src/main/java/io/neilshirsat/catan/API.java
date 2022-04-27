@@ -6,7 +6,6 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import org.slf4j.Logger;
@@ -217,6 +216,17 @@ public class API extends AbstractVerticle {
         );
     }
 
+    public static class ROLL_DICE {
+
+        List<NodeImpl> deck;
+
+    }
+
+    public void rollDice(ROLL_DICE input) {
+
+    }
+
+
     public static class DISCARD_CARD_WHEN_ROLL_7 {
 
         Map<ResourceType, Integer> discardCard;
@@ -268,30 +278,28 @@ public class API extends AbstractVerticle {
 
     public static class CHANGE_ROBBER{
         int nodeID;
+        int playerRobbedId;
+        int playerRobbingId;
     }
 
     public void changeRobber(CHANGE_ROBBER input){
-        NodeImpl.changeRobber(input.nodeID);
+        NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
     }
 
 
     public static class PROPOSE_TRADE {
 
         Map<ResourceType, Integer> player1Outgoing;
-
-        int player1Id;
-
+        Player player1;
         Map<ResourceType, Integer> player2Outgoing;
+        Player player2;
 
     }
 
-    public static class PROPOSE_TRADE_OUTPUT {
+    public static void proposeTrade(PROPOSE_TRADE input) {
+        Player.tradeCards(input.player1Outgoing, input.player1, input.player2Outgoing, input.player2);
 
     }
-
-    //public static PROPOSE_TRADE_OUTPUT proposeTrade(PROPOSE_TRADE input) {
-
-    //}
 
     public static class VERIFY_TRADE {
 
@@ -307,17 +315,13 @@ public class API extends AbstractVerticle {
     public static void verifyTrade(VERIFY_TRADE input) {
 
         if (Player.verifyTrade(input.passcode,input.player1Outgoing)) {
-        for (Player p : Player.getAllPlayers()) {
-            if (p.getPasscode().equals(input.passcode)) {
-                Player.tradeCards(input.player1Outgoing, Player.getPlayer(input.player1Id),input.player2Outgoing, p);
-            }
-        }
 
+          //  Player.tradeCards(input.player1Outgoing, Player.getPlayer(input.player1Id),input.player2Outgoing, Player.getPlayer(input.passcode));
         }
 
     }
 
-    public static class WIN_CONDITION {
+    public static class CHECK_WIN {
 
     }
 
@@ -325,6 +329,30 @@ public class API extends AbstractVerticle {
 
     }
 
+
+    public static class PURCHASE_DEV_CARD{
+        Player p;
+        Player.Shop shop;
+    }
+    public void purchaseDevCard(PURCHASE_DEV_CARD input){
+        if(input.p.canBuyFromShop(input.shop)){
+            input.p.purchase(input.shop);
+        };
+    }
+
+    public static class GET_DECK{
+        String passcode;
+        String inp;
+    }
+
+
+    public Map<ResourceType, Integer> getDeck(GET_DECK input){
+        if(input.passcode.equals(input.inp)){
+            Player p= Player.getPlayer(Integer.parseInt(input.inp));
+            return p.getDeck();
+        }
+        return null;
+    }
 
 
 
