@@ -6,7 +6,6 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import org.slf4j.Logger;
@@ -278,19 +277,14 @@ public class API extends AbstractVerticle {
     public static class PROPOSE_TRADE {
 
         Map<ResourceType, Integer> player1Outgoing;
-
-        int player1Id;
-
+        Player player1;
         Map<ResourceType, Integer> player2Outgoing;
+        Player player2;
 
     }
 
-    public static class PROPOSE_TRADE_OUTPUT {
-
-    }
-
-    public static PROPOSE_TRADE_OUTPUT proposeTrade(PROPOSE_TRADE input) {
-
+    public static void proposeTrade(PROPOSE_TRADE input) {
+        Player.tradeCards(input.player1Outgoing, input.player1, input.player2Outgoing, input.player2);
     }
 
     public static class VERIFY_TRADE {
