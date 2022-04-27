@@ -298,6 +298,7 @@ public class API extends AbstractVerticle {
 
     public static void proposeTrade(PROPOSE_TRADE input) {
         Player.tradeCards(input.player1Outgoing, input.player1, input.player2Outgoing, input.player2);
+
     }
 
     public static class VERIFY_TRADE {
@@ -328,6 +329,30 @@ public class API extends AbstractVerticle {
 
     }
 
+
+    public static class PURCHASE_DEV_CARD{
+        Player p;
+        Player.Shop shop;
+    }
+    public void purchaseDevCard(PURCHASE_DEV_CARD input){
+        if(input.p.canBuyFromShop(input.shop)){
+            input.p.purchase(input.shop);
+        };
+    }
+
+    public static class GET_DECK{
+        String passcode;
+        String inp;
+    }
+
+
+    public Map<ResourceType, Integer> getDeck(GET_DECK input){
+        if(input.passcode.equals(input.inp)){
+            Player p= Player.getPlayer(Integer.parseInt(input.inp));
+            return p.getDeck();
+        }
+        return null;
+    }
 
 
 
