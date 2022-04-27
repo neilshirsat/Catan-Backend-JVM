@@ -7,11 +7,11 @@ plugins {
 group = "io.neilshirsat"
 version = "1.0-SNAPSHOT"
 
-jar {
-    manifest {
-        attributes["Main-Class"] = "io.neilshirsat.catan.render.MainFrame"
-    }
-}
+//jar {
+//    manifest {
+//        attributes["Main-Class"] = "io.neilshirsat.catan.render.MainFrame"
+//    }
+//}
 
 repositories {
     mavenCentral()

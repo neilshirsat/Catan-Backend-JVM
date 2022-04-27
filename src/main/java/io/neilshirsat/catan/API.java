@@ -216,6 +216,17 @@ public class API extends AbstractVerticle {
         );
     }
 
+    public static class ROLL_DICE {
+
+        List<NodeImpl> deck;
+
+    }
+
+    public void rollDice(ROLL_DICE input) {
+
+    }
+
+
     public static class DISCARD_CARD_WHEN_ROLL_7 {
 
         Map<ResourceType, Integer> discardCard;
@@ -267,10 +278,12 @@ public class API extends AbstractVerticle {
 
     public static class CHANGE_ROBBER{
         int nodeID;
+        int playerRobbedId;
+        int playerRobbingId;
     }
 
     public void changeRobber(CHANGE_ROBBER input){
-        NodeImpl.changeRobber(input.nodeID);
+        NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
     }
 
 
@@ -307,7 +320,7 @@ public class API extends AbstractVerticle {
 
     }
 
-    public static class WIN_CONDITION {
+    public static class CHECK_WIN {
 
     }
 
