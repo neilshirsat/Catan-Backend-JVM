@@ -289,9 +289,9 @@ public class API extends AbstractVerticle {
 
     }
 
-    public static PROPOSE_TRADE_OUTPUT proposeTrade(PROPOSE_TRADE input) {
+    //public static PROPOSE_TRADE_OUTPUT proposeTrade(PROPOSE_TRADE input) {
 
-    }
+    //}
 
     public static class VERIFY_TRADE {
 

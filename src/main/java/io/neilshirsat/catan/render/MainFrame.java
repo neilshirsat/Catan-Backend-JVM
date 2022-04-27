@@ -43,11 +43,11 @@ public class MainFrame extends BrowserFrame {
         startupFrame.setSize(800,400);
         startupFrame.setVisible(true);
 
-        MainFrame.api = new API((started)->{
+        //MainFrame.api = new API((started)->{
 
-        });
-        api.initialize();
-        api.startServer();
+        //});
+        //api.initialize();
+        //api.startServer();
 
         InputStream binFolder = null;
 
@@ -69,6 +69,8 @@ public class MainFrame extends BrowserFrame {
         Log.info("Is Linux" + OS.isLinux());
         Log.info("Is Mac" + OS.isMacintosh());
 
+        System.setProperty( "java.library.path", tempBinDirectory + "\\bin\\");
+
         try (ZipInputStream zipInputStream = new ZipInputStream(binFolder)) {
             extract(zipInputStream, tempBinDirectory.toFile());
         }
@@ -80,7 +82,9 @@ public class MainFrame extends BrowserFrame {
                     Log.info("Loading Library" + s);
                     //throw new UnsatisfiedLinkError();
                     System.loadLibrary(s);
-                } catch (Throwable e) {
+
+                }
+                catch (Throwable e) {
                     Log.info("Not on Temp Path"+s);
                     loadWindows(tempBinDirectory, s);
                 }
@@ -96,16 +100,12 @@ public class MainFrame extends BrowserFrame {
         }
 
         boolean osrEnabledArg = OS.isLinux();
-        boolean transparentPaintingEnabledArg = true;
-        boolean createImmediately = true;
 
-        try {
-            final MainFrame frame = new MainFrame(
-                    osrEnabledArg, transparentPaintingEnabledArg, createImmediately, args);
-            frame.setExtendedState(MAXIMIZED_BOTH);
-            frame.setSize(800,400);
-            frame.setTitle("Catan Portable Game");
-        } catch (Throwable e) {}
+        final MainFrame frame = new MainFrame(
+                osrEnabledArg, true, true, args);
+        frame.setExtendedState(MAXIMIZED_BOTH);
+        frame.setSize(800,400);
+        frame.setTitle("Catan Portable Game");
     }
 
     public static void extract(ZipInputStream zip, File target) throws IOException {
@@ -163,7 +163,7 @@ public class MainFrame extends BrowserFrame {
     private boolean browserFocus = true;
 
     public MainFrame(boolean osrEnabled, boolean transparentPaintingEnabled,
-            boolean createImmediately, String[] args) throws Error {
+            boolean createImmediately, String[] args) {
 
         CefApp application;
         if (CefApp.getState() != CefApp.CefAppState.INITIALIZED) {
@@ -180,10 +180,14 @@ public class MainFrame extends BrowserFrame {
             application = CefApp.getInstance();
         }
 
-        CefClient cefClient = application.createClient();
+        Log.info("1");
 
+        CefClient cefClient = application.createClient();
+        Log.info("1");
         CefMessageRouter msgRouter = CefMessageRouter.create();
+        Log.info("1");
         cefClient.addMessageRouter(msgRouter);
+        Log.info("1");
 
         cefClient.addLoadHandler(new CefLoadHandlerAdapter() {
 
@@ -202,13 +206,16 @@ public class MainFrame extends BrowserFrame {
                 startupFrame = null;
             }
         });
+        Log.info("1");
 
         CefBrowser browser = cefClient.createBrowser(
                 "http://localhost:3000", osrEnabled, transparentPaintingEnabled, null);
         setBrowser(browser);
+        Log.info("1");
 
         JPanel contentPanel = new JPanel(new BorderLayout());
         getContentPane().add(contentPanel, BorderLayout.CENTER);
+        Log.info("1");
 
         cefClient.addFocusHandler(new CefFocusHandlerAdapter() {
             @Override
@@ -224,11 +231,13 @@ public class MainFrame extends BrowserFrame {
                 browserFocus = false;
             }
         });
+        Log.info("1");
 
         if (createImmediately) browser.createImmediately();
 
         contentPanel.add(getBrowser().getUIComponent(), BorderLayout.CENTER);
         getBrowser().createImmediately();
+        Log.info("1");
 
         this.addWindowListener(new WindowListener() {
             @Override
@@ -267,5 +276,6 @@ public class MainFrame extends BrowserFrame {
 
             }
         });
+        Log.info("1");
     }
 }

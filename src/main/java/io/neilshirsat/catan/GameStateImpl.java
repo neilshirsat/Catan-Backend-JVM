@@ -81,7 +81,7 @@ public class GameStateImpl implements GameState {
         else actionStage = ActionStage.SPECIAL_7;
         for (Player p : Player.getAllPlayers()) {
             if (p.getAmountResourceCards()>7) {
-                p.discardCard((p.getAmountResourceCards()-1)/2);
+                //p.discardCard((p.getAmountResourceCards()-1)/2);
                 /*
                 get discarded cards from user interface
                 //TODO NEED CONFIRMATION

@@ -798,3 +798,156 @@ Check the render method of `Board`.
 [0426/134210.020:WARNING:task_impl.cc(31)] No task runner for threadId 0
 [0426/134210.020:WARNING:task_impl.cc(19)] No task runner for threadId 0
 [0426/134210.020:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/125953.059:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/125953.059:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/125953.059:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/125953.059:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/130124.966:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/130124.967:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/130124.967:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/130124.967:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/130510.581:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/130510.581:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/130510.582:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/130510.582:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131110.309:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131110.310:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131110.310:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131110.310:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131237.597:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131237.598:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131237.598:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131237.598:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131442.109:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131442.109:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131442.109:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131442.109:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131539.089:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131539.090:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/131539.090:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/131539.090:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132047.739:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132047.740:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132047.740:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132047.740:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132135.072:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132135.072:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132135.072:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132135.072:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132156.344:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132156.345:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132156.345:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132156.345:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132557.286:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132557.287:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132557.287:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132557.287:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132647.252:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132647.253:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132647.253:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132647.253:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132722.490:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132722.490:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132722.490:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132722.490:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132902.239:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132902.240:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/132902.240:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/132902.240:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/133042.942:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/133042.943:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/133042.943:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/133042.943:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/133638.339:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/133638.340:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/133638.340:WARNING:task_impl.cc(19)] No task runner for threadId 0
+[0427/133638.340:WARNING:task_impl.cc(31)] No task runner for threadId 0
+[0427/133734.720:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0427/133734.804:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0427/133734.952:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/133735.041:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134108.779:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0427/134108.819:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0427/134109.011:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134109.054:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134141.607:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0427/134141.693:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0427/134141.843:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134141.931:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134150.663:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0427/134150.695:INFO:CONSOLE(88218)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3058:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2587:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (88218)
+[0427/134150.872:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0427/134150.880:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0427/134150.887:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0427/134150.905:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0427/134150.907:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0427/134158.959:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0427/134159.052:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0427/134159.059:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0427/134159.062:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0427/134159.076:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0427/134159.078:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0427/134203.627:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s fill-rule fillRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134203.628:INFO:CONSOLE(56112)] "Warning: Invalid DOM property `%s`. Did you mean `%s`?%s clip-rule clipRule 
+    at path
+    at svg
+    at div
+    at div
+    at http://localhost:3000/static/js/bundle.js:13500:62
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at DrawerChild (http://localhost:3000/static/js/bundle.js:39734:90)
+    at http://localhost:3000/static/js/bundle.js:54955:25
+    at PortalWrapper (http://localhost:3000/static/js/bundle.js:55070:90)
+    at DrawerWrapper (http://localhost:3000/static/js/bundle.js:40339:90)
+    at http://localhost:3000/static/js/bundle.js:14332:18
+    at http://localhost:3000/static/js/bundle.js:14567:34
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (56112)
+[0427/134227.855:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0427/134227.933:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0427/134227.941:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0427/134227.942:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0427/134227.964:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0427/134227.964:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
