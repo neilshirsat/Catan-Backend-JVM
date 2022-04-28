@@ -462,8 +462,12 @@ public enum NodeImpl implements Node {
         robber.hasRobber = false;
         robber = node;
 
-        int random =(int)(Math.random()*robbed.getDeck().size());
-        //while (robbed.getDeck().get())
+        int random = (int) (Math.random() * robbed.getDeck().size());
+
+        //Needs selected Player from User Interface
+        for (Map.Entry<ResourceType,Integer> list : robbed.getDeck().entrySet()) {
+
+        }
     }
 
     /**
