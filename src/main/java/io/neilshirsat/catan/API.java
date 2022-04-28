@@ -315,8 +315,10 @@ public class API extends AbstractVerticle {
     public static void verifyTrade(VERIFY_TRADE input) {
 
         if (Player.verifyTrade(input.passcode,input.player1Outgoing)) {
-
-          //  Player.tradeCards(input.player1Outgoing, Player.getPlayer(input.player1Id),input.player2Outgoing, Player.getPlayer(input.passcode));
+            for (Player p : Player.getAllPlayers()) {
+                if (p.getPasscode().equals(input.passcode))
+                Player.tradeCards(input.player1Outgoing, Player.getPlayer(input.player1Id), input.player2Outgoing, p);
+            }
         }
 
     }

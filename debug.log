@@ -951,3 +951,14 @@ Check the render method of `Board`.
 [0427/134227.942:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
 [0427/134227.964:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
 [0427/134227.964:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0427/134340.676:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0427/142601.870:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0427/142601.872:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0428/130509.452:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0428/130513.855:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0428/130520.235:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0428/130530.681:INFO:CONSOLE(96739)] "WebSocket connection to 'ws://localhost:3000/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED", source: http://localhost:3000/static/js/bundle.js (96739)
+[0428/130737.130:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0428/130737.218:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0428/130737.371:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0428/130737.462:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
