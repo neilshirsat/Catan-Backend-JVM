@@ -31,6 +31,8 @@ public enum Player {
 
     private int amountResourceCards;
 
+    private int secretVictoryPoints;
+
     public static int amountPlayers;
 
 
@@ -81,6 +83,15 @@ public enum Player {
 
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
+    }
+
+
+    public int getSecretVictoryPoints() {
+        return secretVictoryPoints;
+    }
+
+    public void setSecretVictoryPoints(int secretVictoryPoints) {
+        this.secretVictoryPoints = secretVictoryPoints;
     }
 
     private int amountRoads;
@@ -300,6 +311,16 @@ public enum Player {
                 }
             }
         }
+    }
+
+    public void useDevelopmentCard(DevelopmentCards developmentCard) {
+       /* switch (developmentCard) {
+            case (VICTORY_POINT) -> this.setSecretVictoryPoints(this.getSecretVictoryPoints()+1);
+            case(KNIGHT) ->
+            case(MONOPOLY)->
+            case(YEAR_OF_PLENTY)->
+            case(ROAD_BUILDING)->
+        }*/
     }
 
 

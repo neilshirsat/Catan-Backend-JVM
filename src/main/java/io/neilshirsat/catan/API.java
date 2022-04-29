@@ -262,18 +262,23 @@ public class API extends AbstractVerticle {
     }
     public Vertex getVertex(GET_VERTEX input) {
         return VertexImpl.getVertex(input.getVertexId);
-
     }
 
-    public static class PURCHASE {
-        Player p;
-        Player.Shop shop;
+    public static class PURCHASE_ROAD {
+        int playerId;
+        Player.Shop road;
+        int edgeId;
     }
 
-    public void purchase(PURCHASE input){
-        if(input.p.canBuyFromShop(input.shop)){
-            input.p.purchase(input.shop);
-        };
+    public void purchase(PURCHASE_ROAD input){
+        if(Player.getPlayer(input.playerId).canBuyFromShop(input.road)){
+            Player.getPlayer(input.playerId).purchase(input.road);
+            EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeId);
+            edge.setControlledPlayer(Player.getPlayer(input.playerId));
+            if (edge.containsValidConnectedEdges()&&!edge.isRoad()) {
+                edge.setRoad(true);
+            }
+        }
     }
 
     public static class CHANGE_ROBBER{
@@ -329,6 +334,7 @@ public class API extends AbstractVerticle {
 
     public static void checkWin() {
 
+
     }
 
 
@@ -340,6 +346,14 @@ public class API extends AbstractVerticle {
         if(input.p.canBuyFromShop(input.shop)){
             input.p.purchase(input.shop);
         };
+    }
+
+    public static class USE_DEV_CARD {
+
+    }
+
+    public void useDevCard(USE_DEV_CARD input) {
+
     }
 
     public static class GET_DECK{

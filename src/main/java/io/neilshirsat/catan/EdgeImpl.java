@@ -342,6 +342,10 @@ public enum EdgeImpl implements Edge {
         return false;
     }
 
+    public void placeRoad() {
+      //  if (this.containsValidConnectedEdges()||this.get)
+    }
+
     /**
      * Reset the Length of the Road
      */
