@@ -16,13 +16,16 @@ import org.cef.handler.CefLoadHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -38,10 +41,20 @@ public class MainFrame extends BrowserFrame {
 
         FlatArcIJTheme.setup();
 
+        BufferedImage image = ImageIO.read(Objects.requireNonNull(MainFrame.class.getResourceAsStream("Splash Screen.png")));
+
         startupFrame = new JFrame();
-        startupFrame.getContentPane().add(new JButton("Loading"));
-        startupFrame.setSize(800,400);
+        startupFrame.getContentPane().add(
+                new JLabel(new ImageIcon(image))
+        );
+        int height = (int)(Toolkit.getDefaultToolkit().getScreenSize().height * 0.5);
+        startupFrame.setSize((int)(height * (1100.0/600.0)),height);
         startupFrame.setVisible(true);
+
+        Dimension WindowDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        startupFrame.setLocation(WindowDimension.width/2-startupFrame.getSize().width/2,
+                WindowDimension.height/2-startupFrame.getSize().height/2
+        );
 
         //MainFrame.api = new API((started)->{
 
@@ -249,6 +262,7 @@ public class MainFrame extends BrowserFrame {
             public void windowClosing(WindowEvent e) {
                 MainFrame.api.disposeServer();
                 cefClient.dispose();
+                System.exit(0);
             }
 
             @Override

@@ -136,4 +136,19 @@ public class GameStateImpl implements GameState {
         final Player player = this.players.get(playerId);
         player.setPasscode(password);
     }
+
+    public void resetGame(){
+        for (Player p : Player.getAllPlayers()){
+            p.setPasscode(null);
+            p.setPlayerName(null);
+            p.resetLargestArmy();
+            //p.setDeck(null,null);
+            p.setVictoryPoints(0);
+            p.setAmountRoads(15);
+            p.setAmountCities(4);
+            p.setAmountSettlements(5);
+            // p.setSpecialCards(null,null);
+            // not sure how to go back to start screen
+        }
+    }
 }
