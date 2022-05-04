@@ -270,7 +270,7 @@ public class API extends AbstractVerticle {
         int edgeId;
     }
 
-    public void purchase(PURCHASE_ROAD input){
+    public void purchaseRoad(PURCHASE_ROAD input){
         if(Player.getPlayer(input.playerId).canBuyFromShop(input.road)){
             Player.getPlayer(input.playerId).purchase(input.road);
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeId);
@@ -280,6 +280,22 @@ public class API extends AbstractVerticle {
             }
         }
     }
+
+    public static class PURCHASE_SETTLEMENT {
+        int playerId;
+        Player.Shop settlement;
+        int vertexId;
+    }
+
+    public void purchaseSettlement(PURCHASE_SETTLEMENT input){
+        if(Player.getPlayer(input.playerId).canBuyFromShop(input.settlement)){
+            Player.getPlayer(input.playerId).purchase(input.settlement);
+        }
+        if (VertexImpl.getVertex(input.vertexId).canBuildSettlement())
+
+
+    }
+
 
     public static class CHANGE_ROBBER{
         int nodeID;
@@ -301,9 +317,9 @@ public class API extends AbstractVerticle {
 
     }
 
+    //TODO propose trade
     public static void proposeTrade(PROPOSE_TRADE input) {
         Player.tradeCards(input.player1Outgoing, input.player1, input.player2Outgoing, input.player2);
-
     }
 
     public static class VERIFY_TRADE {

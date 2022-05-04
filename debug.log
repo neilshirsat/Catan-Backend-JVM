@@ -980,3 +980,37 @@ Check the render method of `Board`.
 [0428/130824.603:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
 [0428/130824.605:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
 [0428/130936.224:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0428/142502.227:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0428/142502.227:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0429/132924.742:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0429/132924.743:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0429/132924.973:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0429/132924.974:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0429/132930.315:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0429/132930.350:INFO:CONSOLE(88218)] "Warning: Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.%s 
+
+Check the render method of `Board`.  
+    at Hexagon (http://localhost:3000/static/js/bundle.js:3058:24)
+    at Board (http://localhost:3000/static/js/bundle.js:2587:51)
+    at div
+    at Transition (http://localhost:3000/static/js/bundle.js:87175:30)
+    at CSSTransition (http://localhost:3000/static/js/bundle.js:86725:35)
+    at div
+    at TransitionGroup (http://localhost:3000/static/js/bundle.js:87746:30)
+    at App (http://localhost:3000/static/js/bundle.js:209:86)", source: http://localhost:3000/static/js/bundle.js (88218)
+[0429/132930.476:INFO:CONSOLE(237)] "Received values of form:  [object Object]", source: http://localhost:3000/static/js/bundle.js (237)
+[0429/132930.488:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0429/132930.492:INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'www.localhost:6584/setup-names' from origin 'http://localhost:3000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.", source: http://localhost:3000/ (0)
+[0429/132930.530:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0429/132930.531:INFO:CONSOLE(23656)] "Uncaught (in promise) Error: Network Error", source: http://localhost:3000/static/js/bundle.js (23656)
+[0429/133121.453:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0429/142301.962:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0429/142301.963:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0502/125224.395:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0502/125224.399:INFO:CONSOLE(85338)] "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold", source: http://localhost:3000/static/js/bundle.js (85338)
+[0502/125224.674:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0502/125224.678:INFO:CONSOLE(56112)] "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot", source: http://localhost:3000/static/js/bundle.js (56112)
+[0502/125416.938:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0502/141301.856:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0502/141301.857:ERROR:dns_config_service.cc(259)] DNS config watch failed.
+[0504/124435.142:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled

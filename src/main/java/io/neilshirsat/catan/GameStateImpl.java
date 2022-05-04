@@ -137,11 +137,40 @@ public class GameStateImpl implements GameState {
         player.setPasscode(password);
     }
 
+    public static class currentTrade {
+        private Map<ResourceType, Integer> tradeOutgoing;
+        private Map<ResourceType, Integer> tradeIngoing;
+        private int tradeId;
+
+        public Map<ResourceType, Integer> getTradeOutgoing() {
+            return tradeOutgoing;
+        }
+
+        public Map<ResourceType, Integer> getTradeIngoing() {
+            return tradeIngoing;
+        }
+
+        public int getTradeId() {
+            return tradeId;
+        }
+
+        private currentTrade(
+                Map<ResourceType, Integer> tradeOutgoing,
+                Map<ResourceType, Integer> tradeIngoing,
+                int tradeId) {
+            this.tradeOutgoing = tradeOutgoing;
+            this.tradeIngoing = tradeIngoing;
+            this.tradeId = tradeId;
+        }
+
+
+    }
+
     public void resetGame(){
         for (Player p : Player.getAllPlayers()){
             p.setPasscode(null);
             p.setPlayerName(null);
-            p.resetLargestArmy();
+            Player.resetLargestArmy();
             //p.setDeck(null,null);
             p.setVictoryPoints(0);
             p.setAmountRoads(15);
