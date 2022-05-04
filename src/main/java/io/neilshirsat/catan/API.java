@@ -11,6 +11,7 @@ import io.vertx.ext.web.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,11 @@ public class API extends AbstractVerticle {
      */
     public void initialize() {
 
+        //Debug
+        ipcRouter.route(HttpMethod.GET, "/").handler((ctx)->{
+           ctx.end(Json.encode(gameState));
+        });
+
         //SETUP
         ipcRouter.route(HttpMethod.POST, "/setup-names").handler((ctx)->{
             final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
@@ -69,6 +75,18 @@ public class API extends AbstractVerticle {
         });
 
         //TODO GET BOARD DATA
+        ipcRouter.route(HttpMethod.GET, "/get-nodes").handler((ctx) -> {
+            List<NodeImpl> allNodes = NodeImpl.getAllNodes();
+            ctx.end(Json.encode(allNodes));
+        });
+        ipcRouter.route(HttpMethod.GET, "/get-edges").handler((ctx) -> {
+            List<EdgeImpl> allEdges = EdgeImpl.allEdges();
+            ctx.end(Json.encode(allEdges));
+        });
+        ipcRouter.route(HttpMethod.GET, "/get-vertices").handler((ctx) -> {
+            List<VertexImpl> allVerticies = VertexImpl.allVerticies();
+            ctx.end(Json.encode(allVerticies));
+        });
 
         //TODO TRADES
 

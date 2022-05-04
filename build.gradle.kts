@@ -32,6 +32,7 @@ dependencies {
     implementation("com.formdev:flatlaf-intellij-themes:2.1")
 
     implementation("io.vertx:vertx-web:4.2.7")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
 
     implementation("commons-io:commons-io:2.11.0")
 
