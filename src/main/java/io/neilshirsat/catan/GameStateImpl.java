@@ -138,9 +138,16 @@ public class GameStateImpl implements GameState {
     }
 
     public static class currentTrade {
-        private Map<ResourceType, Integer> tradeOutgoing;
-        private Map<ResourceType, Integer> tradeIngoing;
-        private int tradeId;
+        public static int amountTrades = 0;
+        private final Map<ResourceType, Integer> tradeOutgoing;
+        private final Map<ResourceType, Integer> tradeIngoing;
+        private final int tradeId;
+
+        public Player[] getTargetPlayers() {
+            return targetPlayers;
+        }
+
+        private final Player[] targetPlayers;
 
         public Map<ResourceType, Integer> getTradeOutgoing() {
             return tradeOutgoing;
@@ -154,13 +161,20 @@ public class GameStateImpl implements GameState {
             return tradeId;
         }
 
-        private currentTrade(
+        public static int getAmountTrades() {
+            return amountTrades;
+        }
+
+        currentTrade(
                 Map<ResourceType, Integer> tradeOutgoing,
                 Map<ResourceType, Integer> tradeIngoing,
-                int tradeId) {
+                int tradeId,
+                Player[] targetPlayers) {
             this.tradeOutgoing = tradeOutgoing;
             this.tradeIngoing = tradeIngoing;
             this.tradeId = tradeId;
+            this.targetPlayers = targetPlayers;
+            amountTrades++;
         }
 
 

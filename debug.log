@@ -1014,3 +1014,4 @@ Check the render method of `Board`.
 [0502/141301.856:ERROR:dns_config_service.cc(259)] DNS config watch failed.
 [0502/141301.857:ERROR:dns_config_service.cc(259)] DNS config watch failed.
 [0504/124435.142:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled
+[0504/131731.231:ERROR:gpu_init.cc(441)] Passthrough is not supported, GL is disabled

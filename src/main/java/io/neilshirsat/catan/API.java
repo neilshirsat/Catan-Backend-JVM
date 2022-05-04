@@ -291,9 +291,24 @@ public class API extends AbstractVerticle {
         if(Player.getPlayer(input.playerId).canBuyFromShop(input.settlement)){
             Player.getPlayer(input.playerId).purchase(input.settlement);
         }
-        if (VertexImpl.getVertex(input.vertexId).canBuildSettlement())
+        if (VertexImpl.getVertex(input.vertexId).canBuildSettlement(Player.getPlayer(input.playerId))){
+            VertexImpl.getVertex(input.vertexId).buildSettlement(Player.getPlayer(input.playerId));
+        }
+    }
 
+    public static class PURCHASE_CITY {
+        int playerId;
+        Player.Shop city;
+        int vertexId;
+    }
 
+    public void purchaseSettlement(PURCHASE_CITY input){
+        if(Player.getPlayer(input.playerId).canBuyFromShop(input.city)){
+            Player.getPlayer(input.playerId).purchase(input.city);
+        }
+        if (VertexImpl.getVertex(input.vertexId).canBuildCity(Player.getPlayer(input.playerId))){
+            VertexImpl.getVertex(input.vertexId).buildCity(Player.getPlayer(input.playerId));
+        }
     }
 
 
@@ -311,47 +326,41 @@ public class API extends AbstractVerticle {
     public static class PROPOSE_TRADE {
 
         Map<ResourceType, Integer> player1Outgoing;
-        Player player1;
-        Map<ResourceType, Integer> player2Outgoing;
-        Player player2;
 
+        Map<ResourceType, Integer> player2Outgoing;
+
+        int player1Id;
+
+        Player[] targetPlayers;
     }
 
-    //TODO propose trade
+
     public static void proposeTrade(PROPOSE_TRADE input) {
-        Player.tradeCards(input.player1Outgoing, input.player1, input.player2Outgoing, input.player2);
+        GameStateImpl.currentTrade currentTrade = new GameStateImpl.currentTrade(input.player1Outgoing, input.player2Outgoing, GameStateImpl.currentTrade.getAmountTrades(), input.targetPlayers);
     }
 
     public static class VERIFY_TRADE {
 
-        Map<ResourceType, Integer> player1Outgoing;
+        GameStateImpl.currentTrade currentTrade;
 
         int player1Id;
 
-        Map<ResourceType, Integer> player2Outgoing;
-
         String passcode;
+
     }
 
     public static void verifyTrade(VERIFY_TRADE input) {
 
-        if (Player.verifyTrade(input.passcode,input.player1Outgoing)) {
+        if (Player.verifyTrade(input.passcode,input.currentTrade.getTradeOutgoing())) {
             for (Player p : Player.getAllPlayers()) {
                 if (p.getPasscode().equals(input.passcode))
-                Player.tradeCards(input.player1Outgoing, Player.getPlayer(input.player1Id), input.player2Outgoing, p);
+                Player.tradeCards(input.currentTrade.getTradeOutgoing(), Player.getPlayer(input.player1Id), input.currentTrade.getTradeIngoing(), p);
             }
         }
 
     }
 
-    public static class CHECK_WIN {
-
-    }
-
-    public static void checkWin() {
-
-
-    }
+  public static class
 
 
     public static class PURCHASE_DEV_CARD{

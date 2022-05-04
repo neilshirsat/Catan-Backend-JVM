@@ -274,17 +274,17 @@ public enum Player {
     public void purchase(Shop shop) {
         switch (shop) {
             case ROAD -> {
-                if (this.getAmountRoads()<=15) {
+                if (this.getAmountRoads()>0) {
                     getDeck().put(ResourceType.LUMBER, getDeck().get(ResourceType.LUMBER) - 1);
                     getDeck().put(ResourceType.BRICK, getDeck().get(ResourceType.BRICK) - 1);
                     ResourceType.LUMBER.setAmountLeft(1);
                     ResourceType.BRICK.setAmountLeft(1);
-                    setAmountRoads(1);
-                    setVictoryPoints(1);
+                    setAmountRoads(-1);
+
                 }
             }
             case SETTLEMENT -> {
-                if (this.getAmountSettlements()<=5) {
+                if (this.getAmountSettlements()>0) {
                     getDeck().put(ResourceType.LUMBER, getDeck().get(ResourceType.LUMBER) - 1);
                     getDeck().put(ResourceType.BRICK, getDeck().get(ResourceType.BRICK) - 1);
                     getDeck().put(ResourceType.WOOL, getDeck().get(ResourceType.WOOL) - 1);
@@ -293,16 +293,18 @@ public enum Player {
                     ResourceType.BRICK.setAmountLeft(1);
                     ResourceType.WOOL.setAmountLeft(1);
                     ResourceType.WHEAT.setAmountLeft(1);
-                    setAmountSettlements(1);
+                    setAmountSettlements(-1);
+                    setVictoryPoints(1);
                 }
             }
             case CITY -> {
-                if (this.getAmountCities()<=4) {
+                if (this.getAmountCities()>0) {
                     getDeck().put(ResourceType.WHEAT, getDeck().get(ResourceType.WHEAT) - 2);
                     getDeck().put(ResourceType.ORE, getDeck().get(ResourceType.ORE) - 3);
                     ResourceType.WHEAT.setAmountLeft(2);
                     ResourceType.ORE.setAmountLeft(3);
-                    setAmountCities(1);
+                    setAmountCities(-1);
+                    setVictoryPoints(1);
                 }
             }
             case DEVELOPMENT_CARD -> {
