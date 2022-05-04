@@ -360,7 +360,16 @@ public class API extends AbstractVerticle {
 
     }
 
-  public static class
+  public static class END_TURN {
+
+        boolean clicked;
+  }
+
+  public void endTurn(END_TURN input) {
+        if (input.clicked) {
+            GameStateImpl.passDice();
+        }
+  }
 
 
     public static class PURCHASE_DEV_CARD{

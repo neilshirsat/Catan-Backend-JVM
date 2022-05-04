@@ -98,7 +98,7 @@ public class GameStateImpl implements GameState {
     }
 
     //TODO TAKE INTO ACCOUNT WHAT STAGE IS GOING ON
-    public void passDice() {
+    public static void passDice() {
         turn++;
         if (turn>=Player.amountPlayers) {
             turn = 0;
