@@ -274,10 +274,7 @@ public class API extends AbstractVerticle {
         if(Player.getPlayer(input.playerId).canBuyFromShop(input.road)){
             Player.getPlayer(input.playerId).purchase(input.road);
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeId);
-            edge.setControlledPlayer(Player.getPlayer(input.playerId));
-            if (edge.containsValidConnectedEdges()&&!edge.isRoad()) {
-                edge.setRoad(true);
-            }
+            edge.placeRoad(Player.getPlayer(input.playerId));
         }
     }
 
@@ -384,9 +381,84 @@ public class API extends AbstractVerticle {
 
     public static class USE_DEV_CARD {
 
+        int playerId;
+
+        DevelopmentCards developmentCards;
     }
 
     public void useDevCard(USE_DEV_CARD input) {
+
+    }
+
+    public static class USE_KNIGHT {
+
+        int nodeID;
+
+        int playerRobbingId;
+
+        int playerRobbedId;
+    }
+    public void useKnight(USE_KNIGHT input) {
+        NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
+        Player.getPlayer(input.playerRobbingId).setArmySize(1);
+        Player.getPlayer(input.playerRobbingId).getDevelopmentCards().put(DevelopmentCards.KNIGHT,  Player.getPlayer(input.playerRobbingId).getDevelopmentCards().get(DevelopmentCards.KNIGHT)-1);
+    }
+
+    public static class USE_MONOPOLY {
+
+        int playerId;
+
+        ResourceType resourceType;
+
+    }
+
+    public void useMonopoly(USE_MONOPOLY input) {
+
+        int count = 0;
+        for (Player p : Player.getAllPlayers()) {
+            count+=p.getDeck().get(input.resourceType);
+            p.getDeck().put(input.resourceType,0);
+        }
+        Player.getPlayer(input.playerId).getDeck().put(input.resourceType, count);
+        Player.getPlayer(input.playerId).getDevelopmentCards().put(DevelopmentCards.MONOPOLY,  Player.getPlayer(input.playerId).getDevelopmentCards().get(DevelopmentCards.MONOPOLY)-1);
+    }
+
+    public static class USE_YEAR_OF_PLENTY {
+
+        int playerId;
+
+        ResourceType resourceType1;
+
+        ResourceType resourceType2;
+    }
+
+    public void useYearOfPlenty(USE_YEAR_OF_PLENTY input) {
+        if (!input.resourceType1.isEmpty()) {
+            input.resourceType1.setAmountLeft(-1);
+            Player.getPlayer(input.playerId).getDeck().put(input.resourceType1, Player.getPlayer(input.playerId).getDeck().get(input.resourceType1) + 1);
+        }
+        if (!input.resourceType1.isEmpty()) {
+            input.resourceType2.setAmountLeft(-1);
+            Player.getPlayer(input.playerId).getDeck().put(input.resourceType2, Player.getPlayer(input.playerId).getDeck().get(input.resourceType2) + 1);
+        }
+        Player.getPlayer(input.playerId).getDevelopmentCards().put(DevelopmentCards.YEAR_OF_PLENTY,  Player.getPlayer(input.playerId).getDevelopmentCards().get(DevelopmentCards.YEAR_OF_PLENTY)-1);
+    }
+
+    public static class USE_ROAD_BUILDING {
+
+        int edgeID1;
+
+        int edgeID2;
+
+        int playerId;
+
+    }
+
+    public void useRoadBuilding(USE_ROAD_BUILDING input) {
+        EdgeImpl edge = (EdgeImpl)EdgeImpl.getEdge(input.edgeID1);
+        edge.placeRoad(Player.getPlayer(input.playerId));
+        edge = (EdgeImpl)EdgeImpl.getEdge(input.edgeID2);
+        edge.placeRoad(Player.getPlayer(input.playerId));
 
     }
 

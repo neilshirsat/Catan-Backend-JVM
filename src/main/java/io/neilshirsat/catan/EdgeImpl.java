@@ -342,8 +342,11 @@ public enum EdgeImpl implements Edge {
         return false;
     }
 
-    public void placeRoad() {
-      //  if (this.containsValidConnectedEdges()||this.get)
+    public void placeRoad(Player controlledPlayer) {
+        this.setControlledPlayer(controlledPlayer);
+        if (this.containsValidConnectedEdges()&&!this.isRoad()) {
+            this.setRoad(true);
+        }
     }
 
     /**
