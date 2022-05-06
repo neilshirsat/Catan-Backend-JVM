@@ -1,7 +1,10 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.*;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum NodeImpl implements Node {
 
     NODE_1(
@@ -556,6 +559,30 @@ public enum NodeImpl implements Node {
 
         }
 
+    }
+
+    public static List<NodeImpl> getAllNodes() {
+        return List.of(
+                NODE_1,
+                NODE_2,
+                NODE_3,
+                NODE_4,
+                NODE_5,
+                NODE_6,
+                NODE_7,
+                NODE_8,
+                NODE_9,
+                NODE_10,
+                NODE_11,
+                NODE_12,
+                NODE_13,
+                NODE_14,
+                NODE_15,
+                NODE_16,
+                NODE_17,
+                NODE_18,
+                NODE_19
+        );
     }
 
 }

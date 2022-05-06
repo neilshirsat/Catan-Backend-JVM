@@ -1,7 +1,10 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.List;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public interface Vertex {
 
     int getVertxId();

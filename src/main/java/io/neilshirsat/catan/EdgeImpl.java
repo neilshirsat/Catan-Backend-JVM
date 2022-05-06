@@ -1,5 +1,7 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 import static io.neilshirsat.catan.NodeImpl.*;
 import static io.neilshirsat.catan.VertexImpl.*;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum EdgeImpl implements Edge {
 
     EDGE_1(1, List.of(VERTEX_1, VERTEX_4), List.of(NODE_1), List.of(2, 7)),
@@ -367,6 +370,7 @@ public enum EdgeImpl implements Edge {
         visited = null;
     }
 
+    //TODO CASE IF THE NODE IN THE VERTEX IN THE MIDDLE OF 2 NODES IS OWNED BY A DIFFERENT PLAYER
     /**
      * DFS The Graph of Edges in order to find and update the Longest Road
      *
@@ -413,6 +417,82 @@ public enum EdgeImpl implements Edge {
         LongestRoad = longestEdge;
         LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,1));
 
+    }
+
+    public static List<EdgeImpl> allEdges() {
+        return List.of(
+                EDGE_1,
+                EDGE_2,
+                EDGE_3,
+                EDGE_5,
+                EDGE_6,
+                EDGE_7,
+                EDGE_8,
+                EDGE_9,
+                EDGE_10,
+                EDGE_11,
+                EDGE_12,
+                EDGE_13,
+                EDGE_14,
+                EDGE_15,
+                EDGE_16,
+                EDGE_17,
+                EDGE_18,
+                EDGE_19,
+                EDGE_20,
+                EDGE_21,
+                EDGE_22,
+                EDGE_23,
+                EDGE_24,
+                EDGE_25,
+                EDGE_26,
+                EDGE_27,
+                EDGE_28,
+                EDGE_29,
+                EDGE_30,
+                EDGE_31,
+                EDGE_32,
+                EDGE_33,
+                EDGE_34,
+                EDGE_35,
+                EDGE_36,
+                EDGE_37,
+                EDGE_38,
+                EDGE_39,
+                EDGE_40,
+                EDGE_41,
+                EDGE_42,
+                EDGE_43,
+                EDGE_44,
+                EDGE_45,
+                EDGE_46,
+                EDGE_47,
+                EDGE_48,
+                EDGE_49,
+                EDGE_50,
+                EDGE_51,
+                EDGE_52,
+                EDGE_53,
+                EDGE_54,
+                EDGE_55,
+                EDGE_56,
+                EDGE_57,
+                EDGE_58,
+                EDGE_59,
+                EDGE_60,
+                EDGE_61,
+                EDGE_62,
+                EDGE_63,
+                EDGE_64,
+                EDGE_65,
+                EDGE_66,
+                EDGE_67,
+                EDGE_68,
+                EDGE_69,
+                EDGE_70,
+                EDGE_71,
+                EDGE_72
+        );
     }
 
 }
