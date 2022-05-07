@@ -91,15 +91,12 @@ public class GameStateImpl implements GameState {
 
     public void setStage(int stage) {
         switch (stage) {
-            case 1 -> this.stage = Stage.STAGE_1; //roll dice
-            case 2 -> this.stage = Stage.STAGE_2; //build/trade
+            case 1 -> this.stage = Stage.STAGE_1; //first Settlement
+            case 2 -> this.stage = Stage.STAGE_2; //Second Settlement
             case 3 -> this.stage = Stage.STAGE_3; //move knight
         };
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     public Stage getStage() {
         return this.stage;
