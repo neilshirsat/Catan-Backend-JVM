@@ -354,6 +354,7 @@ public enum VertexImpl implements Vertex {
                 VERTEX_1,
                 VERTEX_2,
                 VERTEX_3,
+                VERTEX_4,
                 VERTEX_5,
                 VERTEX_6,
                 VERTEX_7,

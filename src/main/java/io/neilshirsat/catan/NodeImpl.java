@@ -1,6 +1,8 @@
 package io.neilshirsat.catan;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -234,6 +236,8 @@ public enum NodeImpl implements Node {
             List.of(1,4,5,8,9,13)
     );
 
+    private static Logger Log = LoggerFactory.getLogger(NodeImpl.class);
+
     private int nodeId;
 
     private List<Integer> edges;
@@ -419,7 +423,6 @@ public enum NodeImpl implements Node {
                 NODE_18,
                 NODE_19,
                 NODE_16,
-                NODE_17,
                 NODE_12,
                 NODE_7,
                 NODE_3,
@@ -429,7 +432,8 @@ public enum NodeImpl implements Node {
                 NODE_14,
                 NODE_15,
                 NODE_6,
-                NODE_10
+                NODE_10,
+                NODE_11
         );
     }
 
@@ -441,12 +445,15 @@ public enum NodeImpl implements Node {
                 Resource.FOREST,
                 Resource.FOREST,
                 Resource.FOREST,
+                Resource.FOREST,
                 Resource.MOUNTAINS,
                 Resource.MOUNTAINS,
                 Resource.MOUNTAINS,
                 Resource.FIELDS,
                 Resource.FIELDS,
                 Resource.FIELDS,
+                Resource.FIELDS,
+                Resource.PASTURE,
                 Resource.PASTURE,
                 Resource.PASTURE,
                 Resource.PASTURE,
@@ -490,18 +497,20 @@ public enum NodeImpl implements Node {
         List<NodeImpl> nodes = NodeImpl.getTransversal();
         List<Resource> resources = NodeImpl.getResourceTypes();
         List<NumberPieces> numberPieces = NumberPieces.getNumberPiecesOrdered();
+        int npCounter = 0;
 
         for (int i = 0; i < 19; i++) {
             NodeImpl node = nodes.get(i);
             node.setResource(resources.get(i));
             if (node.getResource() != Resource.DESERT) {
-                node.setNumberPieces(numberPieces.get(i));
+                node.setNumberPieces(numberPieces.get(npCounter++));
             }
             else {
                 robber = node;
                 node.hasRobber = true;
                 node.setNumberPieces(NumberPieces.NONE);
             }
+            Log.info(node.nodeId + "");
         }
 
         EdgeImpl.resetLongestRoad();

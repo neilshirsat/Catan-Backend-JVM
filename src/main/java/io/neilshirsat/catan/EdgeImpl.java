@@ -436,10 +436,11 @@ public enum EdgeImpl implements Edge {
                 longestEdge = edge;
             }
         }
-        LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,0));
-        LongestRoad = longestEdge;
-        LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,1));
-
+        if (LongestRoad != null) {
+            LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,0));
+            LongestRoad = longestEdge;
+            LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,1));
+        }
     }
 
     public static List<EdgeImpl> allEdges() {
@@ -447,6 +448,7 @@ public enum EdgeImpl implements Edge {
                 EDGE_1,
                 EDGE_2,
                 EDGE_3,
+                EDGE_4,
                 EDGE_5,
                 EDGE_6,
                 EDGE_7,

@@ -10,7 +10,7 @@ public enum DevelopmentCards {
     YEAR_OF_PLENTY,
     ROAD_BUILDING;
 
-    public static Stack<DevelopmentCards> deck;
+    public static Stack<DevelopmentCards> deck = new Stack<>();
 
     static {
         deck.push(DevelopmentCards.KNIGHT);

@@ -18,7 +18,7 @@ public class GameStateImpl implements GameState {
         this.turn = turn;
     }
 
-    private int turn;
+    private int turn = 1;
 
     private Map<Integer, Player> players;
 
@@ -98,12 +98,11 @@ public class GameStateImpl implements GameState {
     }
 
     //TODO TAKE INTO ACCOUNT WHAT STAGE IS GOING ON
-    public static void passDice() {
+    public void passDice() {
         turn++;
-        if (turn>=Player.amountPlayers) {
-            turn = 0;
+        if (turn > Player.amountPlayers) {
+            turn = 1;
         }
-
     }
 
     public void setStage() {
@@ -120,6 +119,8 @@ public class GameStateImpl implements GameState {
         };
     }
 
+
+
     public Map.Entry<Integer, Player> checkPlayerWin() {
             for (Map.Entry<Integer, Player> k : players.entrySet()) {
                 if (k.getKey() >= 10)
@@ -128,7 +129,7 @@ public class GameStateImpl implements GameState {
     }
 
     public void changePlayerName(String name, int playerId) {
-        final Player player = this.players.get(playerId);
+        final Player player = Player.getPlayer(playerId);
         player.setPlayerName(name);
     }
 

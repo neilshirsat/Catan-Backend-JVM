@@ -1,5 +1,6 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -8,6 +9,8 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +45,21 @@ public class API extends AbstractVerticle {
      */
     public void initialize() {
 
+        ipcRouter.route().handler(CorsHandler.create("*")
+                .addOrigin("http://localhost:3000")
+                .allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.POST)
+                .allowedMethod(HttpMethod.OPTIONS)
+                .allowCredentials(true)
+                .allowedHeader("Access-Control-Allow-Headers")
+                .allowedHeader("Authorization")
+                .allowedHeader("Access-Control-Allow-Method")
+                .allowedHeader("Access-Control-Allow-Origin")
+                .allowedHeader("Access-Control-Allow-Credentials")
+                .allowedHeader("Content-Type"));
+
+        ipcRouter.route().handler(BodyHandler.create());
+
         //Debug
         ipcRouter.route(HttpMethod.GET, "/").handler((ctx) -> {
             ctx.end(Json.encode(gameState));
@@ -49,17 +67,20 @@ public class API extends AbstractVerticle {
 
         //SETUP
         ipcRouter.route(HttpMethod.POST, "/setup-names").handler((ctx) -> {
+            logger.info(ctx.getBodyAsJson().encode());
             final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
             setUpNames(setup_names);
-            ctx.end();
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
         ipcRouter.route(HttpMethod.POST, "/set-name").handler((ctx) -> {
             final NAME set_name = ctx.getBodyAsJson().mapTo(NAME.class);
             setName(set_name);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
         ipcRouter.route(HttpMethod.POST, "/set-password").handler((ctx) -> {
             final PASSWORD set_password = ctx.getBodyAsJson().mapTo(PASSWORD.class);
             setPassword(set_password);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
 
         //Get Player Data
@@ -71,7 +92,11 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(getAllPlayersData()));
         });
         ipcRouter.route(HttpMethod.GET, "/get-current-player").handler((ctx) -> {
-            ctx.end(Json.encode(gameState.getTurn()));
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+        ipcRouter.route(HttpMethod.GET, "/next-turn").handler((ctx) -> {
+            endTurn();
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
 
         //TODO GET BOARD DATA
@@ -79,13 +104,54 @@ public class API extends AbstractVerticle {
             List<NodeImpl> allNodes = NodeImpl.getAllNodes();
             ctx.end(Json.encode(allNodes));
         });
+
         ipcRouter.route(HttpMethod.GET, "/get-edges").handler((ctx) -> {
             List<EdgeImpl> allEdges = EdgeImpl.allEdges();
             ctx.end(Json.encode(allEdges));
         });
+        ipcRouter.route(HttpMethod.GET, "/can-build-edges").handler((ctx) -> {
+            List<EdgeImpl> allEdges = EdgeImpl.allEdges();
+            for (EdgeImpl e : allEdges) {
+                if (e.getControlledPlayer().canBuyFromShop(Player.Shop.CITY)) {
+
+                }
+            }
+            ctx.end(Json.encode(allEdges));
+        });
+
         ipcRouter.route(HttpMethod.GET, "/get-vertices").handler((ctx) -> {
             List<VertexImpl> allVerticies = VertexImpl.allVerticies();
             ctx.end(Json.encode(allVerticies));
+        });
+        ipcRouter.route(HttpMethod.GET, "/can-build-settlement-first-turn").handler((ctx) -> {
+            List<VertexImpl> allVerticies = VertexImpl.allVerticies();
+            List<VertexImpl> vertices = new ArrayList<>();
+            for (VertexImpl vertex : allVerticies) {
+                if (vertex.canBuildSettlementFirstTurn(Player.getPlayer(gameState.getTurn()))) {
+                    vertices.add(vertex);
+                }
+            }
+            ctx.end(Json.encode(vertices));
+        });
+        ipcRouter.route(HttpMethod.GET, "/can-build-settlement").handler((ctx) -> {
+            List<VertexImpl> allVerticies = VertexImpl.allVerticies();
+            List<VertexImpl> vertices = new ArrayList<>();
+            for (VertexImpl vertex : allVerticies) {
+                if (vertex.canBuildSettlementFirstTurn(Player.getPlayer(gameState.getTurn()))) {
+                    vertices.add(vertex);
+                }
+            }
+            ctx.end(Json.encode(vertices));
+        });
+        ipcRouter.route(HttpMethod.GET, "/can-build-city").handler((ctx) -> {
+            List<VertexImpl> allVerticies = VertexImpl.allVerticies();
+            List<VertexImpl> vertices = new ArrayList<>();
+            for (VertexImpl vertex : allVerticies) {
+                if (vertex.canBuildCity(Player.getPlayer(gameState.getTurn()))) {
+                    vertices.add(vertex);
+                }
+            }
+            ctx.end(Json.encode(vertices));
         });
 
         //TODO TRADES
@@ -117,51 +183,88 @@ public class API extends AbstractVerticle {
      */
 
 
-    public ArrayList<String> gameLog = new ArrayList<>();
+    public static ArrayList<String> gameLog = new ArrayList<>();
 
     public static class SETUP_NAMES {
 
-        int amountPlayers;
+        private int amountPlayers;
 
         /**
          * List with the Player Name and their Passcode
          */
-        String[] playerNames;
+        private String[] playerNames;
 
         /**
          * List with the Player Passcodes
          */
-        String[] playerPasscodes;
+        private String[] playerPasscodes;
+
+        public int getAmountPlayers() {
+            return amountPlayers;
+        }
+
+        public void setAmountPlayers(int amountPlayers) {
+            this.amountPlayers = amountPlayers;
+        }
+
+        public String[] getPlayerNames() {
+            return playerNames;
+        }
+
+        public void setPlayerNames(String[] playerNames) {
+            this.playerNames = playerNames;
+        }
+
+        public String[] getPlayerPasscodes() {
+            return playerPasscodes;
+        }
+
+        public void setPlayerPasscodes(String[] playerPasscodes) {
+            this.playerPasscodes = playerPasscodes;
+        }
     }
 
     public void setUpNames(SETUP_NAMES input) {
+        NodeImpl.prepareNodeSetup();
         Player.amountPlayers = input.amountPlayers;
-        for (int i = 1; i < input.amountPlayers + 1; i++) {
-            Player.getPlayer(i).setPlayerName(input.playerNames[i]);
-            Player.getPlayer(i).setPasscode(input.playerPasscodes[i]);
+        Player.initializeAllPlayers();
+        for (int i = 0; i < input.amountPlayers; i++) {
+            Player.getPlayer(i + 1).setPlayerName(input.playerNames[i]);
+            Player.getPlayer(i + 1).setPasscode(input.playerPasscodes[i]);
         }
     }
 
     public static class NAME {
+        public String getName() {
+            return name;
+        }
 
-        String name;
+        public void setName(String name) {
+            this.name = name;
+        }
 
-        int playerId;
+        private String name;
+
     }
 
     public void setName(NAME input) {
-        gameState.changePlayerName(input.name, input.playerId);
+        gameState.changePlayerName(input.name, gameState.getTurn());
     }
 
     public static class PASSWORD {
+        public String getPassword() {
+            return password;
+        }
 
-        String password;
+        public void setPassword(String password) {
+            this.password = password;
+        }
 
-        int playerId;
+        private String password;
     }
 
     public void setPassword(PASSWORD input) {
-        gameState.changePlayerPasscode(input.password, input.playerId);
+        gameState.changePlayerPasscode(input.password, gameState.getTurn());
     }
 
     public Player getPlayerData(int input) {
@@ -339,9 +442,9 @@ public class API extends AbstractVerticle {
 
     }
 
-    public void verifyTrade(VERIFY_TRADE input) {
+    public static void verifyTrade(VERIFY_TRADE input) {
 
-        if (Player.verifyTrade(input.passcode, input.currentTrade.getTradeOutgoing())) {
+        if (Player.verifyTrade(input.passcode,input.currentTrade.getTradeOutgoing())) {
             for (Player p : Player.getAllPlayers()) {
                 if (p.getPasscode().equals(input.passcode))
                     Player.tradeCards(input.currentTrade.getTradeOutgoing(), Player.getPlayer(input.player1Id), input.currentTrade.getTradeIngoing(), p);
@@ -353,15 +456,8 @@ public class API extends AbstractVerticle {
 
     }
 
-    public static class END_TURN {
-
-        boolean clicked;
-    }
-
-    public void endTurn(END_TURN input) {
-        if (input.clicked) {
-            GameStateImpl.passDice();
-        }
+    public void endTurn() {
+        gameState.passDice();
     }
 
 

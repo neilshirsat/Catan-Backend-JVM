@@ -1,5 +1,8 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.List;
 
 public enum NumberPieces {
@@ -59,6 +62,11 @@ public enum NumberPieces {
                 Q,
                 R
         );
+    }
+
+    @JsonValue
+    public int toJSON() {
+        return this.value;
     }
 
 }

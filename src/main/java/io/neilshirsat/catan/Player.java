@@ -1,11 +1,14 @@
 package io.neilshirsat.catan;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Player {
 
     PLAYER_1,
@@ -33,28 +36,9 @@ public enum Player {
 
     private int secretVictoryPoints;
 
-    private int roadLength;
-
-    private int armySize;
-
     public static int amountPlayers;
 
 
-    public int getRoadLength() {
-        return roadLength;
-    }
-
-    public void setRoadLength(int roadLength) {
-        this.roadLength += roadLength;
-    }
-
-    public int getArmySize() {
-        return armySize;
-    }
-
-    public void setArmySize(int armySize) {
-        this.armySize += armySize;
-    }
 
     public String getPlayerName() {
         return playerName;
@@ -147,7 +131,7 @@ public enum Player {
     public int getAmountResourceCards() {
         amountResourceCards = 0;
         for (Map.Entry<ResourceType, Integer> k : getDeck().entrySet()) {
-            amountResourceCards += k.getValue();
+            amountResourceCards+=k.getValue();
         }
         return amountResourceCards;
     }
@@ -160,14 +144,12 @@ public enum Player {
         if (amountPlayers == 4)
             return List.of(PLAYER_1, PLAYER_2, PLAYER_3, PLAYER_4);
         throw new RuntimeException("AMOUNT PLAYERS NOT DEFINED");
-    }
-
-    ;
+    };
 
     public static void initializeAllPlayers() {
 
         //Set All Deck Cards, Development Cards, and Special Cards
-        for (Player e : getAllPlayers()) {
+        for (Player e: getAllPlayers()) {
 
             e.deck = new TreeMap<>();
             e.developmentCards = new TreeMap<>();
@@ -195,15 +177,16 @@ public enum Player {
         Player largestArmy = null;
         int largestArmyCount = 3;
         for (Player p : getAllPlayers()) {
-            if (p.getArmySize() >= largestArmyCount) {
-                largestArmyCount = p.getArmySize();
+            if (p.getDevelopmentCards().get(DevelopmentCards.KNIGHT)>=largestArmyCount) {
+                largestArmyCount = p.getDevelopmentCards().get(DevelopmentCards.KNIGHT);
                 largestArmy = p;
             }
         }
         for (Player p : getAllPlayers()) {
             if (p.equals(largestArmy)) {
-                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 1));
-            } else p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 0));
+                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY,1));
+            }
+            else p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY,0));
         }
     }
 
@@ -216,7 +199,6 @@ public enum Player {
             default -> throw new IllegalStateException("Unexpected value: " + playerId);
         };
     }
-
     public static void tradeCards(
             Map<ResourceType, Integer> player1Outgoing,
             Player player1,
@@ -225,18 +207,18 @@ public enum Player {
     ) {
 
         //Handel Player 1
-        for (Map.Entry<ResourceType, Integer> k : player1Outgoing.entrySet()) {
+        for (Map.Entry<ResourceType, Integer> k: player1Outgoing.entrySet()) {
             player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) - k.getValue());
         }
-        for (Map.Entry<ResourceType, Integer> k : player1Outgoing.entrySet()) {
+        for (Map.Entry<ResourceType, Integer> k: player1Outgoing.entrySet()) {
             player2.deck.put(k.getKey(), player2.deck.get(k.getKey()) + k.getValue());
         }
 
         //Handel Player 2
-        for (Map.Entry<ResourceType, Integer> k : player2Outgoing.entrySet()) {
+        for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
             player2.deck.put(k.getKey(), player2.deck.get(k.getKey()) - k.getValue());
         }
-        for (Map.Entry<ResourceType, Integer> k : player2Outgoing.entrySet()) {
+        for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
             player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) + k.getValue());
         }
     }
@@ -261,29 +243,27 @@ public enum Player {
         CITY,
         DEVELOPMENT_CARD,
     }
-
     public TreeMap<Shop, Boolean> canBuyFromShop() {
         TreeMap<Shop, Boolean> map = new TreeMap<>();
-        map.put(Shop.ROAD, false);
-        map.put(Shop.SETTLEMENT, false);
-        map.put(Shop.CITY, false);
-        map.put(Shop.DEVELOPMENT_CARD, false);
+        map.put(Shop.ROAD,false);
+        map.put(Shop.SETTLEMENT,false);
+        map.put(Shop.CITY,false);
+        map.put(Shop.DEVELOPMENT_CARD,false);
 
-        if (this.getDeck().get(ResourceType.LUMBER) >= 1 && this.getDeck().get(ResourceType.BRICK) >= 1) {
-            map.put(Shop.ROAD, true);
+        if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1) {
+            map.put(Shop.ROAD,true);
         }
-        if (this.getDeck().get(ResourceType.LUMBER) >= 1 && this.getDeck().get(ResourceType.BRICK) >= 1 && this.getDeck().get(ResourceType.WHEAT) >= 1 && this.getDeck().get(ResourceType.WOOL) >= 1) {
-            map.put(Shop.SETTLEMENT, true);
+        if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
+            map.put(Shop.SETTLEMENT,true);
         }
-        if (this.getDeck().get(ResourceType.ORE) >= 3 && this.getDeck().get(ResourceType.WHEAT) >= 2) {
+        if (this.getDeck().get(ResourceType.ORE)>=3&&this.getDeck().get(ResourceType.WHEAT)>=2) {
             map.put(Shop.CITY, true);
         }
-        if (this.getDeck().get(ResourceType.ORE) >= 1 && this.getDeck().get(ResourceType.WHEAT) >= 1 && this.getDeck().get(ResourceType.WOOL) >= 1) {
+        if (this.getDeck().get(ResourceType.ORE)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
             map.put(Shop.DEVELOPMENT_CARD, true);
         }
         return map;
     }
-
     public boolean canBuyFromShop(Shop shop) {
         for (Map.Entry<Shop, Boolean> k : canBuyFromShop().entrySet()) {
             if (k.getKey().equals(shop)) {
@@ -297,7 +277,7 @@ public enum Player {
     public void purchase(Shop shop) {
         switch (shop) {
             case ROAD -> {
-                if (this.getAmountRoads() > 0) {
+                if (this.getAmountRoads()>0) {
                     getDeck().put(ResourceType.LUMBER, getDeck().get(ResourceType.LUMBER) - 1);
                     getDeck().put(ResourceType.BRICK, getDeck().get(ResourceType.BRICK) - 1);
                     ResourceType.LUMBER.setAmountLeft(1);
@@ -307,7 +287,7 @@ public enum Player {
                 }
             }
             case SETTLEMENT -> {
-                if (this.getAmountSettlements() > 0) {
+                if (this.getAmountSettlements()>0) {
                     getDeck().put(ResourceType.LUMBER, getDeck().get(ResourceType.LUMBER) - 1);
                     getDeck().put(ResourceType.BRICK, getDeck().get(ResourceType.BRICK) - 1);
                     getDeck().put(ResourceType.WOOL, getDeck().get(ResourceType.WOOL) - 1);
@@ -321,7 +301,7 @@ public enum Player {
                 }
             }
             case CITY -> {
-                if (this.getAmountCities() > 0) {
+                if (this.getAmountCities()>0) {
                     getDeck().put(ResourceType.WHEAT, getDeck().get(ResourceType.WHEAT) - 2);
                     getDeck().put(ResourceType.ORE, getDeck().get(ResourceType.ORE) - 3);
                     ResourceType.WHEAT.setAmountLeft(2);
@@ -343,4 +323,19 @@ public enum Player {
             }
         }
     }
+
+    public void useDevelopmentCard(DevelopmentCards developmentCard) {
+       /* switch (developmentCard) {
+            case (VICTORY_POINT) -> this.setSecretVictoryPoints(this.getSecretVictoryPoints()+1);
+            case(KNIGHT) ->
+            case(MONOPOLY)->
+            case(YEAR_OF_PLENTY)->
+            case(ROAD_BUILDING)->
+        }*/
+    }
+
+    public void setArmySize(int size) {}
+
+
+
 }
