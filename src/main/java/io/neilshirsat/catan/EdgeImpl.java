@@ -346,11 +346,15 @@ public enum EdgeImpl implements Edge {
     }
 
     public boolean isValidPlaceRoad() {
+
+        if (this.isRoad) {
+            return false;
+        }
         boolean checkEdge=false;
         boolean checkVertex=false;
         for (int edgeId : this.connectedEdges) {
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(edgeId);
-            if (edge.controlledPlayer == this.controlledPlayer && edge.isRoad && !this.isRoad) {
+            if (edge.controlledPlayer == this.controlledPlayer && edge.isRoad) {
                 checkEdge = true;
                 break;
             }
