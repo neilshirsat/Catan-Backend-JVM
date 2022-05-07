@@ -226,16 +226,22 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean canBuildSettlement(Player player) {
-        for (int edgeId : connectedEdges) {
-            if (EdgeImpl.getEdge(edgeId).isRoad()&&EdgeImpl.getEdge(edgeId).getControlledPlayer()==player) {
-                Edge edge = EdgeImpl.getEdge(edgeId);
-                if (edge.getControlledPlayer() == player && edge.isRoad()) {
-                    return true;
-                }
+        if (!this.vertexType.equals(VertexType.EMPTY)) {
+            return false;
+        }
+        boolean checkEdges = false;
 
+        for (int edgeId : getConnectedEdges()) {
+            if (EdgeImpl.getEdge(edgeId).isRoad() && EdgeImpl.getEdge(edgeId).getControlledPlayer() == player) {
+                checkEdges = true;
+                for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
+                    if (!v.getVertexType().equals(VertexType.EMPTY)) {
+                        return false;
+                    }
+                }
             }
         }
-        return false;
+        return checkEdges;
     }
 
     public boolean canBuildSettlementFirstTurn(Player player) {
