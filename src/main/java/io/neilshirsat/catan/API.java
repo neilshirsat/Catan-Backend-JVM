@@ -280,14 +280,18 @@ public class API extends AbstractVerticle {
         );
     }
 
-    public static class ROLL_DICE {
+    /*public static class ROLL_DICE {
 
         List<NodeImpl> deck;
 
-    }
+    }*/
 
-    public void rollDice(ROLL_DICE input) {
-
+    public void rollDice() {
+        gameState.handleDiceRoll(gameState.rollDice());
+        //CHECK FOR DISCARD CARDS
+        //if (actionStage==ActionStage.SPECIAL_&
+        //setStage(3)
+        gameState.setStage(2);
     }
 
 
@@ -363,9 +367,11 @@ public class API extends AbstractVerticle {
     public List<Vertex> validSettlements(Player p) {
         List<Vertex> validSettlements = new ArrayList<>();
         for (VertexImpl v : VertexImpl.allVerticies()) {
-           // if (v.canBuildSettlement(p))
+            if (v.canBuildSettlement(p)) {
+                validSettlements.add(v);
+            }
         }
-        return null;
+        return validSettlements;
     }
 
     public static class PURCHASE_SETTLEMENT {
@@ -412,6 +418,7 @@ public class API extends AbstractVerticle {
     public void changeRobber(CHANGE_ROBBER input) {
         NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
+        gameState.setStage(2);
     }
 
 
@@ -458,6 +465,7 @@ public class API extends AbstractVerticle {
 
     public void endTurn() {
         gameState.passDice();
+        gameState.setStage(1);
     }
 
 
@@ -494,9 +502,12 @@ public class API extends AbstractVerticle {
     }
 
     public void useKnight(USE_KNIGHT input) {
+        GameStateImpl.Stage stage = gameState.getStage();
+        gameState.setStage(3);
         NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         Player.getPlayer(input.playerRobbingId).setArmySize(1);
         Player.getPlayer(input.playerRobbingId).getDevelopmentCards().put(DevelopmentCards.KNIGHT, Player.getPlayer(input.playerRobbingId).getDevelopmentCards().get(DevelopmentCards.KNIGHT) - 1);
+        gameState.setStage(stage);
     }
 
     public static class USE_MONOPOLY {

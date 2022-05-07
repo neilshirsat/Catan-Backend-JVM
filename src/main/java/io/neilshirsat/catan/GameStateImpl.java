@@ -22,7 +22,7 @@ public class GameStateImpl implements GameState {
 
     private Map<Integer, Player> players;
 
-    private enum Stage {
+    enum Stage {
         SETUP,
 
         //When the Players get to put down a road, settlement, or city
@@ -79,22 +79,6 @@ public class GameStateImpl implements GameState {
            NodeImpl.receiveCards(NodeImpl.getNodesWithDice(dice));
         }
         else actionStage = ActionStage.SPECIAL_7;
-        for (Player p : Player.getAllPlayers()) {
-            if (p.getAmountResourceCards()>7) {
-                //p.discardCard((p.getAmountResourceCards()-1)/2);
-                /*
-                get discarded cards from user interface
-                //TODO NEED CONFIRMATION
-
-                 */
-            }
-        }
-        /*
-        get changedRobber from user interface
-
-        NodeImpl.changeRobber(int NodeId);
-
-         */
     }
 
     //TODO TAKE INTO ACCOUNT WHAT STAGE IS GOING ON
@@ -105,18 +89,20 @@ public class GameStateImpl implements GameState {
         }
     }
 
-    public void setStage() {
-        stage = getStage(turn);
+    public void setStage(int stage) {
+        switch (stage) {
+            case 1 -> this.stage = Stage.STAGE_1; //roll dice
+            case 2 -> this.stage = Stage.STAGE_2; //build/trade
+            case 3 -> this.stage = Stage.STAGE_3; //move knight
+        };
     }
 
-    public Stage getStage(int turn) {
-        return switch (turn) {
-            case 1 -> Stage.STAGE_1;
-            case 2 -> Stage.STAGE_2;
-            case 3 -> Stage.STAGE_3;
-            //case 4 -> Stage.STAGE_4;
-            default -> null;
-        };
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Stage getStage() {
+        return this.stage;
     }
 
 
