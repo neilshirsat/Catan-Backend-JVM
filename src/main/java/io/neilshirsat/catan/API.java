@@ -201,7 +201,7 @@ public class API extends AbstractVerticle {
         for (Map.Entry<ResourceType, Integer> k : input.discardCard.entrySet()) {
             p.getDeck().put(k.getKey(), p.getDeck().get(k.getKey()) - k.getValue());
             k.getKey().setAmountLeft(k.getValue());
-            gameLog.add(p.getPlayerName()+ " discarded "  + k.getValue() + k.getKey().toString())
+            gameLog.add(p.getPlayerName()+ " discarded "  + k.getValue() + " " + k.getKey().toString());
         }
 
 
@@ -237,12 +237,32 @@ public class API extends AbstractVerticle {
         int edgeId;
     }
 
+    public List<EdgeImpl> validRoads(Player p) {
+        List<EdgeImpl> validRoads = new ArrayList<>();
+        for (EdgeImpl edge : EdgeImpl.allEdges()) {
+            edge.setControlledPlayer(p);
+            if (edge.isValidPlaceRoad()) {
+                validRoads.add(edge);
+            }
+        }
+        return validRoads;
+    }
+
     public void purchaseRoad(PURCHASE_ROAD input) {
         if (Player.getPlayer(input.playerId).canBuyFromShop(input.road)) {
             Player.getPlayer(input.playerId).purchase(input.road);
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeId);
             edge.placeRoad(Player.getPlayer(input.playerId));
+            gameLog.add(Player.getPlayer(input.playerId).getPlayerName()+" placed Road");
         }
+    }
+
+    public List<Vertex> validSettlements(Player p) {
+        List<Vertex> validSettlements = new ArrayList<>();
+        for (VertexImpl v : VertexImpl.allVerticies()) {
+           // if (v.canBuildSettlement(p))
+        }
+        return null;
     }
 
     public static class PURCHASE_SETTLEMENT {
@@ -257,6 +277,7 @@ public class API extends AbstractVerticle {
         }
         if (VertexImpl.getVertex(input.vertexId).canBuildSettlement(Player.getPlayer(input.playerId))) {
             VertexImpl.getVertex(input.vertexId).buildSettlement(Player.getPlayer(input.playerId));
+            gameLog.add(Player.getPlayer(input.playerId).getPlayerName()+" placed Settlement");
         }
     }
 
@@ -272,6 +293,7 @@ public class API extends AbstractVerticle {
         }
         if (VertexImpl.getVertex(input.vertexId).canBuildCity(Player.getPlayer(input.playerId))) {
             VertexImpl.getVertex(input.vertexId).buildCity(Player.getPlayer(input.playerId));
+            gameLog.add(Player.getPlayer(input.playerId).getPlayerName()+" placed City");
         }
     }
 
@@ -286,6 +308,7 @@ public class API extends AbstractVerticle {
 
     public void changeRobber(CHANGE_ROBBER input) {
         NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
+        gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
     }
 
 
@@ -301,8 +324,9 @@ public class API extends AbstractVerticle {
     }
 
 
-    public static void proposeTrade(PROPOSE_TRADE input) {
+    public void proposeTrade(PROPOSE_TRADE input) {
         GameStateImpl.currentTrade currentTrade = new GameStateImpl.currentTrade(input.player1Outgoing, input.player2Outgoing, GameStateImpl.currentTrade.getAmountTrades(), input.targetPlayers);
+        gameLog.add(currentTrade.getTradeId()+ ": " +Player.getPlayer(input.player1Id)+ " wants to trade " + input.player1Outgoing.toString() + " for " + input.player2Outgoing);
     }
 
     public static class VERIFY_TRADE {
@@ -315,14 +339,17 @@ public class API extends AbstractVerticle {
 
     }
 
-    public static void verifyTrade(VERIFY_TRADE input) {
+    public void verifyTrade(VERIFY_TRADE input) {
 
         if (Player.verifyTrade(input.passcode, input.currentTrade.getTradeOutgoing())) {
             for (Player p : Player.getAllPlayers()) {
                 if (p.getPasscode().equals(input.passcode))
                     Player.tradeCards(input.currentTrade.getTradeOutgoing(), Player.getPlayer(input.player1Id), input.currentTrade.getTradeIngoing(), p);
+                    gameLog.add(Player.getPlayer(input.player1Id).getPlayerName() + " completed " + input.currentTrade.getTradeId()+ " with " + p.getPlayerName());
+
             }
         }
+        input.currentTrade = null;
 
     }
 

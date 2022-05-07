@@ -227,7 +227,7 @@ public enum VertexImpl implements Vertex {
     @Override
     public boolean canBuildSettlement(Player player) {
         for (int edgeId : connectedEdges) {
-            if (EdgeImpl.getEdge(edgeId).containsValidConnectedEdges()) {
+            if (EdgeImpl.getEdge(edgeId).isRoad()&&EdgeImpl.getEdge(edgeId).getControlledPlayer()==player) {
                 Edge edge = EdgeImpl.getEdge(edgeId);
                 if (edge.getControlledPlayer() == player && edge.isRoad()) {
                     return true;
