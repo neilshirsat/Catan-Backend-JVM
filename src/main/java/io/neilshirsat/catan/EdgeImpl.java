@@ -370,7 +370,7 @@ public enum EdgeImpl implements Edge {
 
     public void placeRoad(Player controlledPlayer) {
         this.setControlledPlayer(controlledPlayer);
-        if (this.isValidPlaceRoad()&& !this.isRoad) {
+        if (this.isValidPlaceRoad()) {
             this.setRoad(true);
         }
     }
