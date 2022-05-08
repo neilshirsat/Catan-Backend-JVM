@@ -1,5 +1,7 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -32,11 +34,27 @@ public class GameStateImpl implements GameState {
         STAGE_2,
 
         //
-        STAGE_3,
+        STAGE_3;
+
+        @JsonValue
+        public int toJSON() {
+            switch (this) {
+                case STAGE_1 -> {
+                    return 1;
+                }
+                case STAGE_2 -> {
+                    return 2;
+                }
+                case STAGE_3 -> {
+                    return 3;
+                }
+            }
+            return -1;
+        }
 
     }
 
-    private Stage stage = Stage.SETUP;
+    private Stage stage = Stage.STAGE_1;
 
     private enum ActionStage {
         NORMAL,
@@ -83,9 +101,25 @@ public class GameStateImpl implements GameState {
 
     //TODO TAKE INTO ACCOUNT WHAT STAGE IS GOING ON
     public void passDice() {
-        turn++;
-        if (turn > Player.amountPlayers) {
-            turn = 1;
+        if (stage == Stage.STAGE_1) {
+            turn++;
+            if (turn > Player.amountPlayers) {
+                turn = Player.amountPlayers;
+                stage = Stage.STAGE_2;
+            }
+        }
+        else if (stage == Stage.STAGE_2) {
+            turn--;
+            if (turn < 1) {
+                turn = 1;
+                stage = Stage.STAGE_3;
+            }
+        }
+        else  {
+            turn++;
+            if (turn > Player.amountPlayers) {
+                turn = Player.amountPlayers;
+            }
         }
     }
 

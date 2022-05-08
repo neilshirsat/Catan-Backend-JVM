@@ -66,7 +66,7 @@ public class API extends AbstractVerticle {
         });
 
         //SETUP
-        ipcRouter.route(HttpMethod.POST, "/setup-names").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/setup-names").blockingHandler((ctx) -> {
             logger.info(ctx.getBodyAsJson().encode());
             final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
             setUpNames(setup_names);
@@ -98,6 +98,9 @@ public class API extends AbstractVerticle {
             endTurn();
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
+        ipcRouter.route(HttpMethod.GET, "/current-stage").handler((ctx) -> {
+            ctx.end(Json.encode(gameState.getStage()));
+        });
 
         //TODO GET BOARD DATA
         ipcRouter.route(HttpMethod.GET, "/get-nodes").handler((ctx) -> {
@@ -109,14 +112,17 @@ public class API extends AbstractVerticle {
             List<EdgeImpl> allEdges = EdgeImpl.allEdges();
             ctx.end(Json.encode(allEdges));
         });
-        ipcRouter.route(HttpMethod.GET, "/can-build-edges").handler((ctx) -> {
-            List<EdgeImpl> allEdges = EdgeImpl.allEdges();
-            for (EdgeImpl e : allEdges) {
-                if (e.getControlledPlayer().canBuyFromShop(Player.Shop.CITY)) {
-
+        ipcRouter.route(HttpMethod.GET, "/can-build-roads").handler((ctx) -> {
+            List<Integer> edges = new ArrayList<>();
+            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
+                for (int e : Player.getPlayer(gameState.getTurn()).getPreviousBuiltNode().getConnectedEdges()) {
+                    if (!(EdgeImpl.getEdge(e)).isRoad()) {
+                        edges.add(e);
+                    }
                 }
             }
-            ctx.end(Json.encode(allEdges));
+            ctx.end(Json.encode(edges));
+            //ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
         });
 
         ipcRouter.route(HttpMethod.GET, "/get-vertices").handler((ctx) -> {
@@ -125,33 +131,65 @@ public class API extends AbstractVerticle {
         });
         ipcRouter.route(HttpMethod.GET, "/can-build-settlement-first-turn").handler((ctx) -> {
             List<VertexImpl> allVerticies = VertexImpl.allVerticies();
-            List<VertexImpl> vertices = new ArrayList<>();
+            List<Integer> vertices = new ArrayList<>();
             for (VertexImpl vertex : allVerticies) {
                 if (vertex.canBuildSettlementFirstTurn(Player.getPlayer(gameState.getTurn()))) {
-                    vertices.add(vertex);
+                    vertices.add(vertex.vertxId);
                 }
             }
             ctx.end(Json.encode(vertices));
         });
         ipcRouter.route(HttpMethod.GET, "/can-build-settlement").handler((ctx) -> {
             List<VertexImpl> allVerticies = VertexImpl.allVerticies();
-            List<VertexImpl> vertices = new ArrayList<>();
+            List<Integer> vertices = new ArrayList<>();
             for (VertexImpl vertex : allVerticies) {
-                if (vertex.canBuildSettlementFirstTurn(Player.getPlayer(gameState.getTurn()))) {
-                    vertices.add(vertex);
+                if (vertex.canBuildSettlement(Player.getPlayer(gameState.getTurn()))) {
+                    vertices.add(vertex.vertxId);
                 }
             }
             ctx.end(Json.encode(vertices));
         });
         ipcRouter.route(HttpMethod.GET, "/can-build-city").handler((ctx) -> {
             List<VertexImpl> allVerticies = VertexImpl.allVerticies();
-            List<VertexImpl> vertices = new ArrayList<>();
+            List<Integer> vertices = new ArrayList<>();
             for (VertexImpl vertex : allVerticies) {
                 if (vertex.canBuildCity(Player.getPlayer(gameState.getTurn()))) {
-                    vertices.add(vertex);
+                    vertices.add(vertex.vertxId);
                 }
             }
             ctx.end(Json.encode(vertices));
+        });
+
+        ipcRouter.route(HttpMethod.POST, "/build-settlement").handler((ctx) -> {
+            final PURCHASE_SETTLEMENT purchase_settlement = ctx.getBodyAsJson().mapTo(PURCHASE_SETTLEMENT.class);
+            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
+                purchaseSettlementStage1and2(purchase_settlement);
+            }
+            else {
+                purchaseSettlement(purchase_settlement);
+            }
+            ctx.end(Json.encode(VertexImpl.allVerticies()));
+        });
+
+        ipcRouter.route(HttpMethod.POST, "/build-city").handler((ctx) -> {
+            final PURCHASE_CITY purchase_city = ctx.getBodyAsJson().mapTo(PURCHASE_CITY.class);
+            purchaseSettlement(purchase_city);
+            ctx.end(Json.encode(VertexImpl.allVerticies()));
+        });
+
+        ipcRouter.route(HttpMethod.POST, "/build-road").handler((ctx) -> {
+            final PURCHASE_ROAD purchase_road = ctx.getBodyAsJson().mapTo(PURCHASE_ROAD.class);
+            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
+                purchaseRoadStage1and2(purchase_road);
+            }
+            else {
+                purchaseRoad(purchase_road);
+            }
+            ctx.end(Json.encode(EdgeImpl.allEdges()));
+        });
+
+        ipcRouter.route(HttpMethod.GET, "/roll-dice").handler((ctx) -> {
+            ctx.end(Json.encode(gameState.rollDice()));
         });
 
         //TODO TRADES
@@ -199,6 +237,16 @@ public class API extends AbstractVerticle {
          */
         private String[] playerPasscodes;
 
+        public Player.COLOR[] getPlayerColors() {
+            return playerColors;
+        }
+
+        public void setPlayerColors(Player.COLOR[] playerColors) {
+            this.playerColors = playerColors;
+        }
+
+        private Player.COLOR[] playerColors;
+
         public int getAmountPlayers() {
             return amountPlayers;
         }
@@ -231,6 +279,7 @@ public class API extends AbstractVerticle {
         for (int i = 0; i < input.amountPlayers; i++) {
             Player.getPlayer(i + 1).setPlayerName(input.playerNames[i]);
             Player.getPlayer(i + 1).setPasscode(input.playerPasscodes[i]);
+            Player.getPlayer(i + 1).setColor(input.playerColors[i]);
         }
     }
 
@@ -341,8 +390,16 @@ public class API extends AbstractVerticle {
     }
 
     public static class PURCHASE_ROAD {
-        int playerId;
-        Player.Shop road;
+        static Player.Shop road = Player.Shop.ROAD;
+
+        public int getEdgeId() {
+            return edgeId;
+        }
+
+        public void setEdgeId(int edgeId) {
+            this.edgeId = edgeId;
+        }
+
         int edgeId;
     }
 
@@ -357,12 +414,18 @@ public class API extends AbstractVerticle {
         return validRoads;
     }
 
+    public void purchaseRoadStage1and2(PURCHASE_ROAD input) {
+        EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeId);
+        edge.placeRoadStage1and2(Player.getPlayer(gameState.getTurn()));
+        gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName()+" placed Road");
+    }
+
     public void purchaseRoad(PURCHASE_ROAD input) {
-        if (Player.getPlayer(input.playerId).canBuyFromShop(input.road)) {
-            Player.getPlayer(input.playerId).purchase(input.road);
+        if (Player.getPlayer(gameState.getTurn()).canBuyFromShop(input.road)) {
+            Player.getPlayer(gameState.getTurn()).purchase(input.road);
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeId);
-            edge.placeRoad(Player.getPlayer(input.playerId));
-            gameLog.add(Player.getPlayer(input.playerId).getPlayerName()+" placed Road");
+            edge.placeRoad(Player.getPlayer(gameState.getTurn()));
+            gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName()+" placed Road");
         }
     }
 
@@ -377,34 +440,55 @@ public class API extends AbstractVerticle {
     }
 
     public static class PURCHASE_SETTLEMENT {
-        int playerId;
-        Player.Shop settlement;
+        public int getVertexId() {
+            return vertexId;
+        }
+
+        public void setVertexId(int vertexId) {
+            this.vertexId = vertexId;
+        }
+
+        static Player.Shop settlement = Player.Shop.SETTLEMENT;
         int vertexId;
     }
 
     public void purchaseSettlement(PURCHASE_SETTLEMENT input) {
-        if (Player.getPlayer(input.playerId).canBuyFromShop(input.settlement)) {
-            Player.getPlayer(input.playerId).purchase(input.settlement);
+        if (Player.getPlayer(gameState.getTurn()).canBuyFromShop(input.settlement)) {
+            Player.getPlayer(gameState.getTurn()).purchase(input.settlement);
         }
-        if (VertexImpl.getVertex(input.vertexId).canBuildSettlement(Player.getPlayer(input.playerId))) {
-            VertexImpl.getVertex(input.vertexId).buildSettlement(Player.getPlayer(input.playerId));
-            gameLog.add(Player.getPlayer(input.playerId).getPlayerName()+" placed Settlement");
+        if (VertexImpl.getVertex(input.vertexId).canBuildSettlement(Player.getPlayer(gameState.getTurn()))) {
+            VertexImpl.getVertex(input.vertexId).buildSettlement(Player.getPlayer(gameState.getTurn()));
+            gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName()+" placed Settlement");
         }
     }
 
+    public void purchaseSettlementStage1and2(PURCHASE_SETTLEMENT input) {
+        VertexImpl.getVertex(input.vertexId).buildSettlement(Player.getPlayer(gameState.getTurn()));
+        Player.getPlayer(gameState.getTurn()).setPreviousBuiltNode(VertexImpl.getVertex(input.vertexId));
+        gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName()+" placed Settlement");
+    }
+
     public static class PURCHASE_CITY {
-        int playerId;
-        Player.Shop city;
+
+        public int getVertexId() {
+            return vertexId;
+        }
+
+        public void setVertexId(int vertexId) {
+            this.vertexId = vertexId;
+        }
+
+        static Player.Shop city = Player.Shop.CITY;
         int vertexId;
     }
 
     public void purchaseSettlement(PURCHASE_CITY input) {
-        if (Player.getPlayer(input.playerId).canBuyFromShop(input.city)) {
-            Player.getPlayer(input.playerId).purchase(input.city);
+        if (Player.getPlayer(gameState.getTurn()).canBuyFromShop(input.city)) {
+            Player.getPlayer(gameState.getTurn()).purchase(input.city);
         }
-        if (VertexImpl.getVertex(input.vertexId).canBuildCity(Player.getPlayer(input.playerId))) {
-            VertexImpl.getVertex(input.vertexId).buildCity(Player.getPlayer(input.playerId));
-            gameLog.add(Player.getPlayer(input.playerId).getPlayerName()+" placed City");
+        if (VertexImpl.getVertex(input.vertexId).canBuildCity(Player.getPlayer(gameState.getTurn()))) {
+            VertexImpl.getVertex(input.vertexId).buildCity(Player.getPlayer(gameState.getTurn()));
+            gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName()+" placed City");
         }
     }
 

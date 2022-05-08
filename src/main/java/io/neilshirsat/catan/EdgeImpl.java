@@ -375,6 +375,11 @@ public enum EdgeImpl implements Edge {
         }
     }
 
+    public void placeRoadStage1and2(Player controlledPlayer) {
+        this.setControlledPlayer(controlledPlayer);
+        this.setRoad(true);
+    }
+
     /**
      * Reset the Length of the Road
      */
