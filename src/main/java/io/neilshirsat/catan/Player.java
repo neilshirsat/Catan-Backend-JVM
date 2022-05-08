@@ -2,6 +2,9 @@ package io.neilshirsat.catan;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.List;
 import java.util.Map;
@@ -334,7 +337,36 @@ public enum Player {
         }
     }
 
+    @JsonIgnore
+    private VertexImpl previousBuiltNode;
 
+    @JsonIgnore
+    public VertexImpl getPreviousBuiltNode() {
+        return previousBuiltNode;
+    }
 
+    @JsonIgnore
+    public void setPreviousBuiltNode(VertexImpl previousBuiltNode) {
+        this.previousBuiltNode = previousBuiltNode;
+    }
 
+    public enum COLOR {
+        BLACK,
+        WHITE,
+        YELLOW,
+        ORANGE,
+        GREEN,
+        BLUE,
+        PURPLE
+    }
+
+    public COLOR getColor() {
+        return color;
+    }
+
+    public void setColor(COLOR color) {
+        this.color = color;
+    }
+
+    private COLOR color;
 }
