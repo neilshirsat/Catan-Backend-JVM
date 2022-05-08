@@ -492,8 +492,17 @@ public class API extends AbstractVerticle {
         }
     }
 
-
-
+    //For when roll 7/knight card
+    //returns list of players who you can rob
+    public List<Player> canRobPlayerList() {
+        List<Player> playerList = new ArrayList<>();
+        for (Player p : Player.getAllPlayers()) {
+            if (p.getAmountResourceCards()>=1) {
+                playerList.add(p);
+            }
+        }
+        return playerList;
+    }
 
     public static class CHANGE_ROBBER {
         int nodeID;
