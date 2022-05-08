@@ -247,7 +247,7 @@ public enum VertexImpl implements Vertex {
     public boolean canBuildSettlementFirstTurn(Player player) {
         for (int edgeId : connectedEdges) {
             for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
-                if (v.getVertexType() == VertexType.EMPTY) {
+                if (v.getVertexType() != VertexType.EMPTY) {
                     return false;
                 }
             }

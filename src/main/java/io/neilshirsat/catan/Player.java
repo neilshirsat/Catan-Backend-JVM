@@ -324,7 +324,11 @@ public enum Player {
                     ResourceType.WHEAT.setAmountLeft(1);
                     ResourceType.ORE.setAmountLeft(1);
                     ResourceType.WOOL.setAmountLeft(1);
-                    setDevelopmentCards(Map.of(DevelopmentCards.deck.pop(), 1));
+                    DevelopmentCards developmentCards = DevelopmentCards.deck.pop();
+                    if (developmentCards.equals(DevelopmentCards.VICTORY_POINT)) {
+                        this.setSecretVictoryPoints(this.getSecretVictoryPoints()+1);
+                    }
+                    setDevelopmentCards(Map.of(developmentCards, 1));
                 }
             }
         }
