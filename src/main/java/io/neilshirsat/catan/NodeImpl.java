@@ -431,9 +431,9 @@ public enum NodeImpl implements Node {
                 NODE_9,
                 NODE_14,
                 NODE_15,
+                NODE_11,
                 NODE_6,
-                NODE_10,
-                NODE_11
+                NODE_10
         );
     }
 
