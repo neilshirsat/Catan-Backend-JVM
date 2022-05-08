@@ -221,7 +221,7 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean canBuildCity(Player player) {
-        return hasSettlement();
+        return hasSettlement()&&this.getControlledPlayer() == player;
     }
 
     @Override
@@ -232,7 +232,7 @@ public enum VertexImpl implements Vertex {
         boolean checkEdges = false;
 
         for (int edgeId : getConnectedEdges()) {
-            if (EdgeImpl.getEdge(edgeId).isRoad() && EdgeImpl.getEdge(edgeId).getControlledPlayer() == player) {
+            if (EdgeImpl.getEdge(edgeId).isRoad() && EdgeImpl.getEdge(edgeId).getControlledPlayer() == this.getControlledPlayer()) {
                 checkEdges = true;
                 for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
                     if (!v.getVertexType().equals(VertexType.EMPTY)) {

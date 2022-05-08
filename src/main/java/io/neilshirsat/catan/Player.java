@@ -38,8 +38,6 @@ public enum Player {
 
     public static int amountPlayers;
 
-
-
     public String getPlayerName() {
         return playerName;
     }
@@ -88,6 +86,16 @@ public enum Player {
         this.victoryPoints = victoryPoints;
     }
 
+    private int armySize;
+
+    public int getArmySize() {
+        return armySize;
+    }
+
+    public void setArmySize(int size) {
+        this.armySize+=size;
+    }
+
 
     public int getSecretVictoryPoints() {
         return secretVictoryPoints;
@@ -97,12 +105,11 @@ public enum Player {
         this.secretVictoryPoints = secretVictoryPoints;
     }
 
-    private int amountRoads;
+    private int amountRoads=19;
 
-    private int amountSettlements;
+    private int amountSettlements=5;
 
-    private int amountCities;
-
+    private int amountCities=4;
 
     public int getAmountRoads() {
         return amountRoads;
@@ -173,20 +180,20 @@ public enum Player {
 
     }
 
+
     public static void resetLargestArmy() {
         Player largestArmy = null;
         int largestArmyCount = 3;
         for (Player p : getAllPlayers()) {
-            if (p.getDevelopmentCards().get(DevelopmentCards.KNIGHT)>=largestArmyCount) {
-                largestArmyCount = p.getDevelopmentCards().get(DevelopmentCards.KNIGHT);
+            if (p.getArmySize() >= largestArmyCount) {
+                largestArmyCount = p.getArmySize();
                 largestArmy = p;
             }
         }
         for (Player p : getAllPlayers()) {
             if (p.equals(largestArmy)) {
-                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY,1));
-            }
-            else p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY,0));
+                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 1));
+            } else p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 0));
         }
     }
 
@@ -273,7 +280,6 @@ public enum Player {
         return false;
     }
 
-    //MAKE SURE TO CHECK IF CAN BUY FROM SHOP
     public void purchase(Shop shop) {
         switch (shop) {
             case ROAD -> {
@@ -324,17 +330,6 @@ public enum Player {
         }
     }
 
-    public void useDevelopmentCard(DevelopmentCards developmentCard) {
-       /* switch (developmentCard) {
-            case (VICTORY_POINT) -> this.setSecretVictoryPoints(this.getSecretVictoryPoints()+1);
-            case(KNIGHT) ->
-            case(MONOPOLY)->
-            case(YEAR_OF_PLENTY)->
-            case(ROAD_BUILDING)->
-        }*/
-    }
-
-    public void setArmySize(int size) {}
 
 
 

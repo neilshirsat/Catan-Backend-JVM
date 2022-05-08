@@ -287,7 +287,9 @@ public class API extends AbstractVerticle {
     }*/
 
     public void rollDice() {
-        gameState.handleDiceRoll(gameState.rollDice());
+        int diceRoll = gameState.rollDice();
+        gameState.handleDiceRoll(diceRoll);
+
         //CHECK FOR DISCARD CARDS
 
 
@@ -477,8 +479,9 @@ public class API extends AbstractVerticle {
     public void purchaseDevCard(PURCHASE_DEV_CARD input) {
         if (input.p.canBuyFromShop(input.shop)) {
             input.p.purchase(input.shop);
+            gameLog.add(input.p.getPlayerName() + " purchased a Development Card");
         }
-        ;
+
     }
 
     public static class USE_DEV_CARD {
@@ -507,7 +510,8 @@ public class API extends AbstractVerticle {
         NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         Player.getPlayer(input.playerRobbingId).setArmySize(1);
         Player.getPlayer(input.playerRobbingId).getDevelopmentCards().put(DevelopmentCards.KNIGHT, Player.getPlayer(input.playerRobbingId).getDevelopmentCards().get(DevelopmentCards.KNIGHT) - 1);
-
+        gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() + " used Knight Card");
+        gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
     }
 
     public static class USE_MONOPOLY {
@@ -527,6 +531,8 @@ public class API extends AbstractVerticle {
         }
         Player.getPlayer(input.playerId).getDeck().put(input.resourceType, count);
         Player.getPlayer(input.playerId).getDevelopmentCards().put(DevelopmentCards.MONOPOLY, Player.getPlayer(input.playerId).getDevelopmentCards().get(DevelopmentCards.MONOPOLY) - 1);
+        gameLog.add(Player.getPlayer(input.playerId).getPlayerName() + " used Knight Card");
+        gameLog.add(Player.getPlayer(input.playerId).getPlayerName() + " received " + count + " " +input.resourceType.toString());
     }
 
     public static class USE_YEAR_OF_PLENTY {
