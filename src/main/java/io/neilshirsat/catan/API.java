@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class API extends AbstractVerticle {
 
@@ -562,11 +563,19 @@ public class API extends AbstractVerticle {
         );
     }
 
-    /*public static class ROLL_DICE {
+    public List<Integer> getPorts() {
+        return VertexImpl.PortVertices();
+    }
 
-        List<NodeImpl> deck;
-
-    }*/
+    public Map<ResourceType, Integer> amountResourceCardsLeft() {
+        Map<ResourceType, Integer> map = new TreeMap<>();
+        map.put(ResourceType.ORE, ResourceType.ORE.getAmountLeft());
+        map.put(ResourceType.WOOL, ResourceType.WOOL.getAmountLeft());
+        map.put(ResourceType.WHEAT, ResourceType.WHEAT.getAmountLeft());
+        map.put(ResourceType.LUMBER, ResourceType.LUMBER.getAmountLeft());
+        map.put(ResourceType.BRICK, ResourceType.BRICK.getAmountLeft());
+       return map;
+    }
 
     public void rollDice() {
         int diceRoll = gameState.rollDice();

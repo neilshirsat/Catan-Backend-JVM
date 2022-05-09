@@ -185,7 +185,7 @@ public enum VertexImpl implements Vertex {
         return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53).contains(getVertxId());
     }
 
-    public List<Integer> PortVerticies() {
+    public static List<Integer> PortVertices() {
         return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53);
     }
 
@@ -207,7 +207,7 @@ public enum VertexImpl implements Vertex {
 
     public void buildPorts() {
         List<Port> ports = getPortList();
-        List<Integer> portVertices = PortVerticies();
+        List<Integer> portVertices = PortVertices();
         for (int i = 0; i < 9; i++) {
             getVertex(portVertices.get(i)).setPort(ports.get(i));
             getVertex(portVertices.get(i*2)).setPort(ports.get(i));
@@ -321,7 +321,7 @@ public enum VertexImpl implements Vertex {
             ResourceType resourceGiven,
             ResourceType resourceNeeded
     ) {
-        for (int i : PortVerticies()) {
+        for (int i : PortVertices()) {
             if (getVertex(i).hasSettlement()||getVertex(i).hasCity()&&getVertex(i).getControlledPlayer()==player) {
                 Port v = getVertex(i).getPort();
                 if (v.getResourceType()==resourceGiven&&v!=Port.PORT_BRICK) {

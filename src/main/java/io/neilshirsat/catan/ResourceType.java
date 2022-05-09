@@ -18,7 +18,7 @@ public enum ResourceType {
     }
 
     //TODO getAmountLeft has to be >=0
-    private int getAmountLeft() {
+    public int getAmountLeft() {
         return amountLeft;
     }
 
