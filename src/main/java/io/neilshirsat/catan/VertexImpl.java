@@ -189,7 +189,7 @@ public enum VertexImpl implements Vertex {
         return List.of(1,2,4,6,11,12,16,17,27,33,34,39,43,47,48,50,52,53);
     }
 
-    private List<Port> getPortList() {
+    private static List<Port> getPortList() {
         List<Port> ports = new java.util.ArrayList<>(List.of(
                 Port.PORT_LUMBER,
                 Port.PORT_BRICK,
@@ -205,12 +205,12 @@ public enum VertexImpl implements Vertex {
         return ports;
     }
 
-    public void buildPorts() {
+    public static void buildPorts() {
         List<Port> ports = getPortList();
         List<Integer> portVertices = PortVertices();
         for (int i = 0; i < 9; i++) {
-            getVertex(portVertices.get(i)).setPort(ports.get(i));
             getVertex(portVertices.get(i*2)).setPort(ports.get(i));
+            getVertex(portVertices.get(i*2+1)).setPort(ports.get(i));
         }
     }
 

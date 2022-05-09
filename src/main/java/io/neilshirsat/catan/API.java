@@ -510,6 +510,7 @@ public class API extends AbstractVerticle {
         NodeImpl.prepareNodeSetup();
         Player.amountPlayers = input.amountPlayers;
         Player.initializeAllPlayers();
+        VertexImpl.buildPorts();
         for (int i = 0; i < input.amountPlayers; i++) {
             Player.getPlayer(i + 1).setPlayerName(input.playerNames[i]);
             Player.getPlayer(i + 1).setPasscode(input.playerPasscodes[i]);
