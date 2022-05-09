@@ -65,7 +65,17 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(gameState));
         });
 
-        //SETUP
+        /**
+         *
+         *
+         *
+         *
+         * SETUP
+         *
+         *
+         *
+         *
+         */
         ipcRouter.route(HttpMethod.POST, "/setup-names").blockingHandler((ctx) -> {
             logger.info(ctx.getBodyAsJson().encode());
             final SETUP_NAMES setup_names = ctx.getBodyAsJson().mapTo(SETUP_NAMES.class);
@@ -83,13 +93,37 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
 
-        //Get Player Data
+        /**
+         *
+         *
+         *
+         *
+         * Player Data
+         *
+         *
+         *
+         *
+         */
         ipcRouter.route(HttpMethod.GET, "/get-player-data/:player_id").handler((ctx) -> {
             int player_id = Integer.parseInt(ctx.pathParams().get("player_id"));
             ctx.end(Json.encode(getPlayerData(player_id)));
         });
         ipcRouter.route(HttpMethod.GET, "/get-all-users").handler((ctx) -> {
             ctx.end(Json.encode(getAllPlayersData()));
+        });
+        ipcRouter.route(HttpMethod.GET, "/other-players").handler((ctx) -> {
+            List<Player> allPlayers = Player.getAllPlayers();
+            List<Player> players = new ArrayList<>();
+            for (Player e: allPlayers) {
+                if (e.getId() != gameState.getTurn()) {
+                    players.add(e);
+                }
+            }
+            logger.info("Other Players: " + Json.encode(players));
+            ctx.end(Json.encode(players));
+        });
+        ipcRouter.route(HttpMethod.GET, "/other-players-trade").handler((ctx) -> {
+            ctx.end(Json.encode(canRobPlayerList()));
         });
         ipcRouter.route(HttpMethod.GET, "/get-current-player").handler((ctx) -> {
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
@@ -102,7 +136,18 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(gameState.getStage()));
         });
 
-        //TODO GET BOARD DATA
+
+        /**
+         *
+         *
+         *
+         *
+         * Board Data
+         *
+         *
+         *
+         *
+         */
         ipcRouter.route(HttpMethod.GET, "/get-nodes").handler((ctx) -> {
             List<NodeImpl> allNodes = NodeImpl.getAllNodes();
             ctx.end(Json.encode(allNodes));
@@ -112,6 +157,135 @@ public class API extends AbstractVerticle {
             List<EdgeImpl> allEdges = EdgeImpl.allEdges();
             ctx.end(Json.encode(allEdges));
         });
+
+        ipcRouter.route(HttpMethod.GET, "/get-vertices").handler((ctx) -> {
+            List<VertexImpl> allVerticies = VertexImpl.allVerticies();
+            ctx.end(Json.encode(allVerticies));
+        });
+
+        /**
+         *
+         *
+         *
+         *
+         * Roll the Dice
+         *
+         *
+         *
+         *
+         */
+        ipcRouter.route(HttpMethod.GET, "/roll-dice").handler((ctx) -> {
+            int dice = gameState.rollDice();
+            gameState.handleDiceRoll(dice);
+            ctx.end(Json.encode(dice));
+        });
+
+        /**
+         *
+         *
+         *
+         *
+         * Special Case 7
+         *
+         *
+         *
+         *
+         */
+        ipcRouter.route(HttpMethod.GET, "/overflow-deck-players").handler((ctx) -> {
+            List<Player> allPlayers = Player.getAllPlayers();
+            List<Player> players = new ArrayList<>();
+            for (Player e: allPlayers) {
+                if (e.getId() != gameState.getTurn()) {
+                    if (e.getAmountResourceCards() >= 8) {
+                        players.add(e);
+                    }
+                }
+            }
+            logger.info("Other Players: " + Json.encode(players));
+            ctx.end(Json.encode(players));
+        });
+        ipcRouter.route(HttpMethod.GET, "/can-place-robber-nodes").handler((ctx) -> {
+            List<NodeImpl> allNodes = NodeImpl.getAllNodes();
+            List<Integer> nodes = new ArrayList<>(18);
+            for (NodeImpl node : allNodes) {
+                if (!node.isHasRobber()) {
+                    nodes.add(node.getNodeId());
+                }
+            }
+            ctx.end(Json.encode(nodes));
+        });
+        ipcRouter.route(HttpMethod.POST, "/discard-cards").handler((ctx) -> {
+            DISCARD_CARD_WHEN_ROLL_7 rob_player = ctx.getBodyAsJson().mapTo(DISCARD_CARD_WHEN_ROLL_7.class);
+            discardCards(rob_player);
+            ctx.end();
+        });
+        ipcRouter.route(HttpMethod.POST, "/move-robber").handler((ctx) -> {
+            CHANGE_ROBBER change_robber = ctx.getBodyAsJson().mapTo(CHANGE_ROBBER.class);
+            changeRobber(change_robber);
+            ctx.end();
+        });
+        ipcRouter.route(HttpMethod.POST, "/rob-cards").handler((ctx) -> {
+            ROB_PLAYER rob_player = ctx.getBodyAsJson().mapTo(ROB_PLAYER.class);
+            ctx.end(Json.encode(robPlayer(rob_player)));
+        });
+
+        /**
+         *
+         *
+         *
+         *
+         * Build Settlements, Cities, and Roads
+         *
+         *
+         *
+         *
+         */
+        ipcRouter.route(HttpMethod.POST, "/build-settlement").handler((ctx) -> {
+            final PURCHASE_SETTLEMENT purchase_settlement = ctx.getBodyAsJson().mapTo(PURCHASE_SETTLEMENT.class);
+            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
+                purchaseSettlementStage1and2(purchase_settlement);
+                if (gameState.getStage() == GameStateImpl.Stage.STAGE_2) {
+                    List<NodeImpl> nodes = new ArrayList<>();
+                    for (int e: VertexImpl.getVertex(purchase_settlement.vertexId).getConnectedNodes()) {
+                        nodes.add((NodeImpl) NodeImpl.getNode(e));
+                    }
+                    NodeImpl.receiveCards(nodes);
+                }
+            }
+            else {
+                purchaseSettlement(purchase_settlement);
+            }
+            ctx.end(Json.encode(VertexImpl.allVerticies()));
+        });
+
+        ipcRouter.route(HttpMethod.POST, "/build-city").handler((ctx) -> {
+            final PURCHASE_CITY purchase_city = ctx.getBodyAsJson().mapTo(PURCHASE_CITY.class);
+            purchaseSettlement(purchase_city);
+            ctx.end(Json.encode(VertexImpl.allVerticies()));
+        });
+
+        ipcRouter.route(HttpMethod.POST, "/build-road").handler((ctx) -> {
+            final PURCHASE_ROAD purchase_road = ctx.getBodyAsJson().mapTo(PURCHASE_ROAD.class);
+            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
+                purchaseRoadStage1and2(purchase_road);
+            }
+            else {
+                purchaseRoad(purchase_road);
+            }
+            ctx.end(Json.encode(EdgeImpl.allEdges()));
+        });
+
+        /**
+         *
+         *
+         *
+         *
+         * Can Build Settlements, Cities, and Roads
+         *
+         *
+         *
+         *
+         */
         ipcRouter.route(HttpMethod.GET, "/can-build-roads").handler((ctx) -> {
             List<Integer> edges = new ArrayList<>();
             if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
@@ -123,11 +297,6 @@ public class API extends AbstractVerticle {
             }
             ctx.end(Json.encode(edges));
             //ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
-        });
-
-        ipcRouter.route(HttpMethod.GET, "/get-vertices").handler((ctx) -> {
-            List<VertexImpl> allVerticies = VertexImpl.allVerticies();
-            ctx.end(Json.encode(allVerticies));
         });
         ipcRouter.route(HttpMethod.GET, "/can-build-settlement-first-turn").handler((ctx) -> {
             List<VertexImpl> allVerticies = VertexImpl.allVerticies();
@@ -160,41 +329,17 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(vertices));
         });
 
-        ipcRouter.route(HttpMethod.POST, "/build-settlement").handler((ctx) -> {
-            final PURCHASE_SETTLEMENT purchase_settlement = ctx.getBodyAsJson().mapTo(PURCHASE_SETTLEMENT.class);
-            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
-                purchaseSettlementStage1and2(purchase_settlement);
-            }
-            else {
-                purchaseSettlement(purchase_settlement);
-            }
-            ctx.end(Json.encode(VertexImpl.allVerticies()));
-        });
-
-        ipcRouter.route(HttpMethod.POST, "/build-city").handler((ctx) -> {
-            final PURCHASE_CITY purchase_city = ctx.getBodyAsJson().mapTo(PURCHASE_CITY.class);
-            purchaseSettlement(purchase_city);
-            ctx.end(Json.encode(VertexImpl.allVerticies()));
-        });
-
-        ipcRouter.route(HttpMethod.POST, "/build-road").handler((ctx) -> {
-            final PURCHASE_ROAD purchase_road = ctx.getBodyAsJson().mapTo(PURCHASE_ROAD.class);
-            if (gameState.getStage() != GameStateImpl.Stage.STAGE_3) {
-                purchaseRoadStage1and2(purchase_road);
-            }
-            else {
-                purchaseRoad(purchase_road);
-            }
-            ctx.end(Json.encode(EdgeImpl.allEdges()));
-        });
-
-        ipcRouter.route(HttpMethod.GET, "/roll-dice").handler((ctx) -> {
-            ctx.end(Json.encode(gameState.rollDice()));
-        });
-
-        //TODO TRADES
-
-        //TODO CARDS
+        /**
+         *
+         *
+         *
+         *
+         * Trade with Other Players
+         *
+         *
+         *
+         *
+         */
 
     }
 
@@ -220,6 +365,11 @@ public class API extends AbstractVerticle {
      *
      */
 
+    public static class DISTRIBUTE_CARDS {
+
+        private int dice;
+
+    }
 
     public static ArrayList<String> gameLog = new ArrayList<>();
 
@@ -361,8 +511,6 @@ public class API extends AbstractVerticle {
             k.getKey().setAmountLeft(k.getValue());
             gameLog.add(p.getPlayerName()+ " discarded "  + k.getValue() + " " + k.getKey().toString());
         }
-
-
     }
 
     public static class GET_NODE {
@@ -505,17 +653,47 @@ public class API extends AbstractVerticle {
     }
 
     public static class CHANGE_ROBBER {
-        int nodeID;
-        int playerRobbedId;
-        int playerRobbingId;
+        public int getNodeId() {
+            return nodeId;
+        }
+
+        public void setNodeId(int nodeId) {
+            this.nodeId = nodeId;
+        }
+
+        int nodeId;
     }
 
     public void changeRobber(CHANGE_ROBBER input) {
-        NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
-        gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
-
+        NodeImpl.changeRobber(input.nodeId);
     }
 
+    public static class ROB_PLAYER {
+        public int getPlayerRobbingId() {
+            return playerRobbingId;
+        }
+
+        public void setPlayerRobbingId(int playerRobbingId) {
+            this.playerRobbingId = playerRobbingId;
+        }
+
+        public int getPlayerRobbedId() {
+            return playerRobbedId;
+        }
+
+        public void setPlayerRobbedId(int playerRobbedId) {
+            this.playerRobbedId = playerRobbedId;
+        }
+
+        int playerRobbingId;
+        int playerRobbedId;
+    }
+
+    public ResourceType robPlayer(ROB_PLAYER input) {
+        ResourceType card = Player.robAnotherPlayer(Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
+        gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
+        return card;
+    }
 
     public static class PROPOSE_TRADE {
 
@@ -600,7 +778,8 @@ public class API extends AbstractVerticle {
     public void useKnight(USE_KNIGHT input) {
 
 
-        NodeImpl.changeRobber(input.nodeID, Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
+        NodeImpl.changeRobber(input.nodeID);
+        Player.robAnotherPlayer(Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         Player.getPlayer(input.playerRobbingId).setArmySize(1);
         Player.getPlayer(input.playerRobbingId).getDevelopmentCards().put(DevelopmentCards.KNIGHT, Player.getPlayer(input.playerRobbingId).getDevelopmentCards().get(DevelopmentCards.KNIGHT) - 1);
         gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() + " used Knight Card");

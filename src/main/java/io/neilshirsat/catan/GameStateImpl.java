@@ -1,7 +1,11 @@
 package io.neilshirsat.catan;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.vertx.core.json.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,6 +15,8 @@ import java.util.TreeMap;
  */
 
 public class GameStateImpl implements GameState {
+
+    private static Logger Log = LoggerFactory.getLogger(GameStateImpl.class);
 
     public int getTurn() {
         return turn;
@@ -82,7 +88,8 @@ public class GameStateImpl implements GameState {
      * Rolls the Dice and Returns the Rolled Dice Number
      */
     public int rollDice() {
-        return diceProbabilityList.get((int)(Math.random() * 16));
+        return 7;
+        //return diceProbabilityList.get((int)(Math.random() * 36));
     }
 
     /**
@@ -94,7 +101,8 @@ public class GameStateImpl implements GameState {
     public void handleDiceRoll(int dice) {
         if (dice != 7) {
             actionStage = ActionStage.NORMAL;
-           NodeImpl.receiveCards(NodeImpl.getNodesWithDice(dice));
+            Log.info(Json.encode(NodeImpl.getNodesWithDice(dice)));
+            NodeImpl.receiveCards(NodeImpl.getNodesWithDice(dice));
         }
         else actionStage = ActionStage.SPECIAL_7;
     }
@@ -118,7 +126,7 @@ public class GameStateImpl implements GameState {
         else  {
             turn++;
             if (turn > Player.amountPlayers) {
-                turn = Player.amountPlayers;
+                turn = 1;
             }
         }
     }

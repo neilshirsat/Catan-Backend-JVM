@@ -6,20 +6,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
+import java.util.*;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Player {
 
-    PLAYER_1,
-    PLAYER_2,
-    PLAYER_3,
-    PLAYER_4;
+    PLAYER_1(1),
+    PLAYER_2(2),
+    PLAYER_3(3),
+    PLAYER_4(4);
+
+    Player(int id) {
+        this.id = id;
+    }
 
     public static Player DEFAULT = null;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 
     private String playerName;
 
@@ -369,4 +380,21 @@ public enum Player {
     }
 
     private COLOR color;
+
+    public static ResourceType robAnotherPlayer(Player robbed, Player robbing) {
+        List<ResourceType> keysAsArray = new ArrayList<ResourceType>(robbed.getDeck().keySet());
+        List<ResourceType> keys = new ArrayList<>();
+        for (ResourceType e: keysAsArray) {
+            if (robbed.getDeck().get(e) > 0) {
+                keys.add(e);
+            }
+        }
+        if (keys.size() > 0) {
+            ResourceType key = keys.get((int)(Math.random()*keys.size()));
+            robbed.getDeck().put(key,robbed.getDeck().get(key)-1);
+            robbing.getDeck().put(key,robbing.getDeck().get(key)+1);
+            return key;
+        }
+        return ResourceType.NONE;
+    }
 }

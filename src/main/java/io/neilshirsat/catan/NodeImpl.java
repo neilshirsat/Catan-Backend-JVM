@@ -1,6 +1,7 @@
 package io.neilshirsat.catan;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.vertx.core.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public enum NodeImpl implements Node {
             5,
             6,
             List.of(3,4,8,9,14,15),
-            List.of(1,4,5,8,9,13)
+            List.of(2,5,6,9,10,14)
     ),
 
     NODE_3(
@@ -42,7 +43,7 @@ public enum NodeImpl implements Node {
             6,
             7,
             List.of(5,6,9,10,16,17),
-            List.of(1,4,5,8,9,13)
+            List.of(3,6,7,10,11,15)
     ),
 
     NODE_4(
@@ -54,7 +55,7 @@ public enum NodeImpl implements Node {
             8,
             9,
             List.of(11,12,19,20,25,26),
-            List.of(1,4,5,8,9,13)
+            List.of(8,12,13,17,18,23)
     ),
 
     NODE_5(
@@ -66,7 +67,7 @@ public enum NodeImpl implements Node {
             9,
             10,
             List.of(13,14,20,21,27,28),
-            List.of(1,4,5,8,9,13)
+            List.of(9,13,14,18,19,24)
     ),
 
     NODE_6(
@@ -78,7 +79,7 @@ public enum NodeImpl implements Node {
             10,
             11,
             List.of(15,16,21,22,29,30),
-            List.of(1,4,5,8,9,13)
+            List.of(10,14,15,19,20,25)
     ),
 
     NODE_7(
@@ -90,7 +91,7 @@ public enum NodeImpl implements Node {
             11,
             12,
             List.of(17,18,22,23,31,32),
-            List.of(1,4,5,8,9,13)
+            List.of(11,15,16,20,21,26)
     ),
 
     NODE_8(
@@ -102,7 +103,7 @@ public enum NodeImpl implements Node {
             -1,
             13,
             List.of(24,25,34,35,40,41),
-            List.of(1,4,5,8,9,13)
+            List.of(17,22,23,28,29,34)
     ),
 
     NODE_9(
@@ -114,7 +115,7 @@ public enum NodeImpl implements Node {
             13,
             14,
             List.of(26,27,35,36,42,43),
-            List.of(1,4,5,8,9,13)
+            List.of(18,23,24,29,30,35)
     ),
 
     NODE_10(
@@ -126,7 +127,7 @@ public enum NodeImpl implements Node {
             14,
             15,
             List.of(28,29,36,37,44,45),
-            List.of(1,4,5,8,9,13)
+            List.of(19,24,25,30,31,36)
     ),
 
     NODE_11(
@@ -138,7 +139,7 @@ public enum NodeImpl implements Node {
             15,
             16,
             List.of(30,31,37,38,46,47),
-            List.of(1,4,5,8,9,13)
+            List.of(20,25,26,31,32,37)
     ),
 
     NODE_12(
@@ -150,7 +151,7 @@ public enum NodeImpl implements Node {
             16,
             -1,
             List.of(32,33,38,39,48,49),
-            List.of(1,4,5,8,9,13)
+            List.of(21,26,27,32,33,38)
     ),
 
     NODE_13(
@@ -162,7 +163,7 @@ public enum NodeImpl implements Node {
             -1,
             17,
             List.of(41,42,50,51,55,56),
-            List.of(1,4,5,8,9,13)),
+            List.of(29,34,35,39,40,44)),
 
     NODE_14(
             14,
@@ -173,7 +174,7 @@ public enum NodeImpl implements Node {
             17,
             18,
             List.of(43,44,51,52,57,58),
-            List.of(1,4,5,8,9,13)
+            List.of(30,35,36,40,41,45)
     ),
 
     NODE_15(
@@ -185,7 +186,7 @@ public enum NodeImpl implements Node {
             18,
             19,
             List.of(45,46,52,53,59,60),
-            List.of(1,4,5,8,9,13)
+            List.of(31,36,37,41,42,46)
     ),
 
     NODE_16(
@@ -197,7 +198,7 @@ public enum NodeImpl implements Node {
             19,
             -1,
             List.of(47,48,52,53,61,62),
-            List.of(1,4,5,8,9,13)
+            List.of(32,37,38,42,43,47)
     ),
 
     NODE_17(
@@ -209,7 +210,7 @@ public enum NodeImpl implements Node {
             -1,
             -1,
             List.of(56,57,63,64,67,68),
-            List.of(1,4,5,8,9,13)
+            List.of(40,44,45,48,49,52)
     ),
 
     NODE_18(
@@ -221,7 +222,7 @@ public enum NodeImpl implements Node {
             -1,
             -1,
             List.of(58,59,64,65,69,70),
-            List.of(1,4,5,8,9,13)
+            List.of(41,45,46,49,50,53)
     ),
 
     NODE_19(
@@ -233,7 +234,7 @@ public enum NodeImpl implements Node {
             -1,
             -1,
             List.of(60,61,65,66,71,72),
-            List.of(1,4,5,8,9,13)
+            List.of(42,46,47,50,51,54)
     );
 
     private static Logger Log = LoggerFactory.getLogger(NodeImpl.class);
@@ -465,26 +466,12 @@ public enum NodeImpl implements Node {
 
     public static NodeImpl robber = null;
 
-    public static void changeRobber(int nodeId, Player robbed, Player robbing) {
+    public static void changeRobber(int nodeId) {
         NodeImpl node = (NodeImpl) NodeImpl.getNode(nodeId);
         node.hasRobber = true;
 
         robber.hasRobber = false;
         robber = node;
-
-
-        List<ResourceType> keysAsArray = new ArrayList<ResourceType>(robbed.getDeck().keySet());
-        Random r = new Random();
-        ResourceType key = null;
-        while (robbed.getDeck().get(key) == 0||key == null) {
-            key = keysAsArray.get(r.nextInt(keysAsArray.size()));
-        }
-        robbed.getDeck().put(key,robbed.getDeck().get(key)-1);
-        robbing.getDeck().put(key,robbing.getDeck().get(key)+1);
-
-        //Needs selected robbed Player from User Interface
-
-
     }
 
     /**
@@ -510,7 +497,7 @@ public enum NodeImpl implements Node {
                 node.hasRobber = true;
                 node.setNumberPieces(NumberPieces.NONE);
             }
-            Log.info(node.nodeId + "");
+            Log.info(Json.encode(node) + "");
         }
 
         EdgeImpl.resetLongestRoad();
