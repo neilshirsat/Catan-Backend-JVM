@@ -5,10 +5,7 @@ import io.vertx.core.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * The Implementation for the Game State
@@ -29,6 +26,16 @@ public class GameStateImpl implements GameState {
     private int turn = 1;
 
     private Map<Integer, Player> players;
+
+    public List<currentTrade> getCurrentTrades() {
+        return currentTrades;
+    }
+
+    public void setCurrentTrades(List<currentTrade> currentTrades) {
+        this.currentTrades = currentTrades;
+    }
+
+    private List<currentTrade> currentTrades = new ArrayList<>();
 
     enum Stage {
         SETUP,
@@ -88,8 +95,8 @@ public class GameStateImpl implements GameState {
      * Rolls the Dice and Returns the Rolled Dice Number
      */
     public int rollDice() {
-        return 7;
-        //return diceProbabilityList.get((int)(Math.random() * 36));
+        //return 7;
+        return diceProbabilityList.get((int)(Math.random() * 36));
     }
 
     /**
@@ -128,6 +135,7 @@ public class GameStateImpl implements GameState {
             if (turn > Player.amountPlayers) {
                 turn = 1;
             }
+            currentTrades = new ArrayList<>();
         }
     }
 
@@ -169,11 +177,11 @@ public class GameStateImpl implements GameState {
         private final Map<ResourceType, Integer> tradeIngoing;
         private final int tradeId;
 
-        public Player[] getTargetPlayers() {
+        public List<Player> getTargetPlayers() {
             return targetPlayers;
         }
 
-        private final Player[] targetPlayers;
+        private final List<Player> targetPlayers;
 
         public Map<ResourceType, Integer> getTradeOutgoing() {
             return tradeOutgoing;
@@ -195,7 +203,7 @@ public class GameStateImpl implements GameState {
                 Map<ResourceType, Integer> tradeOutgoing,
                 Map<ResourceType, Integer> tradeIngoing,
                 int tradeId,
-                Player[] targetPlayers) {
+                List<Player> targetPlayers) {
             this.tradeOutgoing = tradeOutgoing;
             this.tradeIngoing = tradeIngoing;
             this.tradeId = tradeId;

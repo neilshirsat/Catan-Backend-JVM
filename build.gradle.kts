@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     kotlin("jvm") version "1.5.31"
     java
@@ -6,12 +8,6 @@ plugins {
 
 group = "io.neilshirsat"
 version = "1.0-SNAPSHOT"
-
-//jar {
-//    manifest {
-//        attributes["Main-Class"] = "io.neilshirsat.catan.render.MainFrame"
-//    }
-//}
 
 repositories {
     mavenCentral()
@@ -49,4 +45,20 @@ dependencies {
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks {
+    named<ShadowJar>("shadowJar") {
+        archiveBaseName.set("shadow")
+        mergeServiceFiles()
+        manifest {
+            attributes(mapOf("Main-Class" to "io.neilshirsat.catan.render.MainFrame"))
+        }
+    }
+}
+
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
 }

@@ -11,6 +11,7 @@ import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
+import io.vertx.ext.web.handler.StaticHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,7 @@ public class API extends AbstractVerticle {
 
         ipcRouter.route().handler(CorsHandler.create("*")
                 .addOrigin("http://localhost:3000")
+                .addOrigin("http://localhost:6584")
                 .allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
@@ -61,7 +63,7 @@ public class API extends AbstractVerticle {
         ipcRouter.route().handler(BodyHandler.create());
 
         //Debug
-        ipcRouter.route(HttpMethod.GET, "/").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.GET, "/debug").handler((ctx) -> {
             ctx.end(Json.encode(gameState));
         });
 
@@ -224,6 +226,9 @@ public class API extends AbstractVerticle {
             changeRobber(change_robber);
             ctx.end();
         });
+        ipcRouter.route(HttpMethod.GET, "/get-players-to-rob").handler((ctx) -> {
+            ctx.end(Json.encode(canRobPlayerList()));
+        });
         ipcRouter.route(HttpMethod.POST, "/rob-cards").handler((ctx) -> {
             ROB_PLAYER rob_player = ctx.getBodyAsJson().mapTo(ROB_PLAYER.class);
             ctx.end(Json.encode(robPlayer(rob_player)));
@@ -295,6 +300,15 @@ public class API extends AbstractVerticle {
                     }
                 }
             }
+            else {
+                for (VertexImpl e: VertexImpl.allVerticies()) {
+                    for (int a: e.getConnectedEdges()) {
+                        if (!((EdgeImpl) EdgeImpl.getEdge(a)).isRoad()) {
+                            edges.add(a);
+                        }
+                    }
+                }
+            }
             ctx.end(Json.encode(edges));
             //ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
         });
@@ -340,6 +354,75 @@ public class API extends AbstractVerticle {
          *
          *
          */
+        ipcRouter.route(HttpMethod.POST, "/initiate-trade").handler((ctx) -> {
+            PROPOSE_TRADE propose_trade = ctx.getBodyAsJson().mapTo(PROPOSE_TRADE.class);
+            proposeTrade(propose_trade);
+            ctx.end(Json.encode(gameState.getCurrentTrades()));
+        });
+        ipcRouter.route(HttpMethod.POST, "/complete-trade").handler((ctx) -> {
+            VERIFY_TRADE verify_trade = ctx.getBodyAsJson().mapTo(VERIFY_TRADE.class);
+            verifyTrade(verify_trade);
+            ctx.end(Json.encode(gameState.getCurrentTrades()));
+        });
+
+        /**
+         *
+         *
+         *
+         *
+         * Development Cards
+         *
+         *
+         *
+         *
+         */
+        ipcRouter.route(HttpMethod.GET, "/buy-development-card").handler((ctx) -> {
+            PURCHASE_DEV_CARD purchase_dev_card = ctx.getBodyAsJson().mapTo(PURCHASE_DEV_CARD.class);
+            purchaseDevCard(purchase_dev_card);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+        ipcRouter.route(HttpMethod.GET, "/use-year-of-plenty").handler((ctx) -> {
+            USE_YEAR_OF_PLENTY use_year_of_plenty = ctx.getBodyAsJson().mapTo(USE_YEAR_OF_PLENTY.class);
+            useYearOfPlenty(use_year_of_plenty);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+        ipcRouter.route(HttpMethod.GET, "/use-dev-card").handler((ctx) -> {
+            USE_DEV_CARD use_dev_card = ctx.getBodyAsJson().mapTo(USE_DEV_CARD.class);
+            useDevCard(use_dev_card);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+        ipcRouter.route(HttpMethod.GET, "/use-knight").handler((ctx) -> {
+            USE_KNIGHT use_knight = ctx.getBodyAsJson().mapTo(USE_KNIGHT.class);
+            useKnight(use_knight);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+        ipcRouter.route(HttpMethod.GET, "/use-road-building").handler((ctx) -> {
+            USE_ROAD_BUILDING use_road_building = ctx.getBodyAsJson().mapTo(USE_ROAD_BUILDING.class);
+            useRoadBuilding(use_road_building);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+        ipcRouter.route(HttpMethod.GET, "/use-monopoly").handler((ctx) -> {
+            USE_MONOPOLY use_monopoly = ctx.getBodyAsJson().mapTo(USE_MONOPOLY.class);
+            useMonopoly(use_monopoly);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+        });
+
+        /**
+         *
+         *
+         *
+         *
+         * Win Conditions
+         *
+         *
+         *
+         *
+         */
+        ipcRouter.route(HttpMethod.GET, "/check-win-conditions").handler((ctx) -> {
+            ctx.end(Json.encode(this.gameState.checkPlayerWin()));
+        });
+
+        ipcRouter.route().handler(StaticHandler.create());
 
     }
 
@@ -644,7 +727,11 @@ public class API extends AbstractVerticle {
     //returns list of players who you can rob
     public List<Player> canRobPlayerList() {
         List<Player> playerList = new ArrayList<>();
-        for (Player p : Player.getAllPlayers()) {
+        for (int vertex : NodeImpl.robber.getVertices()) {
+            Player p = VertexImpl.getVertex(vertex).getControlledPlayer();
+            if (p == null) {
+                continue;
+            }
             if (p.getAmountResourceCards()>=1) {
                 playerList.add(p);
             }
@@ -697,22 +784,83 @@ public class API extends AbstractVerticle {
 
     public static class PROPOSE_TRADE {
 
+        public Map<ResourceType, Integer> getPlayer1Outgoing() {
+            return player1Outgoing;
+        }
+
+        public void setPlayer1Outgoing(Map<ResourceType, Integer> player1Outgoing) {
+            this.player1Outgoing = player1Outgoing;
+        }
+
+        public Map<ResourceType, Integer> getPlayer2Outgoing() {
+            return player2Outgoing;
+        }
+
+        public void setPlayer2Outgoing(Map<ResourceType, Integer> player2Outgoing) {
+            this.player2Outgoing = player2Outgoing;
+        }
+
+        public int getPlayer1Id() {
+            return player1Id;
+        }
+
+        public void setPlayer1Id(int player1Id) {
+            this.player1Id = player1Id;
+        }
+
+        public int[] getTargetPlayers() {
+            return targetPlayers;
+        }
+
+        public void setTargetPlayers(int[] targetPlayers) {
+            this.targetPlayers = targetPlayers;
+        }
+
         Map<ResourceType, Integer> player1Outgoing;
 
         Map<ResourceType, Integer> player2Outgoing;
 
         int player1Id;
 
-        Player[] targetPlayers;
+        int[] targetPlayers;
     }
 
 
     public void proposeTrade(PROPOSE_TRADE input) {
-        GameStateImpl.currentTrade currentTrade = new GameStateImpl.currentTrade(input.player1Outgoing, input.player2Outgoing, GameStateImpl.currentTrade.getAmountTrades(), input.targetPlayers);
+        List<Player> players = new ArrayList<>();
+        for (int player: input.targetPlayers) {
+            players.add(Player.getPlayer(player));
+        }
+        GameStateImpl.currentTrade currentTrade = new GameStateImpl.currentTrade(input.player1Outgoing, input.player2Outgoing, GameStateImpl.currentTrade.getAmountTrades(), players);
         gameLog.add(currentTrade.getTradeId()+ ": " +Player.getPlayer(input.player1Id)+ " wants to trade " + input.player1Outgoing.toString() + " for " + input.player2Outgoing);
+        gameState.getCurrentTrades().add(currentTrade);
     }
 
     public static class VERIFY_TRADE {
+
+        public GameStateImpl.currentTrade getCurrentTrade() {
+            return currentTrade;
+        }
+
+        public void setCurrentTrade(GameStateImpl.currentTrade currentTrade) {
+            this.currentTrade = currentTrade;
+        }
+
+        public int getPlayer1Id() {
+            return player1Id;
+        }
+
+        public void setPlayer1Id(int player1Id) {
+            this.player1Id = player1Id;
+        }
+
+        public String getPasscode() {
+            return passcode;
+        }
+
+        public void setPasscode(String passcode) {
+            this.passcode = passcode;
+        }
 
         GameStateImpl.currentTrade currentTrade;
 

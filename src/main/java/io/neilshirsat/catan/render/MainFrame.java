@@ -56,11 +56,11 @@ public class MainFrame extends BrowserFrame {
                 WindowDimension.height/2-startupFrame.getSize().height/2
         );
 
-        //MainFrame.api = new API((started)->{
+        MainFrame.api = new API((started)->{
 
-        //});
-        //api.initialize();
-        //api.startServer();
+        });
+        api.initialize();
+        api.startServer();
 
         InputStream binFolder = null;
 
@@ -222,7 +222,7 @@ public class MainFrame extends BrowserFrame {
         Log.info("1");
 
         CefBrowser browser = cefClient.createBrowser(
-                "http://localhost:3000", osrEnabled, transparentPaintingEnabled, null);
+                "http://localhost:6584", osrEnabled, transparentPaintingEnabled, null);
         setBrowser(browser);
         Log.info("1");
 
