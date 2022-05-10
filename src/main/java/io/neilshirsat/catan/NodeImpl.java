@@ -415,7 +415,9 @@ public enum NodeImpl implements Node {
     }
 
     private static List<NodeImpl> getTransversal() {
-        return List.of(
+        ArrayList<List<NodeImpl>> list = new ArrayList<>();
+
+        list.add(List.of(
                 NODE_1,
                 NODE_4,
                 NODE_8,
@@ -434,8 +436,109 @@ public enum NodeImpl implements Node {
                 NODE_15,
                 NODE_11,
                 NODE_6,
-                NODE_10
-        );
+                NODE_10));
+        list.add(List.of(
+                NODE_8,
+                NODE_13,
+                NODE_17,
+                NODE_18,
+                NODE_19,
+                NODE_16,
+                NODE_12,
+                NODE_7,
+                NODE_3,
+                NODE_2,
+                NODE_1,
+                NODE_4,
+                NODE_9,
+                NODE_14,
+                NODE_15,
+                NODE_11,
+                NODE_6,
+                NODE_5,
+                NODE_10));
+        list.add(List.of(
+                NODE_17,
+                NODE_18,
+                NODE_19,
+                NODE_16,
+                NODE_12,
+                NODE_7,
+                NODE_3,
+                NODE_2,
+                NODE_1,
+                NODE_4,
+                NODE_8,
+                NODE_13,
+                NODE_14,
+                NODE_15,
+                NODE_11,
+                NODE_6,
+                NODE_5,
+                NODE_9,
+                NODE_10));
+        list.add(List.of(
+                NODE_19,
+                NODE_16,
+                NODE_12,
+                NODE_7,
+                NODE_3,
+                NODE_2,
+                NODE_1,
+                NODE_4,
+                NODE_8,
+                NODE_13,
+                NODE_17,
+                NODE_18,
+                NODE_15,
+                NODE_11,
+                NODE_6,
+                NODE_5,
+                NODE_9,
+                NODE_14,
+                NODE_10));
+        list.add(List.of(
+                NODE_12,
+                NODE_7,
+                NODE_3,
+                NODE_2,
+                NODE_1,
+                NODE_4,
+                NODE_8,
+                NODE_13,
+                NODE_17,
+                NODE_18,
+                NODE_19,
+                NODE_16,
+                NODE_11,
+                NODE_6,
+                NODE_5,
+                NODE_9,
+                NODE_14,
+                NODE_15,
+                NODE_10));
+        list.add(List.of(
+                NODE_3,
+                NODE_2,
+                NODE_1,
+                NODE_4,
+                NODE_8,
+                NODE_13,
+                NODE_17,
+                NODE_18,
+                NODE_19,
+                NODE_16,
+                NODE_12,
+                NODE_7,
+                NODE_6,
+                NODE_5,
+                NODE_9,
+                NODE_14,
+                NODE_15,
+                NODE_11,
+                NODE_10));
+        Collections.shuffle(list);
+        return list.get(0);
     }
 
     private static List<Resource> getResourceTypes() {
