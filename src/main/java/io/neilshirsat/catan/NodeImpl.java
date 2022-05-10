@@ -557,6 +557,16 @@ public enum NodeImpl implements Node {
 
     }
 
+    public static void receiveCardsStage2(List<NodeImpl> deck, Player controlledPlayer) {
+        for (NodeImpl node: deck) {
+                controlledPlayer.getDeck().put(
+                            node.resource.getResourceType(),
+                            controlledPlayer.getDeck().get(node.resource.getResourceType()) + 1
+                    );
+                    node.resource.getResourceType().setAmountLeft(-1);
+        }
+    }
+
     public static List<NodeImpl> getAllNodes() {
         return List.of(
                 NODE_1,

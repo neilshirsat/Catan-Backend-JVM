@@ -255,7 +255,7 @@ public class API extends AbstractVerticle {
                     for (int e: VertexImpl.getVertex(purchase_settlement.vertexId).getConnectedNodes()) {
                         nodes.add((NodeImpl) NodeImpl.getNode(e));
                     }
-                    NodeImpl.receiveCards(nodes);
+                    NodeImpl.receiveCardsStage2(nodes,Player.getPlayer(gameState.getTurn()));
                 }
             }
             else {
