@@ -258,6 +258,51 @@ public enum Player {
         return b;
     }
 
+    public boolean canTradeWithBank( Map<ResourceType, Integer> playerOutgoing,
+                                     ResourceType resourceGiven,
+                                     ResourceType resourceNeeded
+    ) {
+        if (resourceGiven==resourceNeeded) {
+            return false;
+        }
+        for (int i : VertexImpl.PortVertices()) {
+            if (VertexImpl.getVertex(i).hasSettlement() || VertexImpl.getVertex(i).hasCity() && VertexImpl.getVertex(i).getControlledPlayer() == this) {
+                VertexImpl.Port v = VertexImpl.getVertex(i).getPort();
+                if (v.getResourceType() == resourceGiven&&playerOutgoing.get(resourceGiven)==2) {
+                    return true;
+                }
+                else if (v.equals(VertexImpl.Port.PORT_RANDOM)&&playerOutgoing.get(resourceGiven)==3) {
+                    return true;
+                }
+            }
+        }
+        return playerOutgoing.get(resourceGiven)==4;
+    }
+
+    public void tradeWithBank(ResourceType resourceGiven, ResourceType resourceNeeded) {
+        for (int i : VertexImpl.PortVertices()) {
+            if (VertexImpl.getVertex(i).hasSettlement() || VertexImpl.getVertex(i).hasCity() && VertexImpl.getVertex(i).getControlledPlayer() == this) {
+                VertexImpl.Port v = VertexImpl.getVertex(i).getPort();
+                if (v.getResourceType() == resourceGiven) {
+                    getDeck().put(resourceGiven, getDeck().get(resourceGiven)-2);
+                    getDeck().put(resourceNeeded, getDeck().get(resourceNeeded)+1);
+                    resourceGiven.setAmountLeft(2);
+                    resourceNeeded.setAmountLeft(-1);
+                }
+                else if (v.equals(VertexImpl.Port.PORT_RANDOM)) {
+                    getDeck().put(resourceGiven, getDeck().get(resourceGiven) - 3);
+                    getDeck().put(resourceNeeded, getDeck().get(resourceNeeded) + 1);
+                    resourceGiven.setAmountLeft(3);
+                    resourceNeeded.setAmountLeft(-1);
+                }
+            }
+        }
+        getDeck().put(resourceGiven, getDeck().get(resourceGiven)-4);
+        getDeck().put(resourceNeeded, getDeck().get(resourceNeeded)+1);
+        resourceGiven.setAmountLeft(4);
+        resourceNeeded.setAmountLeft(-1);
+    }
+
     public enum Shop {
         ROAD,
         SETTLEMENT,

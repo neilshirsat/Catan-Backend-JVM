@@ -125,7 +125,7 @@ public class API extends AbstractVerticle {
             logger.info("Other Players: " + Json.encode(players));
             ctx.end(Json.encode(players));
         });
-        ipcRouter.route(HttpMethod.GET, "/other-players-trade").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.GET, "/robbable-players").handler((ctx) -> {
             ctx.end(Json.encode(canRobPlayerList()));
         });
         ipcRouter.route(HttpMethod.GET, "/get-current-player").handler((ctx) -> {
@@ -137,6 +137,12 @@ public class API extends AbstractVerticle {
         });
         ipcRouter.route(HttpMethod.GET, "/current-stage").handler((ctx) -> {
             ctx.end(Json.encode(gameState.getStage()));
+        });
+        ipcRouter.route(HttpMethod.GET, "/road-length").handler((ctx) -> {
+            //ctx.end(Json.encode(gameState.getStage()));
+        });
+        ipcRouter.route(HttpMethod.GET, "/army-size").handler((ctx) -> {
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn()).getArmySize()));
         });
 
 
@@ -302,13 +308,8 @@ public class API extends AbstractVerticle {
                 }
             }
             else {
-                for (VertexImpl e: VertexImpl.allVerticies()) {
-                    for (int a: e.getConnectedEdges()) {
-                        if (!((EdgeImpl) EdgeImpl.getEdge(a)).isRoad()) {
-                            edges.add(a);
-                        }
-                    }
-                }
+                ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
+                return;
             }
             ctx.end(Json.encode(edges));
             //ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
@@ -371,6 +372,25 @@ public class API extends AbstractVerticle {
          *
          *
          *
+         * Trade with Bank
+         *
+         *
+         *
+         *
+         */
+
+        ipcRouter.route(HttpMethod.POST, "/trade-with-bank").handler((ctx) -> {
+            TRADE_WITH_BANK TRADE_WITH_BANK = ctx.getBodyAsJson().mapTo(TRADE_WITH_BANK.class);
+            tradeWithBank(TRADE_WITH_BANK);
+        });
+
+
+
+        /**
+         *
+         *
+         *
+         *
          * Development Cards
          *
          *
@@ -423,6 +443,16 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(this.gameState.checkPlayerWin()));
         });
 
+        ipcRouter.route(HttpMethod.GET, "/get-amount-left").handler((ctx)->{
+            AMOUNT_LEFT amount_left = new AMOUNT_LEFT();
+            amount_left.BRICK = ResourceType.BRICK.getAmountLeft();
+            amount_left.LUMBER = ResourceType.LUMBER.getAmountLeft();
+            amount_left.ORE = ResourceType.ORE.getAmountLeft();
+            amount_left.WHEAT = ResourceType.WHEAT.getAmountLeft();
+            amount_left.WOOL = ResourceType.WOOL.getAmountLeft();
+            ctx.end(Json.encode(amount_left));
+        });
+
         ipcRouter.route().handler(StaticHandler.create());
 
     }
@@ -448,6 +478,55 @@ public class API extends AbstractVerticle {
     /**
      *
      */
+
+    public static class AMOUNT_LEFT {
+        int BRICK;
+
+        public int getBRICK() {
+            return BRICK;
+        }
+
+        public void setBRICK(int BRICK) {
+            this.BRICK = BRICK;
+        }
+
+        public int getLUMBER() {
+            return LUMBER;
+        }
+
+        public void setLUMBER(int LUMBER) {
+            this.LUMBER = LUMBER;
+        }
+
+        public int getORE() {
+            return ORE;
+        }
+
+        public void setORE(int ORE) {
+            this.ORE = ORE;
+        }
+
+        public int getWHEAT() {
+            return WHEAT;
+        }
+
+        public void setWHEAT(int WHEAT) {
+            this.WHEAT = WHEAT;
+        }
+
+        public int getWOOL() {
+            return WOOL;
+        }
+
+        public void setWOOL(int WOOL) {
+            this.WOOL = WOOL;
+        }
+
+        int LUMBER;
+        int ORE;
+        int WHEAT;
+        int WOOL;
+    }
 
     public static class DISTRIBUTE_CARDS {
 
@@ -810,14 +889,6 @@ public class API extends AbstractVerticle {
             this.player2Outgoing = player2Outgoing;
         }
 
-        public int getPlayer1Id() {
-            return player1Id;
-        }
-
-        public void setPlayer1Id(int player1Id) {
-            this.player1Id = player1Id;
-        }
-
         public int[] getTargetPlayers() {
             return targetPlayers;
         }
@@ -830,8 +901,6 @@ public class API extends AbstractVerticle {
 
         Map<ResourceType, Integer> player2Outgoing;
 
-        int player1Id;
-
         int[] targetPlayers;
     }
 
@@ -842,56 +911,59 @@ public class API extends AbstractVerticle {
             players.add(Player.getPlayer(player));
         }
         GameStateImpl.currentTrade currentTrade = new GameStateImpl.currentTrade(input.player1Outgoing, input.player2Outgoing, GameStateImpl.currentTrade.getAmountTrades(), players);
-        gameLog.add(currentTrade.getTradeId()+ ": " +Player.getPlayer(input.player1Id)+ " wants to trade " + input.player1Outgoing.toString() + " for " + input.player2Outgoing);
+        gameLog.add(currentTrade.getTradeId()+ ": " +Player.getPlayer(gameState.getTurn())+ " wants to trade " + input.player1Outgoing.toString() + " for " + input.player2Outgoing);
         gameState.getCurrentTrades().add(currentTrade);
     }
 
     public static class VERIFY_TRADE {
-
-        public GameStateImpl.currentTrade getCurrentTrade() {
-            return currentTrade;
+        public int getTradeId() {
+            return tradeId;
         }
 
-        public void setCurrentTrade(GameStateImpl.currentTrade currentTrade) {
-            this.currentTrade = currentTrade;
+        public void setTradeId(int tradeId) {
+            this.tradeId = tradeId;
         }
 
-        public int getPlayer1Id() {
-            return player1Id;
+        public int getAcceptedPlayer() {
+            return acceptedPlayer;
         }
 
-        public void setPlayer1Id(int player1Id) {
-            this.player1Id = player1Id;
+        public void setAcceptedPlayer(int acceptedPlayer) {
+            this.acceptedPlayer = acceptedPlayer;
         }
 
-        public String getPasscode() {
-            return passcode;
-        }
+        int tradeId;
 
-        public void setPasscode(String passcode) {
-            this.passcode = passcode;
-        }
-
-        GameStateImpl.currentTrade currentTrade;
-
-        int player1Id;
-
-        String passcode;
+        int acceptedPlayer;
 
     }
 
-    public static void verifyTrade(VERIFY_TRADE input) {
-
-        if (Player.verifyTrade(input.passcode,input.currentTrade.getTradeOutgoing())) {
-            for (Player p : Player.getAllPlayers()) {
-                if (p.getPasscode().equals(input.passcode))
-                    Player.tradeCards(input.currentTrade.getTradeOutgoing(), Player.getPlayer(input.player1Id), input.currentTrade.getTradeIngoing(), p);
-                    gameLog.add(Player.getPlayer(input.player1Id).getPlayerName() + " completed " + input.currentTrade.getTradeId()+ " with " + p.getPlayerName());
-
+    public void verifyTrade(VERIFY_TRADE input) {
+        Player p = Player.getPlayer(gameState.getTurn());
+        for (GameStateImpl.currentTrade e: gameState.getCurrentTrades()) {
+            if (e.getTradeId() == input.tradeId) {
+                Player.tradeCards(e.getTradeOutgoing(), Player.getPlayer(input.acceptedPlayer), e.getTradeIngoing(), p);
+                gameLog.add(Player.getPlayer(input.acceptedPlayer).getPlayerName() + " completed " + e.getTradeId()+ " with " + p.getPlayerName());
             }
         }
-        input.currentTrade = null;
+    }
 
+    public static class TRADE_WITH_BANK {
+
+        int playerId;
+
+        Map<ResourceType,Integer> tradeOutgoing;
+
+        ResourceType resourceGiven;
+
+        ResourceType resourceNeeded;
+
+    }
+
+    public void tradeWithBank(TRADE_WITH_BANK input) {
+        if (Player.getPlayer(input.playerId).canTradeWithBank(input.tradeOutgoing,input.resourceGiven, input.resourceNeeded)) {
+            Player.getPlayer(input.playerId).tradeWithBank(input.resourceGiven, input.resourceNeeded);
+        }
     }
 
     public void endTurn() {
@@ -901,14 +973,13 @@ public class API extends AbstractVerticle {
 
 
     public static class PURCHASE_DEV_CARD {
-        Player p;
-        Player.Shop shop;
     }
 
     public void purchaseDevCard(PURCHASE_DEV_CARD input) {
-        if (input.p.canBuyFromShop(input.shop)) {
-            input.p.purchase(input.shop);
-            gameLog.add(input.p.getPlayerName() + " purchased a Development Card");
+        Player p = Player.getPlayer(gameState.getTurn());
+        if (p.canBuyFromShop(Player.Shop.DEVELOPMENT_CARD)) {
+            p.purchase(Player.Shop.DEVELOPMENT_CARD);
+            gameLog.add(p.getPlayerName() + " purchased a Development Card");
         }
 
     }

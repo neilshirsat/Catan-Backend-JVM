@@ -144,7 +144,7 @@ public enum VertexImpl implements Vertex {
     }
 
 
-    private enum Port {
+    public enum Port {
         PORT_LUMBER(2, 1,ResourceType.LUMBER),
         PORT_BRICK(2,1,ResourceType.BRICK),
         PORT_WOOL(2,1,ResourceType.WOOL),
@@ -226,7 +226,7 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean canBuildSettlement(Player player) {
-        if (!this.vertexType.equals(VertexType.EMPTY)) {
+        if (this.vertexType == VertexType.EMPTY) {
             return false;
         }
         boolean checkEdges = false;
@@ -235,7 +235,7 @@ public enum VertexImpl implements Vertex {
             if (EdgeImpl.getEdge(edgeId).isRoad() && EdgeImpl.getEdge(edgeId).getControlledPlayer() == this.getControlledPlayer()) {
                 checkEdges = true;
                 for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
-                    if (!v.getVertexType().equals(VertexType.EMPTY)) {
+                    if (v.getVertexType() != VertexType.EMPTY) {
                         return false;
                     }
                 }
@@ -313,37 +313,6 @@ public enum VertexImpl implements Vertex {
             case 54 -> VERTEX_54;
             default -> null;
         };
-    }
-
-    private void tradeWithBank(
-            Map<ResourceType, Integer> playerOutgoing,
-            Player player,
-            ResourceType resourceGiven,
-            ResourceType resourceNeeded
-    ) {
-        for (int i : PortVertices()) {
-            if (getVertex(i).hasSettlement()||getVertex(i).hasCity()&&getVertex(i).getControlledPlayer()==player) {
-                Port v = getVertex(i).getPort();
-                if (v.getResourceType()==resourceGiven&&v!=Port.PORT_BRICK) {
-                    player.getDeck().put(resourceNeeded, player.getDeck().get(resourceNeeded)+1);
-                    player.getDeck().put(resourceGiven, player.getDeck().get(resourceGiven)-2);
-                }
-                else player.getDeck().put(resourceNeeded, player.getDeck().get(resourceNeeded)+1);
-                     player.getDeck().put(resourceGiven, player.getDeck().get(resourceGiven)-3);
-            }
-        }
-        for (Map.Entry<ResourceType, Integer> k : playerOutgoing.entrySet()) {
-            if (k.getKey().equals(resourceNeeded)) {
-                player.getDeck().put(resourceNeeded, k.getValue() + 1);
-                if (k.getKey().equals(resourceGiven)) {
-                    player.getDeck().put(resourceGiven, k.getValue() - 4);
-                }
-            }
-        }
-
-
-
-
     }
     
     public static List<VertexImpl> allVerticies() {
