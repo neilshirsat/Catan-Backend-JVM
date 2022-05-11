@@ -371,6 +371,22 @@ public class API extends AbstractVerticle {
          *
          *
          *
+         * Trade with Bank/Port
+         *
+         *
+         *
+         *
+         */
+        ipcRouter.route(HttpMethod.POST, "/trade-with-bank").handler((ctx) -> {
+            TRADE_WITH_BANK TRADE_WITH_BANK = ctx.getBodyAsJson().mapTo(TRADE_WITH_BANK.class);
+            tradeWithBank(TRADE_WITH_BANK);
+        });
+
+        /**
+         *
+         *
+         *
+         *
          * Development Cards
          *
          *
@@ -891,7 +907,23 @@ public class API extends AbstractVerticle {
             }
         }
         input.currentTrade = null;
+    }
 
+    public static class TRADE_WITH_BANK {
+
+        int playerId;
+
+        Map<ResourceType, Integer> tradeOutgoing;
+
+        ResourceType resourceGiven;
+
+        ResourceType resourceNeeded;
+    }
+
+    public void tradeWithBank(TRADE_WITH_BANK input) {
+        if (Player.getPlayer(input.playerId).canTradeWithBank(input.tradeOutgoing, input.resourceGiven, input.resourceNeeded)){
+            Player.getPlayer(input.playerId).tradeWithBank(input.resourceGiven, input.resourceNeeded);
+        }
     }
 
     public void endTurn() {
