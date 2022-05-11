@@ -125,9 +125,6 @@ public class API extends AbstractVerticle {
             logger.info("Other Players: " + Json.encode(players));
             ctx.end(Json.encode(players));
         });
-        ipcRouter.route(HttpMethod.GET, "/other-players-trade").handler((ctx) -> {
-            ctx.end(Json.encode(canRobPlayerList()));
-        });
         ipcRouter.route(HttpMethod.GET, "/get-current-player").handler((ctx) -> {
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
@@ -211,7 +208,7 @@ public class API extends AbstractVerticle {
             List<NodeImpl> allNodes = NodeImpl.getAllNodes();
             List<Integer> nodes = new ArrayList<>(18);
             for (NodeImpl node : allNodes) {
-                if (!node.isHasRobber()) {
+                if (!node.isHasRobber()&&node.getResource() != Resource.DESERT) {
                     nodes.add(node.getNodeId());
                 }
             }

@@ -8,8 +8,6 @@ public enum ResourceType {
     BRICK,
     NONE;
 
-    //TODO NEED TO MAKE SURE THAT THERE IS A UNIDIRECTIONAL DATA FLOW TO AMOUNT LEFT
-    //TODO IF THERE IS AN ERROR WITH THE AMOUNT OF CARDS LEFT YOU NEED TO CHECK THE MUTATIONS TO THIS THROUGHOUT THE CODEBASE
     private int amountLeft = 19;
 
     public void setAmountLeft(int count) {
@@ -17,7 +15,7 @@ public enum ResourceType {
         this.amountLeft+=count;
     }
 
-    //TODO getAmountLeft has to be >=0
+
     public int getAmountLeft() {
         return amountLeft;
     }
