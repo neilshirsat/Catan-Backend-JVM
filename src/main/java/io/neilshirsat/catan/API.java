@@ -416,7 +416,7 @@ public class API extends AbstractVerticle {
         ipcRouter.route(HttpMethod.GET, "/use-road-building").handler((ctx) -> {
             USE_ROAD_BUILDING use_road_building = ctx.getBodyAsJson().mapTo(USE_ROAD_BUILDING.class);
             useRoadBuilding(use_road_building);
-            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
+            ctx.end(Json.encode(EdgeImpl.allEdges()));
         });
         ipcRouter.route(HttpMethod.GET, "/use-monopoly").handler((ctx) -> {
             USE_MONOPOLY use_monopoly = ctx.getBodyAsJson().mapTo(USE_MONOPOLY.class);
@@ -966,8 +966,6 @@ public class API extends AbstractVerticle {
 
     public static class USE_KNIGHT {
 
-        int nodeID;
-
         int playerRobbingId;
 
         int playerRobbedId;
@@ -975,8 +973,8 @@ public class API extends AbstractVerticle {
 
     public void useKnight(USE_KNIGHT input) {
 
-
-        NodeImpl.changeRobber(input.nodeID);
+        //Aldredy Changed in Frontend
+        //NodeImpl.changeRobber(input.nodeID);
         Player.robAnotherPlayer(Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         Player.getPlayer(input.playerRobbingId).setArmySize(1);
         Player.getPlayer(input.playerRobbingId).getDevelopmentCards().put(DevelopmentCards.KNIGHT, Player.getPlayer(input.playerRobbingId).getDevelopmentCards().get(DevelopmentCards.KNIGHT) - 1);
@@ -985,6 +983,21 @@ public class API extends AbstractVerticle {
     }
 
     public static class USE_MONOPOLY {
+        public int getPlayerId() {
+            return playerId;
+        }
+
+        public void setPlayerId(int playerId) {
+            this.playerId = playerId;
+        }
+
+        public ResourceType getResourceType() {
+            return resourceType;
+        }
+
+        public void setResourceType(ResourceType resourceType) {
+            this.resourceType = resourceType;
+        }
 
         int playerId;
 
