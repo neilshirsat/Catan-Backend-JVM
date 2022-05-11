@@ -438,6 +438,15 @@ public class API extends AbstractVerticle {
         ipcRouter.route(HttpMethod.GET, "/check-win-conditions").handler((ctx) -> {
             ctx.end(Json.encode(this.gameState.checkPlayerWin()));
         });
+        ipcRouter.route(HttpMethod.GET, "/port-list").handler((ctx) -> {
+            final List<VertexImpl.Port> portList = VertexImpl.getPortList();
+            ctx.end(Json.encode(portList));
+        });
+        ipcRouter.route(HttpMethod.GET, "/port-vertices").handler((ctx) -> {
+            List<Integer> portVertices = VertexImpl.PortVertices();
+            ctx.end(Json.encode(portVertices));
+        });
+
 
         ipcRouter.route().handler(StaticHandler.create());
 
@@ -526,7 +535,6 @@ public class API extends AbstractVerticle {
         NodeImpl.prepareNodeSetup();
         Player.amountPlayers = input.amountPlayers;
         Player.initializeAllPlayers();
-        VertexImpl.buildPorts();
         for (int i = 0; i < input.amountPlayers; i++) {
             Player.getPlayer(i + 1).setPlayerName(input.playerNames[i]);
             Player.getPlayer(i + 1).setPasscode(input.playerPasscodes[i]);
@@ -1049,6 +1057,7 @@ public class API extends AbstractVerticle {
         }
         return null;
     }
+
 
 
 }
