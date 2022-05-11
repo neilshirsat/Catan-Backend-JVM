@@ -226,7 +226,7 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean canBuildSettlement(Player player) {
-        if (!this.vertexType.equals(VertexType.EMPTY)) {
+        if (this.vertexType == VertexType.EMPTY) {
             return false;
         }
         boolean checkEdges = false;
@@ -235,7 +235,7 @@ public enum VertexImpl implements Vertex {
             if (EdgeImpl.getEdge(edgeId).isRoad() && EdgeImpl.getEdge(edgeId).getControlledPlayer() == this.getControlledPlayer()) {
                 checkEdges = true;
                 for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
-                    if (!v.getVertexType().equals(VertexType.EMPTY)) {
+                    if (v.getVertexType() != VertexType.EMPTY) {
                         return false;
                     }
                 }
