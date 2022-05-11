@@ -443,8 +443,13 @@ public enum EdgeImpl implements Edge {
         }
         if (LongestRoad != null) {
             LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,0));
+            LongestRoad.getControlledPlayer().setVictoryPoints(-2);
+            LongestRoad.getControlledPlayer().setSecretVictoryPoints(LongestRoad.getControlledPlayer().getSecretVictoryPoints()-2);
             LongestRoad = longestEdge;
             LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,1));
+            LongestRoad.getControlledPlayer().setVictoryPoints(2);
+            LongestRoad.getControlledPlayer().setSecretVictoryPoints(LongestRoad.getControlledPlayer().getSecretVictoryPoints()+2);
+
         }
     }
 

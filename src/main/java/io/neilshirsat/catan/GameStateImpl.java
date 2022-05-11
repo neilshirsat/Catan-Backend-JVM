@@ -37,6 +37,8 @@ public class GameStateImpl implements GameState {
 
     private List<currentTrade> currentTrades = new ArrayList<>();
 
+    private Player currentLargestArmy;
+
     enum Stage {
         SETUP,
 
@@ -212,13 +214,35 @@ public class GameStateImpl implements GameState {
         }
 
 
+    } public void resetLargestArmy() {
+
+        int largestArmyCount = 3;
+        for (Player p : Player.getAllPlayers()) {
+            if (p.getArmySize() >= largestArmyCount) {
+                largestArmyCount = p.getArmySize();
+                currentLargestArmy = p;
+            }
+        }
+        for (Player p : Player.getAllPlayers()) {
+            if ((currentLargestArmy.getSpecialCards().get(SpecialCards.LARGEST_ARMY) != 1)) {
+                currentLargestArmy.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 1));
+                currentLargestArmy.setVictoryPoints(2);
+                currentLargestArmy.setSecretVictoryPoints(currentLargestArmy.getSecretVictoryPoints()+2);
+            }
+            if (p.getSpecialCards().get(SpecialCards.LARGEST_ARMY)==1&&p!=currentLargestArmy) {
+                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 0));
+                currentLargestArmy.setVictoryPoints(-2);
+                currentLargestArmy.setSecretVictoryPoints(currentLargestArmy.getSecretVictoryPoints()-2);
+            }
+        }
     }
+
 
     public void resetGame(){
         for (Player p : Player.getAllPlayers()){
             p.setPasscode(null);
             p.setPlayerName(null);
-            Player.resetLargestArmy();
+            resetLargestArmy();
             //p.setDeck(null,null);
             p.setVictoryPoints(0);
             p.setAmountRoads(15);

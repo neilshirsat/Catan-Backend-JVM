@@ -194,23 +194,6 @@ public enum Player {
 
     }
 
-
-    public static void resetLargestArmy() {
-        Player largestArmy = null;
-        int largestArmyCount = 3;
-        for (Player p : getAllPlayers()) {
-            if (p.getArmySize() >= largestArmyCount) {
-                largestArmyCount = p.getArmySize();
-                largestArmy = p;
-            }
-        }
-        for (Player p : getAllPlayers()) {
-            if (p.equals(largestArmy)) {
-                p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 1));
-            } else p.setSpecialCards(Map.of(SpecialCards.LARGEST_ARMY, 0));
-        }
-    }
-
     public static Player getPlayer(int playerId) {
         return switch (playerId) {
             case 1 -> PLAYER_1;
@@ -363,6 +346,7 @@ public enum Player {
                     ResourceType.WHEAT.setAmountLeft(1);
                     setAmountSettlements(-1);
                     setVictoryPoints(1);
+                    setSecretVictoryPoints(secretVictoryPoints+1);
                 }
             }
             case CITY -> {
@@ -373,6 +357,7 @@ public enum Player {
                     ResourceType.ORE.setAmountLeft(3);
                     setAmountCities(-1);
                     setVictoryPoints(1);
+                    setSecretVictoryPoints(secretVictoryPoints+1);
                 }
             }
             case DEVELOPMENT_CARD -> {
@@ -385,7 +370,7 @@ public enum Player {
                     ResourceType.WOOL.setAmountLeft(1);
                     DevelopmentCards developmentCards = DevelopmentCards.deck.pop();
                     if (developmentCards.equals(DevelopmentCards.VICTORY_POINT)) {
-                        this.setSecretVictoryPoints(this.getSecretVictoryPoints()+1);
+                        setSecretVictoryPoints(secretVictoryPoints+1);
                     }
                     setDevelopmentCards(Map.of(developmentCards, 1));
                 }
