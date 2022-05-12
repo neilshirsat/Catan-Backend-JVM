@@ -363,6 +363,8 @@ public class API extends AbstractVerticle {
             ctx.end(Json.encode(gameState.getCurrentTrades()));
         });
         ipcRouter.route(HttpMethod.POST, "/trade").handler((ctx) -> {
+            TRADE_CARDS TRADE_CARDS = ctx.getBodyAsJson().mapTo(TRADE_CARDS.class);
+            tradeCards(TRADE_CARDS);
             ctx.end(Json.encode(gameState.getCurrentTrades()));
         });
 
@@ -974,6 +976,18 @@ public class API extends AbstractVerticle {
         }
         input.currentTrade = null;
     }
+
+    public static class TRADE_CARDS {
+        Map<ResourceType, Integer> player1Outgoing;
+
+        Map<ResourceType, Integer> player2Outgoing;
+
+        int player2Id;
+    }
+    public void tradeCards(TRADE_CARDS input) {
+        Player.getPlayer(gameState.getTurn()).tradeCards(input.player1Outgoing, input.player2Outgoing, Player.getPlayer(input.player2Id));
+    }
+
 
     public static class TRADE_WITH_BANK {
 
