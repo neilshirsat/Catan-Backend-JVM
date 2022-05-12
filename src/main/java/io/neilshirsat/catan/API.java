@@ -362,6 +362,9 @@ public class API extends AbstractVerticle {
             verifyTrade(verify_trade);
             ctx.end(Json.encode(gameState.getCurrentTrades()));
         });
+        ipcRouter.route(HttpMethod.POST, "/trade").handler((ctx) -> {
+            ctx.end(Json.encode(gameState.getCurrentTrades()));
+        });
 
         /**
          *
