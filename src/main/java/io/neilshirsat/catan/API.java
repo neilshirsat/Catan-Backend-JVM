@@ -959,12 +959,12 @@ public class API extends AbstractVerticle {
 
     }
 
-    public static void verifyTrade(VERIFY_TRADE input) {
+    public void verifyTrade(VERIFY_TRADE input) {
 
         if (Player.verifyTrade(input.passcode,input.currentTrade.getTradeOutgoing())) {
             for (Player p : Player.getAllPlayers()) {
                 if (p.getPasscode().equals(input.passcode))
-                    Player.tradeCards(input.currentTrade.getTradeOutgoing(), Player.getPlayer(input.player1Id), input.currentTrade.getTradeIngoing(), p);
+                    Player.getPlayer(input.getPlayer1Id()).tradeCards(input.currentTrade.getTradeOutgoing(), input.currentTrade.getTradeIngoing(), p);
                     gameLog.add(Player.getPlayer(input.player1Id).getPlayerName() + " completed " + input.currentTrade.getTradeId()+ " with " + p.getPlayerName());
 
             }

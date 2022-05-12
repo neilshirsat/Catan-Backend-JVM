@@ -203,27 +203,26 @@ public enum Player {
             default -> throw new IllegalStateException("Unexpected value: " + playerId);
         };
     }
-    public static void tradeCards(
-            Map<ResourceType, Integer> player1Outgoing,
-            Player player1,
-            Map<ResourceType, Integer> player2Outgoing,
-            Player player2
+    public void tradeCards(
+           Map<ResourceType, Integer> player1Outgoing,
+           Map<ResourceType, Integer> player2Outgoing,
+           Player player2
     ) {
 
         //Handel Player 1
         for (Map.Entry<ResourceType, Integer> k: player1Outgoing.entrySet()) {
-            player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) - k.getValue());
+            getDeck().put(k.getKey(), getDeck().get(k.getKey()) - k.getValue());
         }
         for (Map.Entry<ResourceType, Integer> k: player1Outgoing.entrySet()) {
-            player2.deck.put(k.getKey(), player2.deck.get(k.getKey()) + k.getValue());
+           player2.deck.put(k.getKey(),  player2.deck.get(k.getKey()) + k.getValue());
         }
 
         //Handel Player 2
         for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
-            player2.deck.put(k.getKey(), player2.deck.get(k.getKey()) - k.getValue());
+            player2.deck.put(k.getKey(),  player2.deck.get(k.getKey()) - k.getValue());
         }
         for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
-            player1.deck.put(k.getKey(), player1.deck.get(k.getKey()) + k.getValue());
+            getDeck().put(k.getKey(), getDeck().get(k.getKey()) + k.getValue());
         }
     }
 
