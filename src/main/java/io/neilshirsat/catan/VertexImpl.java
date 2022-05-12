@@ -1,5 +1,9 @@
 package io.neilshirsat.catan;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.vertx.core.json.Json;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -143,19 +147,39 @@ public enum VertexImpl implements Vertex {
         this.controlledPlayer = controlledPlayer;
     }
 
-
+    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum Port {
-        PORT_LUMBER(2, 1,ResourceType.LUMBER),
-        PORT_BRICK(2,1,ResourceType.BRICK),
-        PORT_WOOL(2,1,ResourceType.WOOL),
-        PORT_WHEAT(2,1,ResourceType.WHEAT),
-        PORT_ORE(2,1,ResourceType.ORE),
-        PORT_RANDOM(3,1,null);
+        PORT_LUMBER( 2, 1,ResourceType.LUMBER, "Lumber Port"),
+        PORT_BRICK(2,1,ResourceType.BRICK, "Brick Port"),
+        PORT_WOOL(2,1,ResourceType.WOOL, "Wool Port"),
+        PORT_WHEAT(2,1,ResourceType.WHEAT, "Wheat Port"),
+        PORT_ORE(2,1,ResourceType.ORE, "Ore Port"),
+        PORT_RANDOM(3,1,null, "Random Port");
+
+        public void setGiveResource(int giveResource) {
+            this.giveResource = giveResource;
+        }
+
+        public void setGetResource(int getResource) {
+            this.getResource = getResource;
+        }
+
+        public void setResourceType(ResourceType resourceType) {
+            this.resourceType = resourceType;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
 
         private int giveResource;
         private int getResource;
         private ResourceType resourceType;
-
+        private String name;
 
         public int getGiveResource() {
             return giveResource;
@@ -172,11 +196,13 @@ public enum VertexImpl implements Vertex {
         Port (
                 int giveResource,
                 int getResource,
-                ResourceType resourceType
+                ResourceType resourceType,
+                String name
         ) {
             this.giveResource = giveResource;
             this.getResource = getResource;
             this.resourceType = resourceType;
+            this.name = name;
         }
     }
 

@@ -377,6 +377,7 @@ public class API extends AbstractVerticle {
         ipcRouter.route(HttpMethod.POST, "/trade-with-bank").handler((ctx) -> {
             TRADE_WITH_BANK TRADE_WITH_BANK = ctx.getBodyAsJson().mapTo(TRADE_WITH_BANK.class);
             tradeWithBank(TRADE_WITH_BANK);
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
 
         /**
@@ -390,32 +391,32 @@ public class API extends AbstractVerticle {
          *
          *
          */
-        ipcRouter.route(HttpMethod.GET, "/buy-development-card").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/buy-development-card").handler((ctx) -> {
             PURCHASE_DEV_CARD purchase_dev_card = ctx.getBodyAsJson().mapTo(PURCHASE_DEV_CARD.class);
             purchaseDevCard(purchase_dev_card);
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
-        ipcRouter.route(HttpMethod.GET, "/use-year-of-plenty").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/use-year-of-plenty").handler((ctx) -> {
             USE_YEAR_OF_PLENTY use_year_of_plenty = ctx.getBodyAsJson().mapTo(USE_YEAR_OF_PLENTY.class);
             useYearOfPlenty(use_year_of_plenty);
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
-        ipcRouter.route(HttpMethod.GET, "/use-dev-card").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/use-dev-card").handler((ctx) -> {
             USE_DEV_CARD use_dev_card = ctx.getBodyAsJson().mapTo(USE_DEV_CARD.class);
             useDevCard(use_dev_card);
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
-        ipcRouter.route(HttpMethod.GET, "/use-knight").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/use-knight").handler((ctx) -> {
             USE_KNIGHT use_knight = ctx.getBodyAsJson().mapTo(USE_KNIGHT.class);
             useKnight(use_knight);
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
-        ipcRouter.route(HttpMethod.GET, "/use-road-building").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/use-road-building").handler((ctx) -> {
             USE_ROAD_BUILDING use_road_building = ctx.getBodyAsJson().mapTo(USE_ROAD_BUILDING.class);
             useRoadBuilding(use_road_building);
             ctx.end(Json.encode(EdgeImpl.allEdges()));
         });
-        ipcRouter.route(HttpMethod.GET, "/use-monopoly").handler((ctx) -> {
+        ipcRouter.route(HttpMethod.POST, "/use-monopoly").handler((ctx) -> {
             USE_MONOPOLY use_monopoly = ctx.getBodyAsJson().mapTo(USE_MONOPOLY.class);
             useMonopoly(use_monopoly);
             ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
@@ -442,6 +443,14 @@ public class API extends AbstractVerticle {
         ipcRouter.route(HttpMethod.GET, "/port-vertices").handler((ctx) -> {
             List<Integer> portVertices = VertexImpl.PortVertices();
             ctx.end(Json.encode(portVertices));
+        });
+        ipcRouter.route(HttpMethod.GET, "/get-amount-left").handler((ctx)->{AMOUNT_LEFT amount_left = new AMOUNT_LEFT();
+            amount_left.BRICK = ResourceType.BRICK.getAmountLeft();
+            amount_left.LUMBER = ResourceType.LUMBER.getAmountLeft();
+            amount_left.ORE = ResourceType.ORE.getAmountLeft();
+            amount_left.WHEAT = ResourceType.WHEAT.getAmountLeft();
+            amount_left.WOOL = ResourceType.WOOL.getAmountLeft();
+            ctx.end(Json.encode(amount_left));
         });
 
 
@@ -470,6 +479,55 @@ public class API extends AbstractVerticle {
     /**
      *
      */
+
+    public static class AMOUNT_LEFT {
+        int BRICK;
+
+        public int getBRICK() {
+            return BRICK;
+        }
+
+        public void setBRICK(int BRICK) {
+            this.BRICK = BRICK;
+        }
+
+        public int getLUMBER() {
+            return LUMBER;
+        }
+
+        public void setLUMBER(int LUMBER) {
+            this.LUMBER = LUMBER;
+        }
+
+        public int getORE() {
+            return ORE;
+        }
+
+        public void setORE(int ORE) {
+            this.ORE = ORE;
+        }
+
+        public int getWHEAT() {
+            return WHEAT;
+        }
+
+        public void setWHEAT(int WHEAT) {
+            this.WHEAT = WHEAT;
+        }
+
+        public int getWOOL() {
+            return WOOL;
+        }
+
+        public void setWOOL(int WOOL) {
+            this.WOOL = WOOL;
+        }
+
+        int LUMBER;
+        int ORE;
+        int WHEAT;
+        int WOOL;
+    }
 
     public static class DISTRIBUTE_CARDS {
 
@@ -938,14 +996,12 @@ public class API extends AbstractVerticle {
 
 
     public static class PURCHASE_DEV_CARD {
-        Player p;
-        Player.Shop shop;
     }
 
     public void purchaseDevCard(PURCHASE_DEV_CARD input) {
-        if (input.p.canBuyFromShop(input.shop)) {
-            input.p.purchase(input.shop);
-            gameLog.add(input.p.getPlayerName() + " purchased a Development Card");
+        if (Player.getPlayer(gameState.getTurn()).canBuyFromShop(Player.Shop.DEVELOPMENT_CARD)) {
+            Player.getPlayer(gameState.getTurn()).purchase(Player.Shop.DEVELOPMENT_CARD);
+            gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName() + " purchased a Development Card");
         }
 
     }
