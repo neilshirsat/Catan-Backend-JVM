@@ -365,7 +365,7 @@ public class API extends AbstractVerticle {
         ipcRouter.route(HttpMethod.POST, "/trade").handler((ctx) -> {
             TRADE_CARDS TRADE_CARDS = ctx.getBodyAsJson().mapTo(TRADE_CARDS.class);
             tradeCards(TRADE_CARDS);
-            ctx.end(Json.encode(gameState.getCurrentTrades()));
+            ctx.end(Json.encode(Player.getPlayer(gameState.getTurn())));
         });
 
         /**
