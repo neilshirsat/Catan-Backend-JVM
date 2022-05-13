@@ -297,17 +297,11 @@ public class API extends AbstractVerticle {
                         edges.add(e);
                     }
                 }
+                ctx.end(Json.encode(edges));
             }
             else {
-                for (VertexImpl e: VertexImpl.allVerticies()) {
-                    for (int a: e.getConnectedEdges()) {
-                        if (!((EdgeImpl) EdgeImpl.getEdge(a)).isRoad()) {
-                            edges.add(a);
-                        }
-                    }
-                }
+                ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
             }
-            ctx.end(Json.encode(edges));
             //ctx.end(Json.encode(validRoads(Player.getPlayer(gameState.getTurn()))));
         });
         ipcRouter.route(HttpMethod.GET, "/can-build-settlement-first-turn").handler((ctx) -> {
@@ -444,10 +438,6 @@ public class API extends AbstractVerticle {
         ipcRouter.route(HttpMethod.GET, "/port-list").handler((ctx) -> {
             final List<VertexImpl.Port> portList = VertexImpl.getPortList();
             ctx.end(Json.encode(portList));
-        });
-        ipcRouter.route(HttpMethod.GET, "/port-vertices").handler((ctx) -> {
-            List<Integer> portVertices = VertexImpl.PortVertices();
-            ctx.end(Json.encode(portVertices));
         });
         ipcRouter.route(HttpMethod.GET, "/get-amount-left").handler((ctx)->{AMOUNT_LEFT amount_left = new AMOUNT_LEFT();
             amount_left.BRICK = ResourceType.BRICK.getAmountLeft();
@@ -595,6 +585,7 @@ public class API extends AbstractVerticle {
         NodeImpl.prepareNodeSetup();
         Player.amountPlayers = input.amountPlayers;
         Player.initializeAllPlayers();
+        VertexImpl.buildPorts();
         for (int i = 0; i < input.amountPlayers; i++) {
             Player.getPlayer(i + 1).setPlayerName(input.playerNames[i]);
             Player.getPlayer(i + 1).setPasscode(input.playerPasscodes[i]);
@@ -728,12 +719,11 @@ public class API extends AbstractVerticle {
         int edgeId;
     }
 
-    public List<EdgeImpl> validRoads(Player p) {
-        List<EdgeImpl> validRoads = new ArrayList<>();
+    public List<Integer> validRoads(Player p) {
+        List<Integer> validRoads = new ArrayList<>();
         for (EdgeImpl edge : EdgeImpl.allEdges()) {
-            edge.setControlledPlayer(p);
-            if (edge.isValidPlaceRoad()) {
-                validRoads.add(edge);
+            if (edge.isValidPlaceRoad(p)) {
+                validRoads.add(edge.getEdgeId());
             }
         }
         return validRoads;
@@ -978,6 +968,30 @@ public class API extends AbstractVerticle {
     }
 
     public static class TRADE_CARDS {
+        public Map<ResourceType, Integer> getPlayer1Outgoing() {
+            return player1Outgoing;
+        }
+
+        public void setPlayer1Outgoing(Map<ResourceType, Integer> player1Outgoing) {
+            this.player1Outgoing = player1Outgoing;
+        }
+
+        public Map<ResourceType, Integer> getPlayer2Outgoing() {
+            return player2Outgoing;
+        }
+
+        public void setPlayer2Outgoing(Map<ResourceType, Integer> player2Outgoing) {
+            this.player2Outgoing = player2Outgoing;
+        }
+
+        public int getPlayer2Id() {
+            return player2Id;
+        }
+
+        public void setPlayer2Id(int player2Id) {
+            this.player2Id = player2Id;
+        }
+
         Map<ResourceType, Integer> player1Outgoing;
 
         Map<ResourceType, Integer> player2Outgoing;
@@ -990,6 +1004,37 @@ public class API extends AbstractVerticle {
 
 
     public static class TRADE_WITH_BANK {
+        public int getPlayerId() {
+            return playerId;
+        }
+
+        public void setPlayerId(int playerId) {
+            this.playerId = playerId;
+        }
+
+        public Map<ResourceType, Integer> getTradeOutgoing() {
+            return tradeOutgoing;
+        }
+
+        public void setTradeOutgoing(Map<ResourceType, Integer> tradeOutgoing) {
+            this.tradeOutgoing = tradeOutgoing;
+        }
+
+        public ResourceType getResourceGiven() {
+            return resourceGiven;
+        }
+
+        public void setResourceGiven(ResourceType resourceGiven) {
+            this.resourceGiven = resourceGiven;
+        }
+
+        public ResourceType getResourceNeeded() {
+            return resourceNeeded;
+        }
+
+        public void setResourceNeeded(ResourceType resourceNeeded) {
+            this.resourceNeeded = resourceNeeded;
+        }
 
         int playerId;
 
@@ -1001,9 +1046,7 @@ public class API extends AbstractVerticle {
     }
 
     public void tradeWithBank(TRADE_WITH_BANK input) {
-        if (Player.getPlayer(input.playerId).canTradeWithBank(input.tradeOutgoing, input.resourceGiven, input.resourceNeeded)){
-            Player.getPlayer(input.playerId).tradeWithBank(input.resourceGiven, input.resourceNeeded);
-        }
+        Player.getPlayer(input.playerId).tradeWithBank(input.tradeOutgoing, input.resourceGiven, input.resourceNeeded);
     }
 
     public void endTurn() {
@@ -1016,11 +1059,8 @@ public class API extends AbstractVerticle {
     }
 
     public void purchaseDevCard(PURCHASE_DEV_CARD input) {
-        if (Player.getPlayer(gameState.getTurn()).canBuyFromShop(Player.Shop.DEVELOPMENT_CARD)) {
-            Player.getPlayer(gameState.getTurn()).purchase(Player.Shop.DEVELOPMENT_CARD);
-            gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName() + " purchased a Development Card");
-        }
-
+        Player.getPlayer(gameState.getTurn()).purchase(Player.Shop.DEVELOPMENT_CARD);
+        gameLog.add(Player.getPlayer(gameState.getTurn()).getPlayerName() + " purchased a Development Card");
     }
 
     public static class USE_DEV_CARD {
@@ -1035,6 +1075,21 @@ public class API extends AbstractVerticle {
     }
 
     public static class USE_KNIGHT {
+        public int getPlayerRobbingId() {
+            return playerRobbingId;
+        }
+
+        public void setPlayerRobbingId(int playerRobbingId) {
+            this.playerRobbingId = playerRobbingId;
+        }
+
+        public int getPlayerRobbedId() {
+            return playerRobbedId;
+        }
+
+        public void setPlayerRobbedId(int playerRobbedId) {
+            this.playerRobbedId = playerRobbedId;
+        }
 
         int playerRobbingId;
 
@@ -1047,7 +1102,7 @@ public class API extends AbstractVerticle {
         //NodeImpl.changeRobber(input.nodeID);
         Player.robAnotherPlayer(Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         Player.getPlayer(input.playerRobbingId).setArmySize(1);
-        Player.getPlayer(input.playerRobbingId).getDevelopmentCards().put(DevelopmentCards.KNIGHT, Player.getPlayer(input.playerRobbingId).getDevelopmentCards().get(DevelopmentCards.KNIGHT) - 1);
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
         gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() + " used Knight Card");
         gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
     }
@@ -1083,12 +1138,35 @@ public class API extends AbstractVerticle {
             p.getDeck().put(input.resourceType, 0);
         }
         Player.getPlayer(input.playerId).getDeck().put(input.resourceType, count);
-        Player.getPlayer(input.playerId).getDevelopmentCards().put(DevelopmentCards.MONOPOLY, Player.getPlayer(input.playerId).getDevelopmentCards().get(DevelopmentCards.MONOPOLY) - 1);
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
         gameLog.add(Player.getPlayer(input.playerId).getPlayerName() + " used Knight Card");
         gameLog.add(Player.getPlayer(input.playerId).getPlayerName() + " received " + count + " " +input.resourceType.toString());
     }
 
     public static class USE_YEAR_OF_PLENTY {
+        public int getPlayerId() {
+            return playerId;
+        }
+
+        public void setPlayerId(int playerId) {
+            this.playerId = playerId;
+        }
+
+        public ResourceType getResourceType1() {
+            return resourceType1;
+        }
+
+        public void setResourceType1(ResourceType resourceType1) {
+            this.resourceType1 = resourceType1;
+        }
+
+        public ResourceType getResourceType2() {
+            return resourceType2;
+        }
+
+        public void setResourceType2(ResourceType resourceType2) {
+            this.resourceType2 = resourceType2;
+        }
 
         int playerId;
 
@@ -1106,10 +1184,33 @@ public class API extends AbstractVerticle {
             input.resourceType2.setAmountLeft(-1);
             Player.getPlayer(input.playerId).getDeck().put(input.resourceType2, Player.getPlayer(input.playerId).getDeck().get(input.resourceType2) + 1);
         }
-        Player.getPlayer(input.playerId).getDevelopmentCards().put(DevelopmentCards.YEAR_OF_PLENTY, Player.getPlayer(input.playerId).getDevelopmentCards().get(DevelopmentCards.YEAR_OF_PLENTY) - 1);
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
     }
 
     public static class USE_ROAD_BUILDING {
+        public int getEdgeID1() {
+            return edgeID1;
+        }
+
+        public void setEdgeID1(int edgeID1) {
+            this.edgeID1 = edgeID1;
+        }
+
+        public int getEdgeID2() {
+            return edgeID2;
+        }
+
+        public void setEdgeID2(int edgeID2) {
+            this.edgeID2 = edgeID2;
+        }
+
+        public int getPlayerId() {
+            return playerId;
+        }
+
+        public void setPlayerId(int playerId) {
+            this.playerId = playerId;
+        }
 
         int edgeID1;
 
@@ -1124,7 +1225,7 @@ public class API extends AbstractVerticle {
         edge.placeRoad(Player.getPlayer(input.playerId));
         edge = (EdgeImpl) EdgeImpl.getEdge(input.edgeID2);
         edge.placeRoad(Player.getPlayer(input.playerId));
-
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
     }
 
     public static class GET_DECK {

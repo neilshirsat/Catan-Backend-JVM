@@ -136,11 +136,17 @@ public enum VertexImpl implements Vertex {
     public void buildSettlement(Player player) {
         this.controlledPlayer = player;
         this.vertexType = VertexType.SETTLEMENT;
+        player.setAmountSettlements(-1);
+        //player.setSecretVictoryPoints(player.getSecretVictoryPoints()+1);
+        player.setVictoryPoints(1);
     }
 
     @Override
     public void buildCity(Player player) {
         this.vertexType = VertexType.CITY;
+        player.setAmountCities(-1);
+        //player.setSecretVictoryPoints(player.getSecretVictoryPoints()+1);
+        player.setVictoryPoints(1);
     }
 
     public void setControlledPlayer(Player controlledPlayer) {
@@ -252,7 +258,7 @@ public enum VertexImpl implements Vertex {
 
     @Override
     public boolean canBuildSettlement(Player player) {
-        if (this.vertexType == VertexType.EMPTY) {
+        if (this.vertexType != VertexType.EMPTY) {
             return false;
         }
         boolean checkEdges = false;

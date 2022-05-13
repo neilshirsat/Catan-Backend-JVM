@@ -42,7 +42,7 @@ public enum Player {
 
     private Map<SpecialCards, Integer> specialCards;
 
-    private TreeMap<Shop, Boolean> canBuyFromShop;
+    private Map<Shop, Boolean> canBuyFromShop;
 
     private int victoryPoints;
 
@@ -97,7 +97,7 @@ public enum Player {
     }
 
     public void setVictoryPoints(int victoryPoints) {
-        this.victoryPoints = victoryPoints;
+        this.victoryPoints += victoryPoints;
     }
 
     private int armySize;
@@ -261,27 +261,12 @@ public enum Player {
         return playerOutgoing.get(resourceGiven)==4;
     }
 
-    public void tradeWithBank(ResourceType resourceGiven, ResourceType resourceNeeded) {
-        for (int i : VertexImpl.PortVertices()) {
-            if (VertexImpl.getVertex(i).hasSettlement() || VertexImpl.getVertex(i).hasCity() && VertexImpl.getVertex(i).getControlledPlayer() == this) {
-                VertexImpl.Port v = VertexImpl.getVertex(i).getPort();
-                if (v.getResourceType() == resourceGiven) {
-                    getDeck().put(resourceGiven, getDeck().get(resourceGiven)-2);
-                    getDeck().put(resourceNeeded, getDeck().get(resourceNeeded)+1);
-                    resourceGiven.setAmountLeft(2);
-                    resourceNeeded.setAmountLeft(-1);
-                }
-                else if (v.equals(VertexImpl.Port.PORT_RANDOM)) {
-                    getDeck().put(resourceGiven, getDeck().get(resourceGiven) - 3);
-                    getDeck().put(resourceNeeded, getDeck().get(resourceNeeded) + 1);
-                    resourceGiven.setAmountLeft(3);
-                    resourceNeeded.setAmountLeft(-1);
-                }
-            }
+    public void tradeWithBank(Map<ResourceType, Integer> tradeOutgoing, ResourceType resourceGiven, ResourceType resourceNeeded) {
+        for (Map.Entry<ResourceType, Integer> card: tradeOutgoing.entrySet()) {
+            getDeck().put(card.getKey(), getDeck().get(resourceGiven)-card.getValue());
+            card.getKey().setAmountLeft(4);
         }
-        getDeck().put(resourceGiven, getDeck().get(resourceGiven)-4);
         getDeck().put(resourceNeeded, getDeck().get(resourceNeeded)+1);
-        resourceGiven.setAmountLeft(4);
         resourceNeeded.setAmountLeft(-1);
     }
 
@@ -345,7 +330,7 @@ public enum Player {
                     ResourceType.WHEAT.setAmountLeft(1);
                     setAmountSettlements(-1);
                     setVictoryPoints(1);
-                    setSecretVictoryPoints(secretVictoryPoints+1);
+                    //setSecretVictoryPoints(secretVictoryPoints+1);
                 }
             }
             case CITY -> {
@@ -356,7 +341,7 @@ public enum Player {
                     ResourceType.ORE.setAmountLeft(3);
                     setAmountCities(-1);
                     setVictoryPoints(1);
-                    setSecretVictoryPoints(secretVictoryPoints+1);
+                    //setSecretVictoryPoints(secretVictoryPoints+1);
                 }
             }
             case DEVELOPMENT_CARD -> {
@@ -425,5 +410,10 @@ public enum Player {
             return key;
         }
         return ResourceType.NONE;
+    }
+
+    public void useDevelopmentCard(DevelopmentCards developmentCard) {
+        this.developmentCards.put(developmentCard, (this.developmentCards.get(developmentCard)) - 1);
+        DevelopmentCards.getDeck().add(developmentCard);
     }
 }

@@ -345,7 +345,7 @@ public enum EdgeImpl implements Edge {
         return false;
     }
 
-    public boolean isValidPlaceRoad() {
+    public boolean isValidPlaceRoad(Player controlledPlayer) {
 
         if (this.isRoad) {
             return false;
@@ -354,13 +354,13 @@ public enum EdgeImpl implements Edge {
         boolean checkVertex=false;
         for (int edgeId : this.connectedEdges) {
             EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(edgeId);
-            if (edge.controlledPlayer == this.controlledPlayer && edge.isRoad) {
+            if (edge.controlledPlayer == controlledPlayer && edge.isRoad) {
                 checkEdge = true;
                 break;
             }
         }
         for (Vertex vertex : this.connectedVertices) {
-            if (vertex.getControlledPlayer() == this.controlledPlayer && vertex.getVertexType()!=VertexType.EMPTY) {
+            if (vertex.getControlledPlayer() == controlledPlayer && vertex.getVertexType()!=VertexType.EMPTY) {
                 checkVertex = true;
                 break;
             }
@@ -369,15 +369,17 @@ public enum EdgeImpl implements Edge {
     }
 
     public void placeRoad(Player controlledPlayer) {
-        this.setControlledPlayer(controlledPlayer);
-        if (this.isValidPlaceRoad()) {
+        if (this.isValidPlaceRoad(controlledPlayer)) {
             this.setRoad(true);
+            this.setControlledPlayer(controlledPlayer);
+            controlledPlayer.setAmountRoads(-1);
         }
     }
 
     public void placeRoadStage1and2(Player controlledPlayer) {
         this.setControlledPlayer(controlledPlayer);
         this.setRoad(true);
+        controlledPlayer.setAmountRoads(-1);
     }
 
     /**
@@ -442,13 +444,13 @@ public enum EdgeImpl implements Edge {
             }
         }
         if (LongestRoad != null) {
-            LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,0));
+            LongestRoad.getControlledPlayer().getSpecialCards().put(SpecialCards.LONGEST_ROAD,0);
             LongestRoad.getControlledPlayer().setVictoryPoints(-2);
-            LongestRoad.getControlledPlayer().setSecretVictoryPoints(LongestRoad.getControlledPlayer().getSecretVictoryPoints()-2);
+            //LongestRoad.getControlledPlayer().setSecretVictoryPoints(LongestRoad.getControlledPlayer().getSecretVictoryPoints()-2);
             LongestRoad = longestEdge;
-            LongestRoad.getControlledPlayer().setSpecialCards(Map.of(SpecialCards.LONGEST_ROAD,1));
+            LongestRoad.getControlledPlayer().getSpecialCards().put(SpecialCards.LONGEST_ROAD,1);
             LongestRoad.getControlledPlayer().setVictoryPoints(2);
-            LongestRoad.getControlledPlayer().setSecretVictoryPoints(LongestRoad.getControlledPlayer().getSecretVictoryPoints()+2);
+            //LongestRoad.getControlledPlayer().setSecretVictoryPoints(LongestRoad.getControlledPlayer().getSecretVictoryPoints()+2);
 
         }
     }
