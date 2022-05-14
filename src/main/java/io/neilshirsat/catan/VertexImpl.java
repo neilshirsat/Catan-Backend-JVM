@@ -3,6 +3,8 @@ package io.neilshirsat.catan;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.vertx.core.json.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -256,6 +258,8 @@ public enum VertexImpl implements Vertex {
         return hasSettlement()&&this.getControlledPlayer() == player;
     }
 
+    private static Logger logger = LoggerFactory.getLogger(VertexImpl.class);
+
     @Override
     public boolean canBuildSettlement(Player player) {
         if (this.vertexType != VertexType.EMPTY) {
@@ -264,12 +268,16 @@ public enum VertexImpl implements Vertex {
         boolean checkEdges = false;
 
         for (int edgeId : getConnectedEdges()) {
-            if (EdgeImpl.getEdge(edgeId).isRoad() && EdgeImpl.getEdge(edgeId).getControlledPlayer() == this.getControlledPlayer()) {
-                checkEdges = true;
-                for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
-                    if (v.getVertexType() != VertexType.EMPTY) {
-                        return false;
+            EdgeImpl edge = (EdgeImpl) EdgeImpl.getEdge(edgeId);
+            if (edge.isRoad()) {
+                if (edge.getControlledPlayer().getId() == player.getId()) {
+                    checkEdges = true;
+                    for (Vertex v : EdgeImpl.getEdge(edgeId).getConnectedVertices()) {
+                        if (v.getVertexType() != VertexType.EMPTY) {
+                            return false;
+                        }
                     }
+                    return true;
                 }
             }
         }

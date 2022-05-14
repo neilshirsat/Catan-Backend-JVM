@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -107,7 +109,7 @@ public enum Player {
     }
 
     public void setArmySize(int size) {
-        this.armySize+=size;
+        this.armySize += size;
     }
 
 
@@ -119,11 +121,11 @@ public enum Player {
         this.secretVictoryPoints = secretVictoryPoints;
     }
 
-    private int amountRoads=19;
+    private int amountRoads = 19;
 
-    private int amountSettlements=5;
+    private int amountSettlements = 5;
 
-    private int amountCities=4;
+    private int amountCities = 4;
 
     public int getAmountRoads() {
         return amountRoads;
@@ -152,7 +154,7 @@ public enum Player {
     public int getAmountResourceCards() {
         amountResourceCards = 0;
         for (Map.Entry<ResourceType, Integer> k : getDeck().entrySet()) {
-            amountResourceCards+=k.getValue();
+            amountResourceCards += k.getValue();
         }
         return amountResourceCards;
     }
@@ -165,12 +167,14 @@ public enum Player {
         if (amountPlayers == 4)
             return List.of(PLAYER_1, PLAYER_2, PLAYER_3, PLAYER_4);
         throw new RuntimeException("AMOUNT PLAYERS NOT DEFINED");
-    };
+    }
+
+    ;
 
     public static void initializeAllPlayers() {
 
         //Set All Deck Cards, Development Cards, and Special Cards
-        for (Player e: getAllPlayers()) {
+        for (Player e : getAllPlayers()) {
 
             e.deck = new TreeMap<>();
             e.developmentCards = new TreeMap<>();
@@ -183,7 +187,7 @@ public enum Player {
             e.deck.put(ResourceType.WOOL, 0);
 
             e.developmentCards.put(DevelopmentCards.VICTORY_POINT, 0);
-            e.developmentCards.put(DevelopmentCards.KNIGHT, 0);
+            e.developmentCards.put(DevelopmentCards.KNIGHT, 5);
             e.developmentCards.put(DevelopmentCards.MONOPOLY, 0);
             e.developmentCards.put(DevelopmentCards.YEAR_OF_PLENTY, 0);
             e.developmentCards.put(DevelopmentCards.ROAD_BUILDING, 0);
@@ -203,25 +207,26 @@ public enum Player {
             default -> throw new IllegalStateException("Unexpected value: " + playerId);
         };
     }
+
     public void tradeCards(
-           Map<ResourceType, Integer> player1Outgoing,
-           Map<ResourceType, Integer> player2Outgoing,
-           Player player2
+            Map<ResourceType, Integer> player1Outgoing,
+            Map<ResourceType, Integer> player2Outgoing,
+            Player player2
     ) {
 
         //Handel Player 1
-        for (Map.Entry<ResourceType, Integer> k: player1Outgoing.entrySet()) {
+        for (Map.Entry<ResourceType, Integer> k : player1Outgoing.entrySet()) {
             getDeck().put(k.getKey(), getDeck().get(k.getKey()) - k.getValue());
         }
-        for (Map.Entry<ResourceType, Integer> k: player1Outgoing.entrySet()) {
-           player2.deck.put(k.getKey(),  player2.deck.get(k.getKey()) + k.getValue());
+        for (Map.Entry<ResourceType, Integer> k : player1Outgoing.entrySet()) {
+            player2.deck.put(k.getKey(), player2.deck.get(k.getKey()) + k.getValue());
         }
 
         //Handel Player 2
-        for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
-            player2.deck.put(k.getKey(),  player2.deck.get(k.getKey()) - k.getValue());
+        for (Map.Entry<ResourceType, Integer> k : player2Outgoing.entrySet()) {
+            player2.deck.put(k.getKey(), player2.deck.get(k.getKey()) - k.getValue());
         }
-        for (Map.Entry<ResourceType, Integer> k: player2Outgoing.entrySet()) {
+        for (Map.Entry<ResourceType, Integer> k : player2Outgoing.entrySet()) {
             getDeck().put(k.getKey(), getDeck().get(k.getKey()) + k.getValue());
         }
     }
@@ -240,33 +245,32 @@ public enum Player {
         return b;
     }
 
-    public boolean canTradeWithBank( Map<ResourceType, Integer> playerOutgoing,
-                                     ResourceType resourceGiven,
-                                     ResourceType resourceNeeded
+    public boolean canTradeWithBank(Map<ResourceType, Integer> playerOutgoing,
+                                    ResourceType resourceGiven,
+                                    ResourceType resourceNeeded
     ) {
-        if (resourceGiven==resourceNeeded) {
+        if (resourceGiven == resourceNeeded) {
             return false;
         }
         for (int i : VertexImpl.PortVertices()) {
             if (VertexImpl.getVertex(i).hasSettlement() || VertexImpl.getVertex(i).hasCity() && VertexImpl.getVertex(i).getControlledPlayer() == this) {
                 VertexImpl.Port v = VertexImpl.getVertex(i).getPort();
-                if (v.getResourceType() == resourceGiven&&playerOutgoing.get(resourceGiven)==2) {
+                if (v.getResourceType() == resourceGiven && playerOutgoing.get(resourceGiven) == 2) {
                     return true;
-                }
-                else if (v.equals(VertexImpl.Port.PORT_RANDOM)&&playerOutgoing.get(resourceGiven)==3) {
+                } else if (v.equals(VertexImpl.Port.PORT_RANDOM) && playerOutgoing.get(resourceGiven) == 3) {
                     return true;
                 }
             }
         }
-        return playerOutgoing.get(resourceGiven)==4;
+        return playerOutgoing.get(resourceGiven) == 4;
     }
 
     public void tradeWithBank(Map<ResourceType, Integer> tradeOutgoing, ResourceType resourceGiven, ResourceType resourceNeeded) {
-        for (Map.Entry<ResourceType, Integer> card: tradeOutgoing.entrySet()) {
-            getDeck().put(card.getKey(), getDeck().get(resourceGiven)-card.getValue());
+        for (Map.Entry<ResourceType, Integer> card : tradeOutgoing.entrySet()) {
+            getDeck().put(card.getKey(), getDeck().get(resourceGiven) - card.getValue());
             card.getKey().setAmountLeft(4);
         }
-        getDeck().put(resourceNeeded, getDeck().get(resourceNeeded)+1);
+        getDeck().put(resourceNeeded, getDeck().get(resourceNeeded) + 1);
         resourceNeeded.setAmountLeft(-1);
     }
 
@@ -276,27 +280,29 @@ public enum Player {
         CITY,
         DEVELOPMENT_CARD,
     }
+
     public TreeMap<Shop, Boolean> canBuyFromShop() {
         TreeMap<Shop, Boolean> map = new TreeMap<>();
-        map.put(Shop.ROAD,false);
-        map.put(Shop.SETTLEMENT,false);
-        map.put(Shop.CITY,false);
-        map.put(Shop.DEVELOPMENT_CARD,false);
+        map.put(Shop.ROAD, false);
+        map.put(Shop.SETTLEMENT, false);
+        map.put(Shop.CITY, false);
+        map.put(Shop.DEVELOPMENT_CARD, false);
 
-        if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1) {
-            map.put(Shop.ROAD,true);
+        if (this.getDeck().get(ResourceType.LUMBER) >= 1 && this.getDeck().get(ResourceType.BRICK) >= 1) {
+            map.put(Shop.ROAD, true);
         }
-        if (this.getDeck().get(ResourceType.LUMBER)>=1&&this.getDeck().get(ResourceType.BRICK)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
-            map.put(Shop.SETTLEMENT,true);
+        if (this.getDeck().get(ResourceType.LUMBER) >= 1 && this.getDeck().get(ResourceType.BRICK) >= 1 && this.getDeck().get(ResourceType.WHEAT) >= 1 && this.getDeck().get(ResourceType.WOOL) >= 1) {
+            map.put(Shop.SETTLEMENT, true);
         }
-        if (this.getDeck().get(ResourceType.ORE)>=3&&this.getDeck().get(ResourceType.WHEAT)>=2) {
+        if (this.getDeck().get(ResourceType.ORE) >= 3 && this.getDeck().get(ResourceType.WHEAT) >= 2) {
             map.put(Shop.CITY, true);
         }
-        if (this.getDeck().get(ResourceType.ORE)>=1&&this.getDeck().get(ResourceType.WHEAT)>=1&&this.getDeck().get(ResourceType.WOOL)>=1) {
+        if (this.getDeck().get(ResourceType.ORE) >= 1 && this.getDeck().get(ResourceType.WHEAT) >= 1 && this.getDeck().get(ResourceType.WOOL) >= 1) {
             map.put(Shop.DEVELOPMENT_CARD, true);
         }
         return map;
     }
+
     public boolean canBuyFromShop(Shop shop) {
         for (Map.Entry<Shop, Boolean> k : canBuyFromShop().entrySet()) {
             if (k.getKey().equals(shop)) {
@@ -306,10 +312,12 @@ public enum Player {
         return false;
     }
 
+    private static Logger logger = LoggerFactory.getLogger(Player.class);
+
     public void purchase(Shop shop) {
         switch (shop) {
             case ROAD -> {
-                if (this.getAmountRoads()>0) {
+                if (this.getAmountRoads() > 0) {
                     getDeck().put(ResourceType.LUMBER, getDeck().get(ResourceType.LUMBER) - 1);
                     getDeck().put(ResourceType.BRICK, getDeck().get(ResourceType.BRICK) - 1);
                     ResourceType.LUMBER.setAmountLeft(1);
@@ -319,7 +327,7 @@ public enum Player {
                 }
             }
             case SETTLEMENT -> {
-                if (this.getAmountSettlements()>0) {
+                if (this.getAmountSettlements() > 0) {
                     getDeck().put(ResourceType.LUMBER, getDeck().get(ResourceType.LUMBER) - 1);
                     getDeck().put(ResourceType.BRICK, getDeck().get(ResourceType.BRICK) - 1);
                     getDeck().put(ResourceType.WOOL, getDeck().get(ResourceType.WOOL) - 1);
@@ -334,13 +342,15 @@ public enum Player {
                 }
             }
             case CITY -> {
-                if (this.getAmountCities()>0) {
+                if (this.getAmountCities() > 0) {
                     getDeck().put(ResourceType.WHEAT, getDeck().get(ResourceType.WHEAT) - 2);
                     getDeck().put(ResourceType.ORE, getDeck().get(ResourceType.ORE) - 3);
                     ResourceType.WHEAT.setAmountLeft(2);
                     ResourceType.ORE.setAmountLeft(3);
                     setAmountCities(-1);
                     setVictoryPoints(1);
+                    setAmountSettlements(1);
+                    logger.info(String.valueOf(amountSettlements));
                     //setSecretVictoryPoints(secretVictoryPoints+1);
                 }
             }
@@ -354,9 +364,10 @@ public enum Player {
                     ResourceType.WOOL.setAmountLeft(1);
                     DevelopmentCards developmentCards = DevelopmentCards.deck.pop();
                     if (developmentCards.equals(DevelopmentCards.VICTORY_POINT)) {
-                        setSecretVictoryPoints(secretVictoryPoints+1);
+                        setSecretVictoryPoints(secretVictoryPoints + 1);
                     }
-                    setDevelopmentCards(Map.of(developmentCards, 1));
+                    getDevelopmentCards().put(developmentCards, getDevelopmentCards().get(developmentCards) + 1);
+                    //setDevelopmentCards(Map.of(developmentCards, 1));
                 }
             }
         }
@@ -398,15 +409,15 @@ public enum Player {
     public static ResourceType robAnotherPlayer(Player robbed, Player robbing) {
         List<ResourceType> keysAsArray = new ArrayList<ResourceType>(robbed.getDeck().keySet());
         List<ResourceType> keys = new ArrayList<>();
-        for (ResourceType e: keysAsArray) {
+        for (ResourceType e : keysAsArray) {
             if (robbed.getDeck().get(e) > 0) {
                 keys.add(e);
             }
         }
         if (keys.size() > 0) {
-            ResourceType key = keys.get((int)(Math.random()*keys.size()));
-            robbed.getDeck().put(key,robbed.getDeck().get(key)-1);
-            robbing.getDeck().put(key,robbing.getDeck().get(key)+1);
+            ResourceType key = keys.get((int) (Math.random() * keys.size()));
+            robbed.getDeck().put(key, robbed.getDeck().get(key) - 1);
+            robbing.getDeck().put(key, robbing.getDeck().get(key) + 1);
             return key;
         }
         return ResourceType.NONE;

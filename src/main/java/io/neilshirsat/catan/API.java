@@ -195,10 +195,8 @@ public class API extends AbstractVerticle {
             List<Player> allPlayers = Player.getAllPlayers();
             List<Player> players = new ArrayList<>();
             for (Player e: allPlayers) {
-                if (e.getId() != gameState.getTurn()) {
-                    if (e.getAmountResourceCards() >= 8) {
-                        players.add(e);
-                    }
+                if (e.getAmountResourceCards() >= 8) {
+                    players.add(e);
                 }
             }
             logger.info("Other Players: " + Json.encode(players));
@@ -665,6 +663,21 @@ public class API extends AbstractVerticle {
 
 
     public static class DISCARD_CARD_WHEN_ROLL_7 {
+        public Map<ResourceType, Integer> getDiscardCard() {
+            return discardCard;
+        }
+
+        public void setDiscardCard(Map<ResourceType, Integer> discardCard) {
+            this.discardCard = discardCard;
+        }
+
+        public int getPlayerId() {
+            return playerId;
+        }
+
+        public void setPlayerId(int playerId) {
+            this.playerId = playerId;
+        }
 
         Map<ResourceType, Integer> discardCard;
 
@@ -675,6 +688,7 @@ public class API extends AbstractVerticle {
     public void discardCards(DISCARD_CARD_WHEN_ROLL_7 input) {
         Player p = Player.getPlayer(input.playerId);
         for (Map.Entry<ResourceType, Integer> k : input.discardCard.entrySet()) {
+            logger.info(Json.encode(k));
             p.getDeck().put(k.getKey(), p.getDeck().get(k.getKey()) - k.getValue());
             k.getKey().setAmountLeft(k.getValue());
             gameLog.add(p.getPlayerName()+ " discarded "  + k.getValue() + " " + k.getKey().toString());
@@ -810,13 +824,20 @@ public class API extends AbstractVerticle {
     //For when roll 7/knight card
     //returns list of players who you can rob
     public List<Player> canRobPlayerList() {
+        Player current = Player.getPlayer(gameState.getTurn());
         List<Player> playerList = new ArrayList<>();
         for (int vertex : NodeImpl.robber.getVertices()) {
             Player p = VertexImpl.getVertex(vertex).getControlledPlayer();
             if (p == null) {
                 continue;
             }
+            if (p.getId() == current.getId()) {
+                continue;
+            }
             if (p.getAmountResourceCards()>=1) {
+                if (playerList.contains(p)) {
+                    continue;
+                }
                 playerList.add(p);
             }
         }
@@ -1102,7 +1123,7 @@ public class API extends AbstractVerticle {
         //NodeImpl.changeRobber(input.nodeID);
         Player.robAnotherPlayer(Player.getPlayer(input.playerRobbedId), Player.getPlayer(input.playerRobbingId));
         Player.getPlayer(input.playerRobbingId).setArmySize(1);
-        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.KNIGHT);
         gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() + " used Knight Card");
         gameLog.add(Player.getPlayer(input.playerRobbingId).getPlayerName() +" stole from " + Player.getPlayer(input.playerRobbedId).getPlayerName());
     }
@@ -1138,7 +1159,7 @@ public class API extends AbstractVerticle {
             p.getDeck().put(input.resourceType, 0);
         }
         Player.getPlayer(input.playerId).getDeck().put(input.resourceType, count);
-        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.MONOPOLY);
         gameLog.add(Player.getPlayer(input.playerId).getPlayerName() + " used Knight Card");
         gameLog.add(Player.getPlayer(input.playerId).getPlayerName() + " received " + count + " " +input.resourceType.toString());
     }
@@ -1184,7 +1205,7 @@ public class API extends AbstractVerticle {
             input.resourceType2.setAmountLeft(-1);
             Player.getPlayer(input.playerId).getDeck().put(input.resourceType2, Player.getPlayer(input.playerId).getDeck().get(input.resourceType2) + 1);
         }
-        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.ROAD_BUILDING);
+        Player.getPlayer(gameState.getTurn()).useDevelopmentCard(DevelopmentCards.YEAR_OF_PLENTY);
     }
 
     public static class USE_ROAD_BUILDING {
